@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { snsURL } from '../types/snsURL';
 
 @Entity()
 export class User {
@@ -9,19 +10,19 @@ export class User {
   name: string;
 
   @Column()
-  instagram: string;
+  instagram: snsURL;
 
   @Column()
-  twitter: string;
+  twitter: snsURL;
 
   @Column()
   phone: string;
 
   @Column()
-  facebook: string;
+  facebook: snsURL;
 
   @Column()
-  kakaoTalk: string;
+  kakaoTalk: snsURL;
 
   @Column()
   age: number;
