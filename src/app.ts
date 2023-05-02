@@ -1,9 +1,8 @@
 import express, { Express, Request, Response } from 'express';
-import startDB from './DAO/signup';
 import dotenv from 'dotenv';
 import { signup } from './router/signUp';
 import { profile } from './router/profile';
-import { AppDataSource } from './data-source';
+import { AppDataSource } from './DAO/data-source';
 dotenv.config();
 
 const app: Express = express();
