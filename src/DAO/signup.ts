@@ -1,7 +1,7 @@
 import { AppDataSource } from '../data-source';
 import { User } from '../entity/User';
 
-const signupExecute = (
+const signupExecute = async (
   name,
   instagram,
   twitter,
@@ -10,18 +10,19 @@ const signupExecute = (
   kakaoTalk,
   age
 ) => {
-  AppDataSource.initialize()
-    .then(async () => {
-      const user = new User();
-      user.name = name;
-      user.instagram = instagram;
-      user.twitter = twitter;
-      user.phone = phone;
-      user.facebook = facebook;
-      user.kakaoTalk = kakaoTalk;
-      user.age = age;
-      await AppDataSource.manager.save(user);
-    })
-    .catch((error) => console.log(error));
+  try {
+    const userRepo = AppDataSource.getRepository(User);
+    const user = new User();
+    user.name = name;
+    user.instagram = instagram;
+    user.twitter = twitter;
+    user.phone = phone;
+    user.facebook = facebook;
+    user.kakaoTalk = kakaoTalk;
+    user.age = age;
+    await userRepo.save(user);
+  } catch (err) {
+    console.log(err);
+  }
 };
 export default signupExecute;

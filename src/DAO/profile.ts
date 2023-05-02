@@ -2,8 +2,8 @@ import { AppDataSource } from '../data-source';
 import { User } from '../entity/User';
 
 const getProfile = async (id: number) => {
-  await AppDataSource.initialize();
-  const profile = await AppDataSource.manager.findOne(User, {
+  const userRepo = AppDataSource.getRepository(User);
+  const profile = await userRepo.findOne({
     where: {
       id: id,
     },
