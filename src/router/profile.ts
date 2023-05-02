@@ -11,9 +11,9 @@ router.get('/', async (req: Request, res: Response) => {
     const user = await getProfile(id);
     if (user === null) {
       res.json('user가 존재하지 않습니다.');
-    } else {
-      res.json(user);
+      return;
     }
+    res.json(user);
   } catch (err) {
     res.json('오류가 발생했습니다.');
   }

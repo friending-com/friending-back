@@ -1,7 +1,7 @@
 import { AppDataSource } from './data-source';
 import { User } from '../entity/User';
 
-const signupExecute = async (
+const signup = async (
   name,
   instagram,
   twitter,
@@ -25,4 +25,4 @@ const signupExecute = async (
     console.log(err);
   }
 };
-export default signupExecute;
+export default signup;
