@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { signup } from './router/signUp';
 import { profile } from './router/profile';
 import { AppDataSource } from './DAO/data-source';
-import { friend } from './router/addFriend';
+import { friend } from './router/friend';
 dotenv.config();
 
 const app: Express = express();
