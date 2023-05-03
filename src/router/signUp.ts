@@ -3,9 +3,34 @@ import signup from '../DAO/signup';
 const router = express.Router();
 
 router.post('/', (req: Request, res: Response) => {
-  const { name, instagram, twitter, phone, facebook, kakaoTalk, age } =
-    req.body;
-  signup(name, instagram, twitter, phone, facebook, kakaoTalk, age);
+  const {
+    name,
+    instagram,
+    twitter,
+    phone,
+    facebook,
+    kakaoTalk,
+    age,
+    discord,
+    line,
+    naverBlog,
+    naverBand,
+    telegram,
+  } = req.body;
+  signup(
+    name,
+    instagram,
+    twitter,
+    phone,
+    facebook,
+    kakaoTalk,
+    age,
+    discord,
+    line,
+    naverBlog,
+    naverBand,
+    telegram
+  );
   res.json('성공!');
 });
 

@@ -8,7 +8,12 @@ const signup = async (
   phone,
   facebook,
   kakaoTalk,
-  age
+  age,
+  discord,
+  line,
+  naverBlog,
+  naverBand,
+  telegram
 ) => {
   try {
     const userRepo = AppDataSource.getRepository(User);
@@ -20,6 +25,11 @@ const signup = async (
     user.facebook = facebook;
     user.kakaoTalk = kakaoTalk;
     user.age = age;
+    user.discord = discord;
+    user.line = line;
+    user.naverBlog = naverBlog;
+    user.naverBand = naverBand;
+    user.telegram = telegram;
     await userRepo.save(user);
   } catch (err) {
     console.log(err);
