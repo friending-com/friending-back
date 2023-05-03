@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from 'express';
-import getProfile from '../DAO/profile';
+import getProfile from '../DAO/getProfile';
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {

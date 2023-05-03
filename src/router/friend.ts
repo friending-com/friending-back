@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import { addFriend } from '../DAO/addFriend';
-import getProfile from '../DAO/profile';
+import getProfile from '../DAO/getProfile';
 import { getFriendList } from '../DAO/getFriendList';
 
 const router = express.Router();
