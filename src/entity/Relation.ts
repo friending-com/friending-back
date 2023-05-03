@@ -2,8 +2,11 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { snsURL } from '../types/snsURL';
 
 @Entity()
-export class User {
+export class Relation {
   @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
   userId: number;
 
   @Column()
