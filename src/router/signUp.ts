@@ -6,6 +6,7 @@ router.post('/', (req: Request, res: Response) => {
   const { name, instagram, twitter, phone, facebook, kakaoTalk, age } =
     req.body;
   signup(name, instagram, twitter, phone, facebook, kakaoTalk, age);
+  res.json('성공!');
 });
 
 export { router as signup };
