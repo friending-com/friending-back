@@ -10,20 +10,30 @@ export class User {
   name: string;
 
   @Column()
+  age: number;
+
+  @Column()
+  phone: string;
+
+  @Column()
   instagram: snsURL;
 
   @Column()
   twitter: snsURL;
 
   @Column()
-  phone: string;
-
-  @Column()
   facebook: snsURL;
 
   @Column()
   kakaoTalk: snsURL;
-
   @Column()
-  age: number;
+  discord: snsURL;
+  @Column()
+  line: snsURL;
+  @Column()
+  naverBlog: snsURL;
+  @Column()
+  naverBand: snsURL;
+  @Column()
+  telegram: snsURL;
 }
