@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { signup } from './router/signUp';
 import { profile } from './router/profile';
 import { AppDataSource } from './DAO/data-source';
+import { friend } from './router/addFriend';
 dotenv.config();
 
 const app: Express = express();
@@ -14,6 +15,7 @@ AppDataSource.initialize()
   .catch((err) => console.log(err));
 app.use('/signup', signup);
 app.use('/profile', profile);
+app.use('/friend', friend);
 app.get('/', (req: Request, res: Response) => {
   res.send('Server Setting');
 });
