@@ -26,14 +26,22 @@ export class User {
 
   @Column()
   kakaoTalk: snsURL;
+
   @Column()
   discord: snsURL;
+
   @Column()
   line: snsURL;
+
   @Column()
   naverBlog: snsURL;
+
   @Column()
   naverBand: snsURL;
+
   @Column()
   telegram: snsURL;
+
+  @Column()
+  hashTags: number[];
 }
