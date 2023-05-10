@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { UserIDList } from '../types/ArrayString';
 
 @Entity()
 export class HashTag {
@@ -9,5 +10,5 @@ export class HashTag {
   hashTag: string;
 
   @Column()
-  userId: number[];
+  userId: UserIDList;
 }

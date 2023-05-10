@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { snsURL } from '../types/snsURL';
+import { HashTagList } from '../types/ArrayString';
 
 @Entity()
 export class User {
@@ -43,5 +44,5 @@ export class User {
   telegram: snsURL;
 
   @Column()
-  hashTags: number[];
+  hashTags: HashTagList;
 }
