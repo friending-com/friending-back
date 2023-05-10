@@ -1,4 +1,4 @@
-import { stringify } from '../../utils/stringify';
+import { addHashString } from '../../utils/stringify';
 import { HashTag } from '../../entity/HashTag';
 import { AppDataSource } from '../data-source';
 
@@ -9,6 +9,6 @@ export const addUser = async (hashTagId: number, userId: number) => {
       id: hashTagId,
     },
   });
-  hashTagFindResult.userId = stringify(hashTagFindResult.userId, userId);
+  hashTagFindResult.userId = addHashString(hashTagFindResult.userId, userId);
   await hashTagRepo.save(hashTagFindResult);
 };

@@ -1,5 +1,5 @@
 import { User } from '../../entity/User';
-import { stringify } from '../../utils/stringify';
+import { addHashString } from '../../utils/stringify';
 import { AppDataSource } from '../data-source';
 
 export const addHashTag = async (hashTagId: number, userId: number) => {
@@ -11,7 +11,7 @@ export const addHashTag = async (hashTagId: number, userId: number) => {
   });
   console.log(user);
   if (user.hashTags) {
-    const newHashTagList = stringify(user.hashTags, hashTagId);
+    const newHashTagList = addHashString(user.hashTags, hashTagId);
     user.hashTags = newHashTagList;
   } else {
     user.hashTags = String(hashTagId);
