@@ -4,6 +4,7 @@ import { signup } from './router/signUp';
 import { profile } from './router/profile';
 import { AppDataSource } from './DAO/data-source';
 import { friend } from './router/friend';
+import { hashTag } from './router/hashTag';
 dotenv.config();
 
 const app: Express = express();
@@ -16,6 +17,7 @@ AppDataSource.initialize()
 app.use('/signup', signup);
 app.use('/profile', profile);
 app.use('/friend', friend);
+app.use('/hashtag', hashTag);
 app.get('/', (req: Request, res: Response) => {
   res.send('Server Setting');
 });
