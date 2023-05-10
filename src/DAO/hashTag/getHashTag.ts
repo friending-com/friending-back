@@ -8,5 +8,9 @@ export const getHashTag = async (hashTagString: string) => {
       hashTag: hashTagString,
     },
   });
-  return result.id;
+  if (result) {
+    return result.id;
+  } else {
+    return null;
+  }
 };
