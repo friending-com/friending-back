@@ -9,7 +9,13 @@ export const addHashTag = async (hashTagId: number, userId: number) => {
       id: userId,
     },
   });
-  const newHashTagList = stringify(user.hashTags, hashTagId);
-  user.hashTags = newHashTagList;
+  console.log(user);
+  if (user.hashTags) {
+    const newHashTagList = stringify(user.hashTags, hashTagId);
+    user.hashTags = newHashTagList;
+  } else {
+    user.hashTags = String(hashTagId);
+  }
+
   await userRepo.save(user);
 };
