@@ -6,7 +6,7 @@ export const addNewHashTag = async (name: string, userId: number) => {
   const hashTagRepo = AppDataSource.getRepository(HashTag);
   const hashTag = new HashTag();
   hashTag.hashTag = name;
-  hashTag.userId = stringify(hashTag.userId, userId);
+  hashTag.userId = String(userId);
   await hashTagRepo.save(hashTag);
   return hashTag.id;
 };
