@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Relation {
+export class HashTag {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -9,5 +9,5 @@ export class Relation {
   hashTag: string;
 
   @Column()
-  useId: number[];
+  userId: number[];
 }

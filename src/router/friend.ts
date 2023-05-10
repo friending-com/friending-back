@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
-import { addFriend } from '../DAO/addFriend';
-import getProfile from '../DAO/getProfile';
-import { getFriendList } from '../DAO/getFriendList';
+import { addFriend } from '../DAO/friend/addFriend';
+import getProfile from '../DAO/user/getProfile';
+import { getFriendList } from '../DAO/friend/getFriendList';
 
 const router = express.Router();
 router.post('/', async (req: Request, res: Response) => {

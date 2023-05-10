@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from 'express';
-import signup from '../DAO/signup';
+import signup from '../DAO/user/signup';
 const router = express.Router();
 
 router.post('/', (req: Request, res: Response) => {
