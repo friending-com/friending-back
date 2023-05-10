@@ -2,11 +2,11 @@ import { HashTag } from '../../entity/HashTag';
 import { numberize, stringify } from '../../utils/stringify';
 import { AppDataSource } from '../data-source';
 
-export const deleteHashTag = async (hashTagId: number, userId: number) => {
+export const deleteHashTag = async (hashTagName: string, userId: number) => {
   const hashTagRepo = AppDataSource.getRepository(HashTag);
   const hashTagResult = await hashTagRepo.findOne({
     where: {
-      id: hashTagId,
+      hashTag: hashTagName,
     },
   });
   const hashTagArray = numberize(hashTagResult.hashTag);
