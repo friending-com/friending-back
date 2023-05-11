@@ -1,10 +1,19 @@
 import express, { Express, Request, Response } from 'express';
-import { hashTagAddService } from '../Service/hashTag/hashTagService';
+import {
+  hashTagAddService,
+  hashTagSearchService,
+} from '../Service/hashTag/hashTagService';
 const router = express.Router();
 router.post('/', async (req: Request, res: Response) => {
   const { hashTagName, userId } = req.body;
   await hashTagAddService(hashTagName, userId);
   res.json('hashTag 등록 완료');
+});
+
+router.get('/', async (req: Request, res: Response) => {
+  const hashTagName = req.query.hashTagName as unknown as string;
+  const result = await hashTagSearchService(hashTagName);
+  res.json(result);
 });
 
 router.delete('/', async (req: Request, res: Response) => {
