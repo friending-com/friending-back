@@ -1,9 +1,9 @@
 import express, { Express, Request, Response } from 'express';
-import { hashTagService } from '../Service/hashTag/hashTagService';
+import { hashTagAddService } from '../Service/hashTag/hashTagService';
 const router = express.Router();
 router.post('/', async (req: Request, res: Response) => {
   const { hashTagName, userId } = req.body;
-  await hashTagService(hashTagName, userId);
+  await hashTagAddService(hashTagName, userId);
   res.json('hashTag 등록 완료');
 });
 
