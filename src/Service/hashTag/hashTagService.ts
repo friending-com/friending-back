@@ -1,20 +1,13 @@
-import { addHashTag } from '../../DAO/user/addHashTag';
-import { addNewHashTag } from '../../DAO/hashTag/addNewHashTag';
+import { addHashTag } from '../../DAO/hashTag/addHashTag';
 import { getHashTag } from '../../DAO/hashTag/getHashTag';
-import { deleteHashTag } from '../../DAO/hashTag/deleteHashTag';
+import { addRelation } from '../../DAO/hashTagUser/addRelation';
 
 export const hashTagService = async (hashTagName: string, userId: number) => {
   const result = await getHashTag(hashTagName);
   if (result) {
-    await addHashTag(result, userId);
+    await addRelation(result, userId);
   } else {
-    const hashTagId = await addNewHashTag(hashTagName, userId);
-    await addHashTag(hashTagId, userId);
+    const hashTagId = await addHashTag(hashTagName);
+    await addRelation(hashTagId, userId);
   }
-};
-export const hashTagDeleteService = async (
-  hashTagName: string,
-  userId: number
-) => {
-  await deleteHashTag(hashTagName, userId);
 };

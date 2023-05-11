@@ -16,33 +16,30 @@ export class User {
   @Column()
   phone: string;
 
-  @Column()
+  @Column({ nullable: true })
   instagram: snsURL;
 
-  @Column()
+  @Column({ nullable: true })
   twitter: snsURL;
 
-  @Column()
+  @Column({ nullable: true })
   facebook: snsURL;
 
-  @Column()
+  @Column({ nullable: true })
   kakaoTalk: snsURL;
 
-  @Column()
+  @Column({ nullable: true })
   discord: snsURL;
 
-  @Column()
+  @Column({ nullable: true })
   line: snsURL;
 
-  @Column()
+  @Column({ nullable: true })
   naverBlog: snsURL;
 
-  @Column()
+  @Column({ nullable: true })
   naverBand: snsURL;
 
-  @Column()
+  @Column({ nullable: true })
   telegram: snsURL;
-
-  @Column()
-  hashTags: HashTagList;
 }

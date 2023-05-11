@@ -1,10 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class HashTag {
+export class HashTagUser {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  hashTag: string;
+  hashTagId: number;
+  @Column()
+  userId: number;
 }

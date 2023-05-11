@@ -4,6 +4,7 @@ import { User } from '../entity/User';
 import dotenv from 'dotenv';
 import { Relation } from '../entity/Relation';
 import { HashTag } from '../entity/HashTag';
+import { HashTagUser } from '../entity/HashTagUser';
 dotenv.config();
 const { DB_USER, DB_PASSWORD } = process.env;
 export const AppDataSource = new DataSource({
@@ -15,7 +16,7 @@ export const AppDataSource = new DataSource({
   database: 'friending_db',
   synchronize: true,
   logging: false,
-  entities: [User, Relation, HashTag],
+  entities: [User, Relation, HashTag, HashTagUser],
   migrations: [],
   subscribers: [],
 });
