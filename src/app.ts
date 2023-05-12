@@ -21,6 +21,15 @@ app.use('/hashtag', hashTag);
 app.get('/', (req: Request, res: Response) => {
   res.send('Server Setting');
 });
+
+app.use((req, res, next) => {
+  res.status(404).send('404 NotFound');
+});
+
+app.use((err, req, res, next) => {
+  res.status(500).json({ message: err.message });
+});
+
 app.listen(port, () => {
   console.log('서버 ON');
 });

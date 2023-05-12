@@ -1,16 +1,16 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 import FriendDAO from '../DAO/FriendDAO';
 import UserDAO from '../DAO/UserDAO';
 import { addFriend } from '../Service/friend/addFreind';
 import { showFriend } from '../Service/friend/showFriend';
 
 const router = express.Router();
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   const { userId, subId } = req.body;
   const result = await addFriend(userId, subId);
   if (result) res.json('등록 완료!');
   else {
-    res.status(500).json('추가하려는 user가 존재하지 않습니다.');
+    next(new Error('추가하려는 user가 존재하지 않습니다.'));
   }
 });
 
