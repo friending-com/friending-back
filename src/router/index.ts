@@ -4,7 +4,8 @@ import { friend } from './friend';
 import { hashTag } from './hashTag';
 import { profile } from './profile';
 
-const router: Router = Router();
+const router = Router();
+
 router.use('/signup', signup);
 router.use('/profile', profile);
 router.use('/friend', friend);
