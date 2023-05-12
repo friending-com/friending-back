@@ -1,41 +1,9 @@
 import express, { Express, Request, Response } from 'express';
 import UserDAO from '../DAO/UserDAO';
-import errorHandler from './ErrorHandler';
+import errorHandler from './errorHandler';
+import { UserController } from '../controllers/UserController';
 const router = express.Router();
 
-router.post(
-  '/',
-  errorHandler((req: Request, res: Response) => {
-    const {
-      name,
-      instagram,
-      twitter,
-      phone,
-      facebook,
-      kakaoTalk,
-      age,
-      discord,
-      line,
-      naverBlog,
-      naverBand,
-      telegram,
-    } = req.body;
-    UserDAO.signup(
-      name,
-      instagram,
-      twitter,
-      phone,
-      facebook,
-      kakaoTalk,
-      age,
-      discord,
-      line,
-      naverBlog,
-      naverBand,
-      telegram
-    );
-    res.json('성공!');
-  })
-);
+router.post('/', errorHandler(UserController.signup));
 
 export { router as signup };

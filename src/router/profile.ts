@@ -1,14 +1,8 @@
 import express, { Request, Response } from 'express';
 import { findProfile } from '../services/profile/findProfile';
-import errorHandler from './ErrorHandler';
+import errorHandler from './errorHandler';
+import { UserController } from '../controllers/UserController';
 const router = express.Router();
 
-router.get(
-  '/',
-  errorHandler(async (req: Request, res: Response) => {
-    const id = req.query.id as unknown as number;
-    const result = await findProfile(id);
-    res.json(result);
-  })
-);
+router.get('/', errorHandler(UserController.profile));
 export { router as profile };
