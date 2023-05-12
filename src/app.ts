@@ -1,10 +1,8 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { signup } from './router/signUp';
-import { profile } from './router/profile';
+
 import { AppDataSource } from './DAO/data-source';
-import { friend } from './router/friend';
-import { hashTag } from './router/hashTag';
+import router from './router';
 dotenv.config();
 
 const app: Express = express();
@@ -14,12 +12,14 @@ app.use(express.urlencoded({ extended: true }));
 AppDataSource.initialize()
   .then(async () => {})
   .catch((err) => console.log(err));
-app.use('/signup', signup);
-app.use('/profile', profile);
-app.use('/friend', friend);
-app.use('/hashtag', hashTag);
+
+app.use(router);
 app.get('/', (req: Request, res: Response) => {
   res.send('Server Setting');
+});
+
+app.listen(port, () => {
+  console.log(`(●'◡'●) Friending Server`);
 });
 
 app.use((req, res, next) => {
@@ -28,10 +28,6 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message });
-});
-
-app.listen(port, () => {
-  console.log('서버 ON');
 });
 
 export default app;
