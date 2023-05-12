@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { User } from '../entity/User';
 import dotenv from 'dotenv';
-import { Relation } from '../entity/Relation';
+import { UserRelation } from '../entity/UserRelation';
 import { HashTag } from '../entity/HashTag';
 import { HashTagRelation } from '../entity/HashTagRelation';
 dotenv.config();
@@ -16,7 +16,7 @@ export const AppDataSource = new DataSource({
   database: 'friending_db',
   synchronize: true,
   logging: false,
-  entities: [User, Relation, HashTag, HashTagRelation],
+  entities: [User, UserRelation, HashTag, HashTagRelation],
   migrations: [],
   subscribers: [],
 });

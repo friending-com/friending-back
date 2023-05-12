@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { snsURL } from '../types/snsURL';
 
 @Entity()
-export class Relation {
+export class UserRelation {
   @PrimaryGeneratedColumn()
   id: number;
 
