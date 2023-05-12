@@ -24,3 +24,5 @@ app.get('/', (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log('서버 ON');
 });
+
+export default app;
