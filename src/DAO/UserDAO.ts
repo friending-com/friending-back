@@ -1,5 +1,5 @@
 import { User } from '../entity/User';
-import { SignUpData } from '../types/signUpData';
+import { SignUpData, UpdateData } from '../types/signUpData';
 import { AppDataSource } from './data-source';
 
 export default class UserDAO {
@@ -28,5 +28,9 @@ export default class UserDAO {
     user.naverBand = signUpData.naverBand;
     user.telegram = signUpData.telegram;
     await UserDAO.userRepo.save(user);
+  }
+
+  static async update(updateData: UpdateData) {
+    await UserDAO.userRepo.update(updateData.id, updateData);
   }
 }

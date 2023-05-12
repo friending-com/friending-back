@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import UserDAO from '../DAO/UserDAO';
 import { findProfile } from '../services/profile/findProfile';
-import { SignUpData } from '../types/signUpData';
+import { SignUpData, UpdateData } from '../types/signUpData';
 
 export class UserController {
   static async signup(req: Request, res: Response) {
@@ -27,5 +27,25 @@ export class UserController {
     const id = req.query.id as unknown as number;
     const result = await findProfile(id);
     res.json(result);
+  }
+
+  static async updateProfile(req: Request, res: Response) {
+    const updateData: UpdateData = {
+      id: req.body.id,
+      name: req.body.name,
+      instagram: req.body.instagram,
+      twitter: req.body.twitter,
+      phone: req.body.phone,
+      facebook: req.body.facebook,
+      kakaoTalk: req.body.kakaoTalk,
+      age: req.body.age,
+      discord: req.body.discord,
+      line: req.body.line,
+      naverBlog: req.body.naverBlog,
+      naverBand: req.body.naverBand,
+      telegram: req.body.telegram,
+    };
+    await UserDAO.update(updateData);
+    res.json('업데이트 완료!');
   }
 }

@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { snsURL } from '../types/snsURL';
-import { HashTagList } from '../types/ArrayString';
 
 @Entity()
 export class User {
