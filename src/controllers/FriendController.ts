@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { addFriend } from '../services/friend/addFreind';
 import { showFriend } from '../services/friend/showFriend';
-import ErrorStatus from '../utils/ErrorStatus';
 
 export class FriendController {
   static async post(req: Request, res: Response) {

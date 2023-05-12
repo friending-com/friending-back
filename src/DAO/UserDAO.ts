@@ -1,4 +1,5 @@
 import { User } from '../entity/User';
+import { SignUpData } from '../types/signUpData';
 import { AppDataSource } from './data-source';
 
 export default class UserDAO {
@@ -12,33 +13,20 @@ export default class UserDAO {
     return profile;
   }
 
-  static async signup(
-    name,
-    instagram,
-    twitter,
-    phone,
-    facebook,
-    kakaoTalk,
-    age,
-    discord,
-    line,
-    naverBlog,
-    naverBand,
-    telegram
-  ) {
+  static async signup(signUpData: SignUpData) {
     const user = new User();
-    user.name = name;
-    user.instagram = instagram;
-    user.twitter = twitter;
-    user.phone = phone;
-    user.facebook = facebook;
-    user.kakaoTalk = kakaoTalk;
-    user.age = age;
-    user.discord = discord;
-    user.line = line;
-    user.naverBlog = naverBlog;
-    user.naverBand = naverBand;
-    user.telegram = telegram;
+    user.name = signUpData.name;
+    user.instagram = signUpData.instagram;
+    user.twitter = signUpData.twitter;
+    user.phone = signUpData.phone;
+    user.facebook = signUpData.facebook;
+    user.kakaoTalk = signUpData.kakaoTalk;
+    user.age = signUpData.age;
+    user.discord = signUpData.discord;
+    user.line = signUpData.line;
+    user.naverBlog = signUpData.naverBlog;
+    user.naverBand = signUpData.naverBand;
+    user.telegram = signUpData.telegram;
     await UserDAO.userRepo.save(user);
   }
 }
