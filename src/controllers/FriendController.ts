@@ -6,11 +6,8 @@ import ErrorStatus from '../utils/ErrorStatus';
 export class FriendController {
   static async post(req: Request, res: Response) {
     const { userId, subId } = req.body;
-    const result = await addFriend(userId, subId);
-    if (result) res.json('등록 완료!');
-    else {
-      throw new ErrorStatus('추가하려는 user가 존재하지 않습니다.', 400);
-    }
+    await addFriend(userId, subId);
+    res.json('등록 완료!');
   }
 
   static async get(req: Request, res: Response) {

@@ -20,11 +20,11 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`(●'◡'●) Friending Server`);
+  console.log(`(●'◡'●) Friending Server (●'◡'●)`);
 });
 
 app.use((req, res, next) => {
-  res.status(404).send('404 NotFound');
+  res.status(404).send('404 Not Found ( •̀ ω •́ )');
 });
 
 app.use((err, req, res, next) => {
