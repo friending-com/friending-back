@@ -1,32 +1,11 @@
-import express, { Express, Request, Response } from 'express';
-import {
-  hashTagAddService,
-  hashTagSearchService,
-} from '../services/hashTag/hashTagService';
-import errorHandler from './ErrorHandler';
-const router = express.Router();
-router.post(
-  '/',
-  errorHandler(async (req: Request, res: Response) => {
-    const { hashTagName, userId } = req.body;
-    await hashTagAddService(hashTagName, userId);
-    res.json('hashTag 등록 완료');
-  })
-);
+import { Router } from 'express';
+import errorHandler from './errorHandler';
+import { HashTagController } from '../controllers/HashTagController';
 
-router.get(
-  '/',
-  errorHandler(async (req: Request, res: Response) => {
-    const hashTagName = req.query.hashTagName as unknown as string;
-    const result = await hashTagSearchService(hashTagName);
-    res.json(result);
-  })
-);
+const router = Router();
 
-router.delete(
-  '/',
-  errorHandler(async (req: Request, res: Response) => {
-    const { hashTagName, userId } = req.body;
-  })
-);
+router.post('/', errorHandler(HashTagController.post));
+router.get('/', errorHandler(HashTagController.get));
+router.delete('/', errorHandler(HashTagController.delete));
+
 export { router as hashTag };
