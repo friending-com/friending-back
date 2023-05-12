@@ -8,7 +8,7 @@ router.post('/', async (req: Request, res: Response) => {
   const user = await UserDAO.getProfile(userId);
   const subUser = await UserDAO.getProfile(subId);
   if (user && subUser) {
-    FriendDAO.addFriend(userId, subId);
+    await FriendDAO.addFriend(userId, subId);
     res.json('등록 완료!');
   } else {
     res.json('user가 존재하지 않습니다.');

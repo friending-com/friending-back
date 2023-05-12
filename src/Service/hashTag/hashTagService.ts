@@ -17,7 +17,7 @@ export const hashTagAddService = async (
 
 export const hashTagSearchService = async (hashTagName: string) => {
   const hashTagId = await HashTagDAO.getHashTagId(hashTagName);
-  const result = await HashTagRelationDAO.searchRelation(hashTagId);
+  const result = await HashTagRelationDAO.searchRelationByHashTagId(hashTagId);
   const userIds = result.map((element) => element.userId);
   const profiles = Promise.all(
     userIds.map(async (userId) => await UserDAO.getProfile(userId))

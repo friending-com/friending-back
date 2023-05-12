@@ -19,8 +19,16 @@ export default class HashTagDAO {
     });
     if (result) {
       return result.id;
-    } else {
-      return null;
     }
+    return null;
+  }
+  static async getHashTagName(hashTagId: number) {
+    const hashTagRepo = AppDataSource.getRepository(HashTag);
+    const result = await hashTagRepo.findOne({
+      where: {
+        id: hashTagId,
+      },
+    });
+    return result;
   }
 }
