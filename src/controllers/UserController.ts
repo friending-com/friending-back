@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import UserDAO from '../DAO/UserDAO';
 import { findProfile } from '../services/profile/findProfile';
 import { SignUpData, UpdateData } from '../types/signUpData';
+import ErrorStatus from '../utils/ErrorStatus';
 
 export class UserController {
   static async signup(req: Request, res: Response) {
@@ -45,7 +46,12 @@ export class UserController {
       naverBand: req.body.naverBand,
       telegram: req.body.telegram,
     };
-    await UserDAO.update(updateData);
-    res.json('업데이트 완료!');
+    const result = await UserDAO.getProfile(updateData.id);
+    if (result) {
+      await UserDAO.update(updateData);
+      res.json('업데이트 완료!');
+    } else {
+      throw new ErrorStatus('user가 존재하지 않습니다.', 400);
+    }
   }
 }
