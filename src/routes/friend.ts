@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import errorHandler from './errorHandler';
-import { FriendController } from '../controllers/friendController';
+import { FriendController } from '../controllers/FriendController';
 
 const router = Router();
 

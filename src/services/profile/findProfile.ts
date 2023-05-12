@@ -1,10 +1,11 @@
 import HashTagDAO from '../../DAO/HashTagDAO';
 import HashTagRelationDAO from '../../DAO/HashTagRelationDAO';
 import UserDAO from '../../DAO/UserDAO';
+import ErrorStatus from '../../utils/ErrorStatus';
 
 export const findProfile = async (id: number) => {
   if (!id) {
-    throw new Error('query없음');
+    throw new ErrorStatus('query없음', 400);
   }
 
   const user = await UserDAO.getProfile(id);
@@ -15,7 +16,7 @@ export const findProfile = async (id: number) => {
     })
   );
   if (user === null) {
-    throw new Error('user가 존재하지 않습니다.');
+    throw new ErrorStatus('user가 존재하지 않습니다.', 400);
   }
   return { ...user, hashTagList };
 };

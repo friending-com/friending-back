@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 
 import { AppDataSource } from './DAO/data-source';
 import router from './routes';
+import ErrorStatus from './utils/ErrorStatus';
 dotenv.config();
 
 const app: Express = express();
@@ -27,7 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(500).json({ message: err.message });
+  res.status(err.status || 500).json({ message: err.message });
 });
 
 export default app;
