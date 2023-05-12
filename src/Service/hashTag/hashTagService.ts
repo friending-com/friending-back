@@ -1,28 +1,26 @@
-import { addHashTag } from '../../DAO/hashTag/addHashTag';
-import { getHashTagId } from '../../DAO/hashTag/getHashTagId';
-import { addRelation } from '../../DAO/hashTagUser/addRelation';
-import { searchRelation } from '../../DAO/hashTagUser/searchRelation';
-import getProfile from '../../DAO/user/getProfile';
+import HashTagDAO from '../../DAO/HashTagDAO';
+import HashTagRelationDAO from '../../DAO/HashTagRelationDAO';
+import UserDAO from '../../DAO/UserDAO';
 
 export const hashTagAddService = async (
   hashTagName: string,
   userId: number
 ) => {
-  const result = await getHashTagId(hashTagName);
+  const result = await HashTagDAO.getHashTagId(hashTagName);
   if (result) {
-    await addRelation(result, userId);
+    await HashTagRelationDAO.addRelation(result, userId);
   } else {
-    const hashTagId = await addHashTag(hashTagName);
-    await addRelation(hashTagId, userId);
+    const hashTagId = await HashTagDAO.addHashTag(hashTagName);
+    await HashTagRelationDAO.addRelation(hashTagId, userId);
   }
 };
 
 export const hashTagSearchService = async (hashTagName: string) => {
-  const hashTagId = await getHashTagId(hashTagName);
-  const result = await searchRelation(hashTagId);
+  const hashTagId = await HashTagDAO.getHashTagId(hashTagName);
+  const result = await HashTagRelationDAO.searchRelation(hashTagId);
   const userIds = result.map((element) => element.userId);
   const profiles = Promise.all(
-    userIds.map(async (userId) => await getProfile(userId))
+    userIds.map(async (userId) => await UserDAO.getProfile(userId))
   );
   return profiles;
 };

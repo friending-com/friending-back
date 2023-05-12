@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from 'express';
-import signup from '../DAO/user/signup';
+import UserDAO from '../DAO/UserDAO';
 const router = express.Router();
 
 router.post('/', (req: Request, res: Response) => {
@@ -17,7 +17,7 @@ router.post('/', (req: Request, res: Response) => {
     naverBand,
     telegram,
   } = req.body;
-  signup(
+  UserDAO.signup(
     name,
     instagram,
     twitter,
