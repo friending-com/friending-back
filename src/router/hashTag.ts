@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import {
   hashTagAddService,
   hashTagSearchService,
-} from '../Service/hashTag/hashTagService';
+} from '../services/hashTag/hashTagService';
 import errorHandler from './ErrorHandler';
 const router = express.Router();
 router.post(

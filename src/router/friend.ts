@@ -1,6 +1,6 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
-import { addFriend } from '../Service/friend/addFreind';
-import { showFriend } from '../Service/friend/showFriend';
+import { addFriend } from '../services/friend/addFreind';
+import { showFriend } from '../services/friend/showFriend';
 import errorHandler from './ErrorHandler';
 
 const router = express.Router();

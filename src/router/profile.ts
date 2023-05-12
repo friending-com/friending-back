@@ -1,5 +1,5 @@
-import express, { Express, NextFunction, Request, Response } from 'express';
-import { findProfile } from '../Service/profile/findProfile';
+import express, { Request, Response } from 'express';
+import { findProfile } from '../services/profile/findProfile';
 import errorHandler from './ErrorHandler';
 const router = express.Router();
 
