@@ -2,17 +2,17 @@ import { HashTag } from '../entity/HashTag';
 import { AppDataSource } from './data-source';
 
 export default class HashTagDAO {
+  static hashTagRepo = AppDataSource.getRepository(HashTag);
+
   static async addHashTag(name: string) {
-    const hashTagRepo = AppDataSource.getRepository(HashTag);
     const hashTag = new HashTag();
     hashTag.hashTag = name;
-    await hashTagRepo.save(hashTag);
+    await HashTagDAO.hashTagRepo.save(hashTag);
     return hashTag.id;
   }
 
   static async getHashTagId(hashTagString: string) {
-    const hashTagRepo = AppDataSource.getRepository(HashTag);
-    const result = await hashTagRepo.findOne({
+    const result = await HashTagDAO.hashTagRepo.findOne({
       where: {
         hashTag: hashTagString,
       },
@@ -22,9 +22,9 @@ export default class HashTagDAO {
     }
     return null;
   }
+
   static async getHashTagName(hashTagId: number) {
-    const hashTagRepo = AppDataSource.getRepository(HashTag);
-    const result = await hashTagRepo.findOne({
+    const result = await HashTagDAO.hashTagRepo.findOne({
       where: {
         id: hashTagId,
       },

@@ -2,8 +2,9 @@ import { UserRelation } from '../entity/UserRelation';
 import { AppDataSource } from './data-source';
 
 export default class FriendDAO {
+  static relationRepo = AppDataSource.getRepository(UserRelation);
+
   static async addFriend(userId: number, subId: number) {
-    const relationRepo = AppDataSource.getRepository(UserRelation);
     const relationOne = new UserRelation();
     const relationTwo = new UserRelation();
 
@@ -14,13 +15,12 @@ export default class FriendDAO {
     relationTwo.subId = userId;
 
     [relationOne, relationTwo].forEach((relation) => {
-      relationRepo.save(relation);
+      FriendDAO.relationRepo.save(relation);
     });
   }
 
   static async getFriendList(id: number) {
-    const relationRepo = AppDataSource.getRepository(UserRelation);
-    const queryResult = await relationRepo.find({
+    const queryResult = await FriendDAO.relationRepo.find({
       where: {
         userId: id,
       },

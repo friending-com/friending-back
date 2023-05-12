@@ -2,17 +2,17 @@ import { HashTagRelation } from '../entity/HashTagRelation';
 import { AppDataSource } from './data-source';
 
 export default class HashTagRelationDAO {
+  static hashTagRelationRepo = AppDataSource.getRepository(HashTagRelation);
+
   static async addRelation(hashTagId: number, userId: number) {
-    const hashTagRepo = AppDataSource.getRepository(HashTagRelation);
     const hashTagRelation = new HashTagRelation();
     hashTagRelation.hashTagId = hashTagId;
     hashTagRelation.userId = userId;
-    await hashTagRepo.save(hashTagRelation);
+    await HashTagRelationDAO.hashTagRelationRepo.save(hashTagRelation);
   }
 
   static async searchRelationByHashTagId(hashTagId: number) {
-    const hashTagUserRepo = AppDataSource.getRepository(HashTagRelation);
-    const result = await hashTagUserRepo.find({
+    const result = await HashTagRelationDAO.hashTagRelationRepo.find({
       where: {
         hashTagId: hashTagId,
       },
@@ -20,8 +20,7 @@ export default class HashTagRelationDAO {
     return result;
   }
   static async searchRelationByUserId(userId: number) {
-    const hashTagUserRepo = AppDataSource.getRepository(HashTagRelation);
-    const result = await hashTagUserRepo.find({
+    const result = await HashTagRelationDAO.hashTagRelationRepo.find({
       where: {
         userId: userId,
       },

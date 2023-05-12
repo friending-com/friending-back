@@ -2,9 +2,9 @@ import { User } from '../entity/User';
 import { AppDataSource } from './data-source';
 
 export default class UserDAO {
+  static userRepo = AppDataSource.getRepository(User);
   static async getProfile(id: number) {
-    const userRepo = AppDataSource.getRepository(User);
-    const profile = await userRepo.findOne({
+    const profile = await UserDAO.userRepo.findOne({
       where: {
         id: id,
       },
@@ -26,7 +26,6 @@ export default class UserDAO {
     naverBand,
     telegram
   ) {
-    const userRepo = AppDataSource.getRepository(User);
     const user = new User();
     user.name = name;
     user.instagram = instagram;
@@ -40,9 +39,6 @@ export default class UserDAO {
     user.naverBlog = naverBlog;
     user.naverBand = naverBand;
     user.telegram = telegram;
-    await userRepo.save(user);
-  }
-  catch(err) {
-    console.log(err);
+    await UserDAO.userRepo.save(user);
   }
 }
