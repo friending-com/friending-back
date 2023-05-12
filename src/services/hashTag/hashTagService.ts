@@ -8,9 +8,17 @@ export const hashTagAddService = async (
 ) => {
   const result = await HashTagDAO.getHashTagId(hashTagName);
   if (result) {
+    let flag = false;
+    const relationArray = await HashTagRelationDAO.searchRelationByHashTagId(
+      result
+    );
+    relationArray.forEach((relation) => {
+      if (relation.userId == userId) flag = true;
+    });
+    if (flag) return;
     await HashTagRelationDAO.addRelation(result, userId);
   } else {
-    const hashTagId = await HashTagDAO.addHashTag(hashTagName);
+    const hashTagId = await HashTagDAO.createHashTag(hashTagName);
     await HashTagRelationDAO.addRelation(hashTagId, userId);
   }
 };

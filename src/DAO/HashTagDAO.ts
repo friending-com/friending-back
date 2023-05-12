@@ -4,7 +4,7 @@ import { AppDataSource } from './data-source';
 export default class HashTagDAO {
   static hashTagRepo = AppDataSource.getRepository(HashTag);
 
-  static async addHashTag(name: string) {
+  static async createHashTag(name: string) {
     const hashTag = new HashTag();
     hashTag.hashTag = name;
     await HashTagDAO.hashTagRepo.save(hashTag);
