@@ -1,6 +1,7 @@
 import HashTagDAO from '../../DAO/HashTagDAO';
 import HashTagRelationDAO from '../../DAO/HashTagRelationDAO';
 import UserDAO from '../../DAO/UserDAO';
+import ErrorStatus from '../../utils/ErrorStatus';
 
 export const hashTagAddService = async (
   hashTagName: string,
@@ -25,6 +26,9 @@ export const hashTagAddService = async (
 
 export const hashTagSearchService = async (hashTagName: string) => {
   const hashTagId = await HashTagDAO.getHashTagId(hashTagName);
+  if (!hashTagId) {
+    throw new ErrorStatus('해시태그가 없습니다!', 400);
+  }
   const result = await HashTagRelationDAO.searchRelationByHashTagId(hashTagId);
   const userIds = result.map((element) => element.userId);
   const profiles = Promise.all(
