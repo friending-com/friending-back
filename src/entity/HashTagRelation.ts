@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class HashTagUser {
+export class HashTagRelation {
   @PrimaryGeneratedColumn()
   id: number;
 
