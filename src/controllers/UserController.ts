@@ -26,7 +26,7 @@ export class UserController {
 
   static async profile(req: Request, res: Response) {
     const id = req.query.id as unknown as number;
-    const result = await UserService.findProfile(id);
+    const result = await UserService.find(id);
     res.json(result);
   }
 
@@ -46,12 +46,7 @@ export class UserController {
       naverBand: req.body.naverBand,
       telegram: req.body.telegram,
     };
-    const result = await UserDAO.getProfile(updateData.id);
-    if (result) {
-      await UserDAO.update(updateData);
-      res.json('업데이트 완료!');
-    } else {
-      throw new ErrorStatus('user가 존재하지 않습니다.', 400);
-    }
+    await UserService.update(updateData);
+    res.json('업데이트 완료!');
   }
 }
