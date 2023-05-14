@@ -20,7 +20,7 @@ export class UserController {
       naverBand: req.body.naverBand,
       telegram: req.body.telegram,
     };
-    UserDAO.signup(signUpData);
+    await UserService.signup(signUpData);
     res.json('성공!');
   }
 

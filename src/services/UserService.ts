@@ -1,9 +1,13 @@
 import HashTagDAO from '../DAO/HashTagDAO';
 import HashTagRelationDAO from '../DAO/HashTagRelationDAO';
 import UserDAO from '../DAO/UserDAO';
-import { UpdateData } from '../types/signUpData';
+import { SignUpData, UpdateData } from '../types/signUpData';
 import ErrorStatus from '../utils/ErrorStatus';
 export class UserService {
+  static async signup(data: SignUpData) {
+    await UserDAO.signup(data);
+  }
+
   static async find(id: number) {
     if (!id) {
       throw new ErrorStatus('query없음', 400);
@@ -21,6 +25,7 @@ export class UserService {
     }
     return { ...user, hashTagList };
   }
+
   static async update(updateData: UpdateData) {
     const result = await UserDAO.getProfile(updateData.id);
     if (result) {
