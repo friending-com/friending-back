@@ -31,3 +31,14 @@ export const hashTagSearchService = async (hashTagName: string) => {
   );
   return profiles;
 };
+
+export const hashTagDeleteService = async (
+  hashTagName: string,
+  userId: number
+) => {
+  const hashTagId = await HashTagDAO.getHashTagId(hashTagName);
+  if (!hashTagId) {
+    throw new ErrorStatus('해시태그가 없습니다!', 400);
+  }
+  await HashTagRelationDAO.deleteRelation(userId, hashTagId);
+};

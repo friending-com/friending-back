@@ -27,4 +27,11 @@ export default class HashTagRelationDAO {
     });
     return result;
   }
+
+  static async deleteRelation(userId: number, hashTagId: number) {
+    await HashTagRelationDAO.hashTagRelationRepo.delete({
+      userId: userId,
+      hashTagId: hashTagId,
+    });
+  }
 }
