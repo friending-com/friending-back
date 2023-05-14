@@ -31,4 +31,15 @@ export default class FriendDAO {
     });
     return result;
   }
+
+  static async deleteFriend(userId: number, subId: number) {
+    await FriendDAO.relationRepo.delete({
+      userId: userId,
+      subId: subId,
+    });
+    await FriendDAO.relationRepo.delete({
+      userId: subId,
+      subId: userId,
+    });
+  }
 }
