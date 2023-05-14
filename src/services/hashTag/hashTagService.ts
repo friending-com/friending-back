@@ -10,7 +10,7 @@ export const hashTagAddService = async (
   const result = await HashTagDAO.getHashTagId(hashTagName);
   if (result) {
     const relation = await HashTagRelationDAO.searchRelationByHashTagId(result);
-    if (relation.some((data) => (data.userId = userId)))
+    if (relation.some((data) => data.userId == userId))
       throw new ErrorStatus('이미 해시태그가 등록되어있습니다.', 400);
     await HashTagRelationDAO.addRelation(result, userId);
   } else {
