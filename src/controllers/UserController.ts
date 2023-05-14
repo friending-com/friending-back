@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import UserDAO from '../DAO/UserDAO';
-import { findProfile } from '../services/profile/findProfile';
+import { UserService } from '../services/UserService';
 import { SignUpData, UpdateData } from '../types/signUpData';
 import ErrorStatus from '../utils/ErrorStatus';
 
@@ -26,7 +26,7 @@ export class UserController {
 
   static async profile(req: Request, res: Response) {
     const id = req.query.id as unknown as number;
-    const result = await findProfile(id);
+    const result = await UserService.findProfile(id);
     res.json(result);
   }
 
