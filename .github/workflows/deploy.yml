@@ -11,6 +11,14 @@ jobs:
         node-version: [18.16.0]
 
     steps:
+      - name: ✅ 체크아웃 source code.
+        uses: actions/checkout@v3
+
+      - name: ⚙️ ${{ matrix.node-version }} 버전의 노드로 세팅합니다.
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - name: ⚙️ 환경변수 설정
         working-directory: ./
         run: |
@@ -20,7 +28,7 @@ jobs:
           cat .env
       - name: ✨ 패키지 설치
         working-directory: ./
-        run: npm ci
+        run: npm install
 
       - name: ✨ 빌드
         working-directory: ./
