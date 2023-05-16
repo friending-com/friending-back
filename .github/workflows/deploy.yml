@@ -1,0 +1,25 @@
+name:deploy
+on:
+  push:
+    branches: [main]
+  jobs:
+    build-and-deploy:
+      runs-on: ubuntu-22.04
+    
+      strategy:
+        node-version: [18.16.0]
+      steps:
+        -name: ⚙️ 환경변수 설정
+        working-directory: ./
+        run: |
+          touch .env
+          echo DB_USER=${{ secrets.DB_USER}} >> .env
+          echo DB_PASSWORD=${{ secrets.DB_PASSWORD}} >>.env
+          cat .env
+        - name: ✨ 패키지 설치
+        working-directory: ./
+        run: npm install
+
+        - name: ✨ 빌드
+        working-directory: ./
+        run: npm run build

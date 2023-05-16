@@ -7,7 +7,7 @@
     "test": "jest --setupFiles dotenv/config --forceExit --detectOpenHandles",
     "build": "npx tsc",
     "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/app.ts",
-    "start": "ts-node src/index.ts",
+    "start": "node dist/app.js",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "keywords": [],
