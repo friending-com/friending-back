@@ -7,7 +7,9 @@ on:
       runs-on: ubuntu-22.04
     
       strategy:
-        node-version: [18.16.0]
+        matrix:
+          node-version: [18.16.0]
+          
       steps:
         -name: ⚙️ 환경변수 설정
         working-directory: ./
