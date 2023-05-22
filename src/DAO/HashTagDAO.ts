@@ -1,8 +1,10 @@
 import { HashTag } from '../entity/HashTag';
+import { User } from '../entity/User';
 import { AppDataSource } from './data-source';
 
 export default class HashTagDAO {
   static hashTagRepo = AppDataSource.getRepository(HashTag);
+  static userRepo = AppDataSource.getRepository(User);
 
   static async createHashTag(name: string) {
     const hashTag = new HashTag();
@@ -10,32 +12,47 @@ export default class HashTagDAO {
     await HashTagDAO.hashTagRepo.save(hashTag);
     return hashTag.id;
   }
-  static async getHashTag(hashTagId: number) {
+
+  static async addUser(userId: number, hashTagName: string) {
+    const user = await HashTagDAO.userRepo.findOne({
+      where: {
+        id: userId,
+      },
+      relations: {
+        hashTags: true,
+      },
+    });
+
+    const hashTag = await HashTagDAO.hashTagRepo.findOne({
+      where: {
+        hashTag: hashTagName,
+      },
+      relations: {
+        users: true,
+      },
+    });
+    user.hashTags.push(hashTag);
+    hashTag.users.push(user);
+    await HashTagDAO.hashTagRepo.save(hashTag);
+    await HashTagDAO.userRepo.save(user);
+  }
+
+  static async getHashTag(hashTagName: string) {
     return await HashTagDAO.hashTagRepo.findOne({
       where: {
-        id: hashTagId,
+        hashTag: hashTagName,
       },
     });
   }
 
-  static async getHashTagId(hashTagString: string) {
-    const result = await HashTagDAO.hashTagRepo.findOne({
+  static async getHashTagUser(hashTagName: string) {
+    return await HashTagDAO.hashTagRepo.findOne({
       where: {
-        hashTag: hashTagString,
+        hashTag: hashTagName,
+      },
+      relations: {
+        users: true,
       },
     });
-    if (result) {
-      return result.id;
-    }
-    return null;
-  }
-
-  static async getHashTagName(hashTagId: number) {
-    const result = await HashTagDAO.hashTagRepo.findOne({
-      where: {
-        id: hashTagId,
-      },
-    });
-    return result;
   }
 }

@@ -1,5 +1,4 @@
 import { User } from '../entity/User';
-import { UserRelation } from '../entity/UserRelation';
 import UserDAO from './UserDAO';
 import { AppDataSource } from './data-source';
 
