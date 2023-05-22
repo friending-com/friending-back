@@ -16,7 +16,6 @@ export default class UserDAO {
         id: id,
       },
       relations: {
-        friends: true,
         hashTags: true,
       },
     });

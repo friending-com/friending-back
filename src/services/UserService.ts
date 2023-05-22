@@ -9,5 +9,7 @@ export class UserService {
     return await UserDAO.getProfile(id);
   }
 
-  static async update(updateData: UpdateData) {}
+  static async update(updateData: UpdateData) {
+    await UserDAO.update(updateData);
+  }
 }
