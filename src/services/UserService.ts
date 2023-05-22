@@ -14,16 +14,22 @@ export class UserService {
     }
 
     const user = await UserDAO.getProfile(id);
-    const hashTags = await HashTagRelationDAO.searchRelationByUserId(id);
-    const hashTagList = await Promise.all(
-      hashTags.map(async (hashTag) => {
-        return (await HashTagDAO.getHashTagName(hashTag.hashTagId)).hashTag;
-      })
-    );
+    const hashTags = await HashTagRelationDAO.searchRelationByUserId(user);
+    console.log(hashTags);
+    if (hashTags) {
+      const hashTagList = await Promise.all(
+        hashTags.map(async (hashTag) => {
+          return (await HashTagDAO.getHashTagName(hashTag.hashTagId.id))
+            .hashTag;
+        })
+      );
+      return { ...user, hashTagList };
+    }
+
     if (user === null) {
       throw new ErrorStatus('user가 존재하지 않습니다.', 400);
     }
-    return { ...user, hashTagList };
+    return { ...user, hashTagList: [] };
   }
 
   static async update(updateData: UpdateData) {

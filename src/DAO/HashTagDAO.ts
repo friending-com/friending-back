@@ -10,6 +10,13 @@ export default class HashTagDAO {
     await HashTagDAO.hashTagRepo.save(hashTag);
     return hashTag.id;
   }
+  static async getHashTag(hashTagId: number) {
+    return await HashTagDAO.hashTagRepo.findOne({
+      where: {
+        id: hashTagId,
+      },
+    });
+  }
 
   static async getHashTagId(hashTagString: string) {
     const result = await HashTagDAO.hashTagRepo.findOne({

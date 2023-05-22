@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { snsURL } from '../types/snsURL';
+import { HashTag } from './HashTag';
 
 @Entity()
 export class User {
@@ -41,4 +48,12 @@ export class User {
 
   @Column({ nullable: true })
   telegram: snsURL;
+
+  @ManyToMany(() => HashTag, (hashTag) => hashTag.id)
+  @JoinTable()
+  hashTags: HashTag[];
+
+  @ManyToMany(() => User, (user) => user.friends)
+  @JoinTable()
+  friends: User[];
 }

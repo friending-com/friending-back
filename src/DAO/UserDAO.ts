@@ -4,6 +4,12 @@ import { AppDataSource } from './data-source';
 
 export default class UserDAO {
   static userRepo = AppDataSource.getRepository(User);
+
+  static async getUser(id: number) {
+    return await UserDAO.userRepo.findOne({
+      where: { id: id },
+    });
+  }
   static async getProfile(id: number) {
     const profile = await UserDAO.userRepo.findOne({
       where: {

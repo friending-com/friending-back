@@ -1,14 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
 import { snsURL } from '../types/snsURL';
+import { User } from './User';
 
 @Entity()
 export class UserRelation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  userId: number;
+  @OneToOne(() => User, (user) => user.id)
+  userId: User;
 
-  @Column()
-  subId: number;
+  @OneToOne(() => User, (user) => user.id)
+  subId: User;
 }

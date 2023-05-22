@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { User } from './User';
 
 @Entity()
 export class HashTag {
@@ -7,4 +8,6 @@ export class HashTag {
 
   @Column()
   hashTag: string;
+  @ManyToMany(() => User, (user) => user.id)
+  users: User[];
 }

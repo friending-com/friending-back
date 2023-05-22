@@ -10,7 +10,11 @@ export class HashTagService {
       const relation = await HashTagRelationDAO.searchRelationByHashTagId(
         result
       );
-      if (relation.some((data) => data.userId == userId))
+      if (
+        relation.some(
+          async (data) => data.userId == (await UserDAO.getUser(userId))
+        )
+      )
         throw new ErrorStatus('이미 해시태그가 등록되어있습니다.', 400);
       await HashTagRelationDAO.addRelation(result, userId);
     } else {
@@ -28,7 +32,7 @@ export class HashTagService {
     );
     const userIds = result.map((element) => element.userId);
     const profiles = Promise.all(
-      userIds.map(async (userId) => await UserDAO.getProfile(userId))
+      userIds.map(async (userId) => await UserDAO.getProfile(userId.id))
     );
     return profiles;
   }
