@@ -15,6 +15,10 @@ export default class UserDAO {
       where: {
         id: id,
       },
+      relations: {
+        friends: true,
+        hashTags: true,
+      },
     });
     return profile;
   }

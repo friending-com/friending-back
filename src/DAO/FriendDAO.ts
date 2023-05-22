@@ -26,26 +26,18 @@ export default class FriendDAO {
   }
 
   static async getFriendList(id: number) {
-    const queryResult = await FriendDAO.relationRepo.find({
+    const queryResult = await FriendDAO.userRepo.find({
       where: {
-        userId: await UserDAO.getUser(id),
+        id: id,
+      },
+      relations: {
+        friends: true,
       },
     });
+    console.log(queryResult);
     const result = [];
-    queryResult.forEach((relation) => {
-      result.push(relation.subId);
-    });
     return result;
   }
 
-  static async deleteFriend(userId: number, subId: number) {
-    await FriendDAO.relationRepo.delete({
-      userId: await UserDAO.getUser(userId),
-      subId: await UserDAO.getUser(subId),
-    });
-    await FriendDAO.relationRepo.delete({
-      userId: await UserDAO.getUser(subId),
-      subId: await UserDAO.getUser(userId),
-    });
-  }
+  static async deleteFriend(userId: number, subId: number) {}
 }
