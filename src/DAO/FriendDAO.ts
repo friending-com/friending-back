@@ -11,10 +11,16 @@ export default class FriendDAO {
       where: {
         id: userId,
       },
+      relations: {
+        friends: true,
+      },
     });
     const friend = await FriendDAO.userRepo.findOne({
       where: {
         id: subId,
+      },
+      relations: {
+        friends: true,
       },
     });
     if (user && friend) {
@@ -26,7 +32,7 @@ export default class FriendDAO {
   }
 
   static async getFriendList(id: number) {
-    const queryResult = await FriendDAO.userRepo.find({
+    return await FriendDAO.userRepo.findOne({
       where: {
         id: id,
       },
@@ -34,10 +40,28 @@ export default class FriendDAO {
         friends: true,
       },
     });
-    console.log(queryResult);
-    const result = [];
-    return result;
   }
 
-  static async deleteFriend(userId: number, subId: number) {}
+  static async deleteFriend(userId: number, subId: number) {
+    const user = await FriendDAO.userRepo.findOne({
+      where: {
+        id: userId,
+      },
+      relations: {
+        friends: true,
+      },
+    });
+    const friend = await FriendDAO.userRepo.findOne({
+      where: {
+        id: subId,
+      },
+      relations: {
+        friends: true,
+      },
+    });
+    user.friends = user.friends.filter((user) => user === friend);
+    friend.friends = friend.friends.filter((friend) => friend === user);
+    await FriendDAO.userRepo.save(user);
+    await FriendDAO.userRepo.save(friend);
+  }
 }
