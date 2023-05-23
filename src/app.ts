@@ -7,7 +7,7 @@ import ErrorStatus from './utils/ErrorStatus';
 dotenv.config();
 
 const app: Express = express();
-const port = 80;
+const port = 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 AppDataSource.initialize()
