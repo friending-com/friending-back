@@ -26,8 +26,12 @@ export class UserController {
 
   static async profile(req: Request, res: Response) {
     const id = req.query.id as unknown as number;
-    const result = await UserService.find(id);
-    res.json(result);
+    try {
+      const result = await UserService.find(id);
+      res.json(result);
+    } catch (err) {
+      throw new ErrorStatus('유저 정보가 없습니다!', 400);
+    }
   }
 
   static async updateProfile(req: Request, res: Response) {
