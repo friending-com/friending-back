@@ -23,8 +23,8 @@ jobs:
         working-directory: ./
         run: |
           touch .env
-          echo DB_USER=${{ secrets.DB_USER}} >> .env
-          echo DB_PASSWORD=${{ secrets.DB_PASSWORD}} >>.env
+          echo DB_USER=$DB_USER>> .env
+          echo DB_PASSWORD=$DB_PASSWORD>>.env
       - name: ✨ 패키지 설치
         working-directory: ./
         run: npm install
