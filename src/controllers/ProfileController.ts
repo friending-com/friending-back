@@ -3,6 +3,12 @@ import { ProfileCreateData, UpdateData } from '../types/profileData';
 import ProfileService from '../services/ProfileService';
 
 export class ProfileController {
+  static async get(req: Request, res: Response) {
+    const userId = req.query.id as unknown as number;
+    const mainProfile = await ProfileService.getMainProfile(userId);
+    res.json(mainProfile);
+  }
+
   static async post(req: Request, res: Response) {
     const userId = req.body.userId;
     const isMain = req.body.isMain;
@@ -29,7 +35,6 @@ export class ProfileController {
   static async patch(req: Request, res: Response) {
     const userId = req.body.userId;
     const isMain = req.body.isMain;
-    const profileId = req.body.profileId;
     const profileData: UpdateData = {
       id: req.body.id,
       discord: req.body.discord,
@@ -44,8 +49,10 @@ export class ProfileController {
       kakaoTalk: req.body.kakaoTalk,
     };
     await ProfileService.modifyProfile(profileData);
+
     if (isMain === true && userId) {
-      await ProfileService.setMainProfile(userId, profileId);
+      await ProfileService.setMainProfile(userId, profileData.id);
     }
+    res.json('성공!');
   }
 }

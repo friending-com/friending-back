@@ -37,8 +37,9 @@ export default class ProfileDAO {
       },
     });
   }
-
+  
   static async save(profile: Profile) {
+    console.log(profile);
     await ProfileDAO.profileRepo.save(profile);
   }
 

@@ -14,6 +14,8 @@ export interface UpdateData {
   naverBlog?: snsURL;
   naverBand?: snsURL;
   telegram?: snsURL;
+  isPublic?: boolean;
+  isMain?: boolean;
 }
 
 export interface ProfileCreateData {

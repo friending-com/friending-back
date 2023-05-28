@@ -3,8 +3,8 @@ import { HashTagService } from '../services/hashTagService';
 
 export class HashTagController {
   static async post(req: Request, res: Response) {
-    const { hashTagName, userId } = req.body;
-    await HashTagService.add(hashTagName, userId);
+    const { hashTagName, profileId } = req.body;
+    await HashTagService.add(hashTagName, profileId);
     res.json('hashTag 등록 완료');
   }
 
