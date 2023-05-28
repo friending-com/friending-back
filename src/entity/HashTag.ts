@@ -5,7 +5,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { User } from './User';
+import { Profile } from './Profile';
 
 @Entity()
 export class HashTag {
@@ -14,7 +14,7 @@ export class HashTag {
 
   @Column()
   hashTag: string;
-  @ManyToMany(() => User, (user) => user.id)
+  @ManyToMany(() => Profile, (profile) => profile.id)
   @JoinTable()
-  users: User[];
+  profiles: Profile[];
 }

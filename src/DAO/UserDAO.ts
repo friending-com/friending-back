@@ -1,45 +1,53 @@
+import { Profile } from '../entity/Profile';
 import { User } from '../entity/User';
-import { SignUpData, UpdateData } from '../types/signUpData';
+import { SignUpData, UpdateData } from '../types/profileData';
 import { AppDataSource } from './data-source';
 
 export default class UserDAO {
   static userRepo = AppDataSource.getRepository(User);
-
   static async getUser(id: number) {
     return await UserDAO.userRepo.findOne({
-      where: { id: id },
-    });
-  }
-  static async getProfile(id: number) {
-    const profile = await UserDAO.userRepo.findOne({
       where: {
         id: id,
       },
       relations: {
-        hashTags: true,
+        profiles: true,
       },
     });
-    return profile;
+  }
+
+  static async getUserProfiles(userId: number) {
+    return await UserDAO.userRepo.findOne({
+      where: {
+        id: userId,
+      },
+      relations: {
+        profiles: true,
+      },
+    });
+  }
+
+  static async getUserFriends(id: number) {
+    return await UserDAO.userRepo.findOne({
+      where: { id: id },
+      relations: {
+        friends: true,
+      },
+    });
   }
 
   static async signup(signUpData: SignUpData) {
     const user = new User();
     user.name = signUpData.name;
-    user.instagram = signUpData.instagram;
-    user.twitter = signUpData.twitter;
-    user.phone = signUpData.phone;
-    user.facebook = signUpData.facebook;
-    user.kakaoTalk = signUpData.kakaoTalk;
     user.age = signUpData.age;
-    user.discord = signUpData.discord;
-    user.line = signUpData.line;
-    user.naverBlog = signUpData.naverBlog;
-    user.naverBand = signUpData.naverBand;
-    user.telegram = signUpData.telegram;
     await UserDAO.userRepo.save(user);
   }
 
   static async update(updateData: UpdateData) {
     await UserDAO.userRepo.update(updateData.id, updateData);
+  }
+
+  static async save(user: User) {
+    await UserDAO.userRepo.save(user);
   }
 }

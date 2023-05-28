@@ -1,56 +1,21 @@
 import { Request, Response } from 'express';
-import UserDAO from '../DAO/UserDAO';
 import { UserService } from '../services/UserService';
-import { SignUpData, UpdateData } from '../types/signUpData';
-import ErrorStatus from '../utils/ErrorStatus';
+import { SignUpData } from '../types/profileData';
+import UserDAO from '../DAO/UserDAO';
 
 export class UserController {
   static async signup(req: Request, res: Response) {
     const signUpData: SignUpData = {
       name: req.body.name,
-      instagram: req.body.instagram,
-      twitter: req.body.twitter,
-      phone: req.body.phone,
-      facebook: req.body.facebook,
-      kakaoTalk: req.body.kakaoTalk,
       age: req.body.age,
-      discord: req.body.discord,
-      line: req.body.line,
-      naverBlog: req.body.naverBlog,
-      naverBand: req.body.naverBand,
-      telegram: req.body.telegram,
     };
     await UserService.signup(signUpData);
     res.json('성공!');
   }
-
-  static async profile(req: Request, res: Response) {
-    const id = req.query.id as unknown as number;
-    try {
-      const result = await UserService.find(id);
-      res.json(result);
-    } catch (err) {
-      throw new ErrorStatus('유저 정보가 없습니다!', 400);
-    }
-  }
-
-  static async updateProfile(req: Request, res: Response) {
-    const updateData: UpdateData = {
-      id: req.body.id,
-      name: req.body.name,
-      instagram: req.body.instagram,
-      twitter: req.body.twitter,
-      phone: req.body.phone,
-      facebook: req.body.facebook,
-      kakaoTalk: req.body.kakaoTalk,
-      age: req.body.age,
-      discord: req.body.discord,
-      line: req.body.line,
-      naverBlog: req.body.naverBlog,
-      naverBand: req.body.naverBand,
-      telegram: req.body.telegram,
-    };
-    await UserService.update(updateData);
-    res.json('업데이트 완료!');
+  static async get(req: Request, res: Response) {
+    const userId = req.query.id as unknown as number;
+    const user = await UserDAO.getUserProfiles(userId);
+    const mainProfile = user.profiles.find((profile) => profile.isMain);
+    res.json({ name: user.name, age: user.age, ...mainProfile });
   }
 }

@@ -1,40 +1,16 @@
 import { HashTag } from '../entity/HashTag';
+import { Profile } from '../entity/Profile';
 import { User } from '../entity/User';
 import { AppDataSource } from './data-source';
 
 export default class HashTagDAO {
   static hashTagRepo = AppDataSource.getRepository(HashTag);
-  static userRepo = AppDataSource.getRepository(User);
 
   static async createHashTag(name: string) {
     const hashTag = new HashTag();
     hashTag.hashTag = name;
     await HashTagDAO.hashTagRepo.save(hashTag);
-    return hashTag.id;
-  }
-
-  static async addUser(userId: number, hashTagName: string) {
-    const user = await HashTagDAO.userRepo.findOne({
-      where: {
-        id: userId,
-      },
-      relations: {
-        hashTags: true,
-      },
-    });
-
-    const hashTag = await HashTagDAO.hashTagRepo.findOne({
-      where: {
-        hashTag: hashTagName,
-      },
-      relations: {
-        users: true,
-      },
-    });
-    user.hashTags.push(hashTag);
-    hashTag.users.push(user);
-    await HashTagDAO.hashTagRepo.save(hashTag);
-    await HashTagDAO.userRepo.save(user);
+    return hashTag;
   }
 
   static async getHashTag(hashTagName: string) {
@@ -45,14 +21,18 @@ export default class HashTagDAO {
     });
   }
 
-  static async getHashTagUser(hashTagName: string) {
+  static async getHashTagProfile(hashTagName: string) {
     return await HashTagDAO.hashTagRepo.findOne({
       where: {
         hashTag: hashTagName,
       },
       relations: {
-        users: true,
+        profiles: true,
       },
     });
+  }
+
+  static async save(hashTag: HashTag) {
+    await HashTagDAO.hashTagRepo.save(hashTag);
   }
 }

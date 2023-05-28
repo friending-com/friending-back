@@ -1,12 +1,12 @@
 import UserDAO from '../DAO/UserDAO';
-import { SignUpData, UpdateData } from '../types/signUpData';
+import { SignUpData, UpdateData } from '../types/profileData';
 export class UserService {
   static async signup(data: SignUpData) {
     await UserDAO.signup(data);
   }
 
   static async find(id: number) {
-    return await UserDAO.getProfile(id);
+    return await UserDAO.getUser(id);
   }
 
   static async update(updateData: UpdateData) {
