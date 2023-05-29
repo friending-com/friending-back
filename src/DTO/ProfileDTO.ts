@@ -5,8 +5,6 @@ export class ProfileCreateDTO {
   public userId: number;
   @IsBoolean()
   public isPublic: boolean;
-  @IsBoolean()
-  public isMain: boolean;
   @IsOptional()
   @IsString()
   public phone: string;

@@ -5,7 +5,7 @@ import { ProfileController } from '../controllers/ProfileController';
 
 const router = Router();
 
-router.get('/', errorHandler(ProfileController.get));
+router.get('/:id', errorHandler(ProfileController.get));
 router.post('/', errorHandler(ProfileController.post));
 router.patch('/', errorHandler(ProfileController.patch));
 

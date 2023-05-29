@@ -1,28 +1,29 @@
 import { Request, Response } from 'express';
-import { ProfileCreateData, UpdateData } from '../types/profileData';
 import ProfileService from '../services/ProfileService';
 import ErrorStatus from '../utils/ErrorStatus';
 import { createProfileValidation } from '../DTO/validations/profile';
+import { token } from '../utils/auth';
+import { UpdateData } from '../types/profileData';
 
 export class ProfileController {
   static async get(req: Request, res: Response) {
-    const userId = req.query.id as unknown as number;
-    const mainProfile = await ProfileService.getMainProfile(userId);
-    res.json(mainProfile);
+    const userId = token(req.headers.authorization);
+    const findProfileId = req.params.id as unknown as number;
+    const profileResult = await ProfileService.getProfile(
+      userId,
+      findProfileId
+    );
+    console.log(profileResult);
+    res.json(profileResult);
   }
 
   static async post(req: Request, res: Response) {
     const profileData = await createProfileValidation(req);
-    const profile = await ProfileService.createProfile(profileData);
-    if (profileData.isMain) {
-      await ProfileService.setMainProfile(profileData.userId, profile.id);
-    }
+    await ProfileService.createProfile(profileData);
     res.json('성공');
   }
 
   static async patch(req: Request, res: Response) {
-    const userId = req.body.userId;
-    const isMain = req.body.isMain;
     const profileData: UpdateData = {
       id: req.body.id,
       discord: req.body.discord,
@@ -40,10 +41,6 @@ export class ProfileController {
       throw new ErrorStatus('변경할 프로필에 대한 정보가 필요합니다!', 400);
     }
     await ProfileService.modifyProfile(profileData);
-
-    if (isMain === true && userId) {
-      await ProfileService.setMainProfile(userId, profileData.id);
-    }
     res.json('성공!');
   }
 }

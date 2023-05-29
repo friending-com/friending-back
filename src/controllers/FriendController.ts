@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { FriendService } from '../services/FriendService';
 import ErrorStatus from '../utils/ErrorStatus';
+import FriendDAO from '../DAO/FriendDAO';
 
 export class FriendController {
   static async post(req: Request, res: Response) {
