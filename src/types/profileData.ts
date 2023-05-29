@@ -19,6 +19,7 @@ export interface UpdateData {
 }
 
 export interface ProfileCreateData {
+  userId: number;
   instagram: snsURL;
   twitter: snsURL;
   phone: string;
@@ -30,6 +31,7 @@ export interface ProfileCreateData {
   naverBand: snsURL;
   telegram: snsURL;
   isPublic: boolean;
+  isMain: boolean;
 }
 export interface SignUpData {
   name: string;

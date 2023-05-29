@@ -15,9 +15,9 @@ export default class ProfileService {
     };
   }
 
-  static async createProfile(userId: number, profileData: ProfileCreateData) {
+  static async createProfile(profileData: ProfileCreateData) {
     const profile = await ProfileDAO.createProfile(profileData); //프로필을 생성함
-    const user = await UserDAO.getUserProfiles(userId); //user의 전체 프로필을 가져옴
+    const user = await UserDAO.getUserProfiles(profileData.userId); //user의 전체 프로필을 가져옴
     user.profiles.push(profile);
     await UserDAO.save(user);
     return profile;
