@@ -1,22 +1,23 @@
+import { Profile } from '../entity/Profile';
 import { User } from '../entity/User';
 import UserDAO from './UserDAO';
 import { AppDataSource } from './data-source';
 
 export default class FriendDAO {
-  static userRepo = AppDataSource.getRepository(User);
+  static profileRepo = AppDataSource.getRepository(Profile);
 
-  static async addFriend(userId: number, subId: number) {
-    const user = await FriendDAO.userRepo.findOne({
+  static async addFriend(profileId: number, subProfileId: number) {
+    const user = await FriendDAO.profileRepo.findOne({
       where: {
-        id: userId,
+        id: profileId,
       },
       relations: {
         friends: true,
       },
     });
-    const friend = await FriendDAO.userRepo.findOne({
+    const friend = await FriendDAO.profileRepo.findOne({
       where: {
-        id: subId,
+        id: subProfileId,
       },
       relations: {
         friends: true,
@@ -25,15 +26,15 @@ export default class FriendDAO {
     if (user && friend) {
       user.friends.push(friend);
       friend.friends.push(user);
-      await FriendDAO.userRepo.save(user);
-      await FriendDAO.userRepo.save(friend);
+      await FriendDAO.profileRepo.save(user);
+      await FriendDAO.profileRepo.save(friend);
     }
   }
 
-  static async getFriendList(id: number) {
-    return await FriendDAO.userRepo.findOne({
+  static async getFriendList(profileId: number) {
+    return await FriendDAO.profileRepo.findOne({
       where: {
-        id: id,
+        id: profileId,
       },
       relations: {
         friends: true,
@@ -41,18 +42,18 @@ export default class FriendDAO {
     });
   }
 
-  static async deleteFriend(userId: number, subId: number) {
-    const user = await FriendDAO.userRepo.findOne({
+  static async deleteFriend(profileId: number, subProfileId: number) {
+    const user = await FriendDAO.profileRepo.findOne({
       where: {
-        id: userId,
+        id: profileId,
       },
       relations: {
         friends: true,
       },
     });
-    const friend = await FriendDAO.userRepo.findOne({
+    const friend = await FriendDAO.profileRepo.findOne({
       where: {
-        id: subId,
+        id: subProfileId,
       },
       relations: {
         friends: true,
@@ -60,7 +61,7 @@ export default class FriendDAO {
     });
     user.friends = user.friends.filter((user) => user === friend);
     friend.friends = friend.friends.filter((friend) => friend === user);
-    await FriendDAO.userRepo.save(user);
-    await FriendDAO.userRepo.save(friend);
+    await FriendDAO.profileRepo.save(user);
+    await FriendDAO.profileRepo.save(friend);
   }
 }

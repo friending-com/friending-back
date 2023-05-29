@@ -26,16 +26,6 @@ export default class UserDAO {
       },
     });
   }
-
-  static async getUserFriends(id: number) {
-    return await UserDAO.userRepo.findOne({
-      where: { id: id },
-      relations: {
-        friends: true,
-      },
-    });
-  }
-
   static async signup(signUpData: SignUpData) {
     const user = new User();
     user.name = signUpData.name;
