@@ -59,8 +59,8 @@ export default class FriendDAO {
         friends: true,
       },
     });
-    user.friends = user.friends.filter((user) => user === friend);
-    friend.friends = friend.friends.filter((friend) => friend === user);
+    user.friends = user.friends.filter((user) => user.id != friend.id);
+    friend.friends = friend.friends.filter((friend) => friend.id != user.id);
     await FriendDAO.profileRepo.save(user);
     await FriendDAO.profileRepo.save(friend);
   }
