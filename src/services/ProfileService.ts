@@ -1,6 +1,7 @@
 import ProfileDAO from '../DAO/ProfileDAO';
 import UserDAO from '../DAO/UserDAO';
 import { ProfileCreateData, UpdateData } from '../types/profileData';
+import ErrorStatus from '../utils/ErrorStatus';
 
 export default class ProfileService {
   static async getMainProfile(userId: number) {

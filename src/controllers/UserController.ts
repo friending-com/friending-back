@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/UserService';
 import { SignUpData } from '../types/profileData';
-import UserDAO from '../DAO/UserDAO';
-import ProfileDAO from '../DAO/ProfileDAO';
-import ProfileService from '../services/ProfileService';
 
 export class UserController {
   static async signup(req: Request, res: Response) {

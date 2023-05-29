@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { HashTagService } from '../services/hashTagService';
+import ErrorStatus from '../utils/ErrorStatus';
 
 export class HashTagController {
   static async post(req: Request, res: Response) {
@@ -10,6 +11,9 @@ export class HashTagController {
 
   static async get(req: Request, res: Response) {
     const hashTagName = req.query.hashTagName as unknown as string;
+    if (!hashTagName) {
+      throw new ErrorStatus('쿼리 스트링이 잘못되었습니다!', 400);
+    }
     const result = await HashTagService.search(hashTagName);
     res.json(result);
   }

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { FriendService } from '../services/FriendService';
+import ErrorStatus from '../utils/ErrorStatus';
 
 export class FriendController {
   static async post(req: Request, res: Response) {
@@ -17,7 +18,11 @@ export class FriendController {
   static async delete(req: Request, res: Response) {
     const userId = req.query.userId as unknown as number;
     const subId = req.query.subId as unknown as number;
-    await FriendService.delete(userId, subId);
-    res.json('친구 삭제를 완료하였습니다');
+    if (userId && subId) {
+      await FriendService.delete(userId, subId);
+      res.json('친구 삭제를 완료하였습니다');
+    } else {
+      throw new ErrorStatus('user가 존재하지 않습니다!', 400);
+    }
   }
 }

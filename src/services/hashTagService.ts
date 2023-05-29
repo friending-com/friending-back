@@ -17,8 +17,10 @@ export class HashTagService {
 
   static async search(hashTagName: string) {
     try {
+      console.log(hashTagName);
       const profileList = (await HashTagDAO.getHashTagProfile(hashTagName))
         .profiles;
+
       return profileList.filter((profile) => profile.isPublic === true);
     } catch (err) {
       return [];
