@@ -13,7 +13,6 @@ export class ProfileController {
       userId,
       findProfileId
     );
-    console.log(profileResult);
     res.json(profileResult);
   }
 

@@ -9,6 +9,8 @@ export default class ProfileService {
     const findProfile = await ProfileDAO.getProfileFriends(findProfileId);
     if (findProfile.friends.some((friend) => friend.id === userProfile.id)) {
       return await ProfileDAO.getProfile(findProfileId);
+    } else {
+      throw new ErrorStatus('친구가 아닙니다!', 400);
     }
   }
   static async createProfile(profileData: ProfileCreateData) {
