@@ -48,9 +48,6 @@ export class Profile {
   @Column({ default: false })
   isPublic: boolean;
 
-  @Column({ default: false })
-  isMain: boolean;
-
   @ManyToOne(() => User, (user) => user.profiles)
   user: User;
 
