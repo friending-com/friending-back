@@ -4,9 +4,7 @@ import {
   Column,
   ManyToMany,
   JoinTable,
-  OneToMany,
   ManyToOne,
-  OneToOne,
 } from 'typeorm';
 import { snsURL } from '../types/snsURL';
 import { HashTag } from './HashTag';
@@ -59,4 +57,8 @@ export class Profile {
   @ManyToMany(() => HashTag, (hashTag) => hashTag.id)
   @JoinTable()
   hashTags: HashTag[];
+
+  @ManyToMany(() => Profile, (profile) => profile.friends)
+  @JoinTable()
+  friends: Profile[];
 }

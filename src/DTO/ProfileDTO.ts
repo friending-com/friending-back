@@ -38,3 +38,4 @@ export class ProfileCreateDTO {
   @IsString()
   public twitter: string;
 }
+export class ProfileModifyDTO {}

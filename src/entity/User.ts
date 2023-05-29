@@ -21,10 +21,6 @@ export class User {
   @Column()
   age: number;
 
-  @ManyToMany(() => User, (user) => user.friends)
-  @JoinTable()
-  friends: User[];
-
   @OneToMany(() => Profile, (profile) => profile.user)
   profiles: Profile[];
 }
