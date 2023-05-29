@@ -7,12 +7,8 @@ import { createProfileValidation } from '../DTO/validations/profile';
 export class ProfileController {
   static async get(req: Request, res: Response) {
     const userId = req.query.id as unknown as number;
-    try {
-      const mainProfile = await ProfileService.getMainProfile(userId);
-      res.json(mainProfile);
-    } catch (err) {
-      throw new ErrorStatus('유저가 존재하지 않습니다.', 400);
-    }
+    const mainProfile = await ProfileService.getMainProfile(userId);
+    res.json(mainProfile);
   }
 
   static async post(req: Request, res: Response) {

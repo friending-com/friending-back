@@ -6,13 +6,18 @@ import ErrorStatus from '../utils/ErrorStatus';
 export default class ProfileService {
   static async getMainProfile(userId: number) {
     const user = await UserDAO.getUserProfiles(userId);
-    const mainProfileId = user.profiles.find((profile) => profile.isMain).id;
-    const mainProfile = await ProfileDAO.getProfile(mainProfileId);
-    return {
-      name: user.name,
-      age: user.age,
-      ...mainProfile,
-    };
+    if (!user) throw new ErrorStatus('user가 존재하지 않습니다!', 400);
+    try {
+      const mainProfileId = user.profiles.find((profile) => profile.isMain).id;
+      const mainProfile = await ProfileDAO.getProfile(mainProfileId);
+      return {
+        name: user.name,
+        age: user.age,
+        ...mainProfile,
+      };
+    } catch (err) {
+      throw new ErrorStatus('프로필이 존재하지 않는 유저입니다.', 400);
+    }
   }
 
   static async createProfile(profileData: ProfileCreateData) {
