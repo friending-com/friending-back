@@ -3,10 +3,11 @@ import { ProfileCreateData } from '../../types/profileData';
 import { ProfileCreateDTO } from '../ProfileDTO';
 import { validate } from 'class-validator';
 import { validation } from '.';
+import { token } from '../../utils/auth';
 
 export const createProfileValidation = async (req: Request) => {
   const profileData: ProfileCreateData = {
-    userId: req.body.userId,
+    userId: token(req.headers.authorization),
     isMain: req.body.isMain,
     discord: req.body.discord,
     line: req.body.line,
