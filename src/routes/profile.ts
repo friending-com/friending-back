@@ -7,6 +7,6 @@ const router = Router();
 
 router.get('/:id', errorHandler(ProfileController.get));
 router.post('/', errorHandler(ProfileController.post));
-router.patch('/', errorHandler(ProfileController.patch));
+router.patch('/:id', errorHandler(ProfileController.patch));
 
 export { router as profile };

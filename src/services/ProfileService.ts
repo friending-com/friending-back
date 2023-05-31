@@ -22,6 +22,10 @@ export default class ProfileService {
   }
 
   static async modifyProfile(profileData: UpdateData) {
+    const user = await UserDAO.getUserProfiles(profileData.userId);
+    if (!user.profiles.some((profile) => profile.id === profileData.id)) {
+      throw new ErrorStatus('프로필 수정권한이 없습니다!', 400);
+    }
     await ProfileDAO.modify(profileData);
   }
 }

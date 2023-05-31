@@ -31,7 +31,8 @@ export class ProfileController {
 
   static async patch(req: Request, res: Response) {
     const profileData: UpdateData = {
-      id: req.body.id,
+      userId: token(req.params.authorization),
+      id: req.params.id as unknown as number,
       discord: req.body.discord,
       line: req.body.line,
       naverBlog: req.body.naverBlog,
@@ -43,9 +44,6 @@ export class ProfileController {
       facebook: req.body.facebook,
       kakaoTalk: req.body.kakaoTalk,
     };
-    if (!profileData.id) {
-      throw new ErrorStatus('변경할 프로필에 대한 정보가 필요합니다!', 400);
-    }
     await ProfileService.modifyProfile(profileData);
     res.json('성공!');
   }

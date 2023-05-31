@@ -2,6 +2,7 @@ import { snsURL } from './snsURL';
 
 export interface UpdateData {
   id: number;
+  userId: number;
   name?: string;
   instagram?: snsURL;
   twitter?: snsURL;
