@@ -11,9 +11,6 @@ export default class UserDAO {
       where: {
         id: id,
       },
-      relations: {
-        profiles: true,
-      },
     });
   }
 

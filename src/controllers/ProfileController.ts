@@ -4,6 +4,7 @@ import ErrorStatus from '../utils/ErrorStatus';
 import { createProfileValidation } from '../DTO/validations/profile';
 import { token } from '../utils/auth';
 import { UpdateData } from '../types/profileData';
+import UserDAO from '../DAO/UserDAO';
 
 export class ProfileController {
   static async get(req: Request, res: Response) {
@@ -18,8 +19,8 @@ export class ProfileController {
 
   static async getAll(req: Request, res: Response) {
     const userId = token(req.headers.authorization);
-    const friendArr = await ProfileService.getFriendProfile(userId);
-    res.json(friendArr);
+    const profiles = await UserDAO.getUser(userId);
+    res.json(profiles);
   }
 
   static async post(req: Request, res: Response) {

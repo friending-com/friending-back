@@ -5,8 +5,8 @@ export class UserService {
     await UserDAO.signup(data);
   }
 
-  static async find(id: number) {
-    return await UserDAO.getUser(id);
+  static async findAllProfile(id: number) {
+    return await UserDAO.getUserProfiles(id);
   }
 
   static async update(updateData: UpdateData) {
