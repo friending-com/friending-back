@@ -1,5 +1,6 @@
 import { Profile } from '../entity/Profile';
 import { User } from '../entity/User';
+import { friend } from '../routes/friend';
 import { SignUpData, UpdateData } from '../types/profileData';
 import { AppDataSource } from './data-source';
 
@@ -25,6 +26,16 @@ export default class UserDAO {
         profiles: true,
       },
     });
+  }
+
+  static async getUserFriendsProfiles(userId: number) {
+    const friendArr = await UserDAO.userRepo
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.profiles', 'profile')
+      .leftJoinAndSelect('profile.friends', 'friend')
+      .where('user.id=:userId', { userId })
+      .getOne();
+    return friendArr;
   }
   static async signup(signUpData: SignUpData) {
     const user = new User();

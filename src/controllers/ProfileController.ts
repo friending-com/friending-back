@@ -16,6 +16,12 @@ export class ProfileController {
     res.json(profileResult);
   }
 
+  static async getAll(req: Request, res: Response) {
+    const userId = token(req.headers.authorization);
+    const friendArr = await ProfileService.getFriendProfile(userId);
+    res.json(friendArr);
+  }
+
   static async post(req: Request, res: Response) {
     const profileData = await createProfileValidation(req);
     await ProfileService.createProfile(profileData);
