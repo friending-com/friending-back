@@ -5,6 +5,7 @@ import { createProfileValidation } from '../DTO/validations/profile';
 import { token } from '../utils/auth';
 import { UpdateData } from '../types/profileData';
 import UserDAO from '../DAO/UserDAO';
+import { UserService } from '../services/UserService';
 
 export class ProfileController {
   static async get(req: Request, res: Response) {
@@ -19,7 +20,7 @@ export class ProfileController {
 
   static async getAll(req: Request, res: Response) {
     const userId = token(req.headers.authorization);
-    const profiles = await UserDAO.getUser(userId);
+    const profiles = await UserService.findAllProfile(userId);
     res.json(profiles);
   }
 
