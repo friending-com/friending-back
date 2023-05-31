@@ -31,7 +31,7 @@ export class ProfileController {
 
   static async patch(req: Request, res: Response) {
     const profileData: UpdateData = {
-      userId: token(req.params.authorization),
+      userId: token(req.headers.authorization),
       id: req.params.id as unknown as number,
       discord: req.body.discord,
       line: req.body.line,

@@ -12,7 +12,7 @@ export class FriendController {
   }
 
   static async getAll(req: Request, res: Response) {
-    const userId = token(req.params.authorization);
+    const userId = token(req.headers.authorization);
     const result = await FriendService.getFriendProfiles(userId);
     res.json(result);
   }
