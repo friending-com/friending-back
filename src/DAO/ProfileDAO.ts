@@ -54,6 +54,10 @@ export default class ProfileDAO {
   }
 
   static async modify(profile: UpdateData) {
-    await ProfileDAO.profileRepo.update(profile.id, profile);
+    const profileData = {};
+    Object.entries(profile).forEach(([key, value]) => {
+      if (key != 'userId') profileData[key] = value;
+    });
+    await ProfileDAO.profileRepo.update(profile.id, profileData);
   }
 }

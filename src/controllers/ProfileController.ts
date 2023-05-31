@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import ProfileService from '../services/ProfileService';
 import ErrorStatus from '../utils/ErrorStatus';
-import { createProfileValidation } from '../DTO/validations/profile';
+import {
+  createProfileValidation,
+  modifyProfileValidation,
+} from '../DTO/validations/profile';
 import { token } from '../utils/auth';
 import { UpdateData } from '../types/profileData';
 import UserDAO from '../DAO/UserDAO';
@@ -31,20 +34,7 @@ export class ProfileController {
   }
 
   static async patch(req: Request, res: Response) {
-    const profileData: UpdateData = {
-      userId: token(req.headers.authorization),
-      id: req.params.id as unknown as number,
-      discord: req.body.discord,
-      line: req.body.line,
-      naverBlog: req.body.naverBlog,
-      naverBand: req.body.naverBand,
-      telegram: req.body.telegram,
-      instagram: req.body.instagram,
-      twitter: req.body.twitter,
-      phone: req.body.phone,
-      facebook: req.body.facebook,
-      kakaoTalk: req.body.kakaoTalk,
-    };
+    const profileData = await modifyProfileValidation(req);
     await ProfileService.modifyProfile(profileData);
     res.json('성공!');
   }
