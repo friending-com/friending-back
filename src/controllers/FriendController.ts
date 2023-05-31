@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { FriendService } from '../services/FriendService';
 import ErrorStatus from '../utils/ErrorStatus';
 import FriendDAO from '../DAO/FriendDAO';
+import { token } from '../utils/auth';
 
 export class FriendController {
   static async post(req: Request, res: Response) {
@@ -10,6 +11,11 @@ export class FriendController {
     res.json('등록 완료!');
   }
 
+  static async getAll(req: Request, res: Response) {
+    const userId = token(req.params.authorization);
+    const result = await FriendService.getFriendProfiles(userId);
+    res.json(result);
+  }
   static async get(req: Request, res: Response) {
     const userId = req.query.id as unknown as number;
     const result = await FriendService.show(userId);

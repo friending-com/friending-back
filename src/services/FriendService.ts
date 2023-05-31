@@ -15,4 +15,18 @@ export class FriendService {
     const user = await FriendDAO.getFriendList(profileId);
     return user.friends;
   }
+  static async getFriendProfiles(userId: number) {
+    const user = await UserDAO.getUserFriendsProfiles(userId);
+    const friendList = [];
+    const friendSet = new Set();
+    user.profiles.forEach((profile) =>
+      profile.friends.forEach((friend) => {
+        if (!friendSet.has(friend.id)) {
+          friendSet.add(friend.id);
+          friendList.push(friend);
+        }
+      })
+    );
+    return friendList;
+  }
 }

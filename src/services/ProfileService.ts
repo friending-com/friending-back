@@ -24,19 +24,4 @@ export default class ProfileService {
   static async modifyProfile(profileData: UpdateData) {
     await ProfileDAO.modify(profileData);
   }
-
-  static async getFriendProfile(userId: number) {
-    const user = await UserDAO.getUserFriendsProfiles(userId);
-    const friendList = [];
-    const friendSet = new Set();
-    user.profiles.forEach((profile) =>
-      profile.friends.forEach((friend) => {
-        if (!friendSet.has(friend.id)) {
-          friendSet.add(friend.id);
-          friendList.push(friend);
-        }
-      })
-    );
-    return friendList;
-  }
 }
