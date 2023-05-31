@@ -1,5 +1,14 @@
 import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
-
+export class ProfileGetAllDTO {
+  @IsInt()
+  public userId: number;
+}
+export class ProfileGetDTO {
+  @IsInt()
+  public userId: number;
+  @IsInt()
+  public id: number;
+}
 export class ProfileCreateDTO {
   @IsInt()
   public userId: number;

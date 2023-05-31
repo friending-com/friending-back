@@ -3,6 +3,8 @@ import ProfileService from '../services/ProfileService';
 import ErrorStatus from '../utils/ErrorStatus';
 import {
   createProfileValidation,
+  getAllProfileValidation,
+  getProfileValidation,
   modifyProfileValidation,
 } from '../DTO/validations/profile';
 import { token } from '../utils/auth';
@@ -12,17 +14,13 @@ import { UserService } from '../services/UserService';
 
 export class ProfileController {
   static async get(req: Request, res: Response) {
-    const userId = token(req.headers.authorization);
-    const findProfileId = req.params.id as unknown as number;
-    const profileResult = await ProfileService.getProfile(
-      userId,
-      findProfileId
-    );
+    const { userId, id } = await getProfileValidation(req);
+    const profileResult = await ProfileService.getProfile(userId, id);
     res.json(profileResult);
   }
 
   static async getAll(req: Request, res: Response) {
-    const userId = token(req.headers.authorization);
+    const userId = await getAllProfileValidation(req);
     const profiles = await UserService.findAllProfile(userId);
     res.json(profiles);
   }

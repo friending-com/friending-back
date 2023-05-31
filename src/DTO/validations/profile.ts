@@ -1,10 +1,29 @@
 import { Request } from 'express';
 import { ProfileCreateData, UpdateData } from '../../types/profileData';
-import { ProfileCreateDTO, ProfileModifyDTO } from '../ProfileDTO';
-import { validate } from 'class-validator';
+import {
+  ProfileCreateDTO,
+  ProfileGetAllDTO,
+  ProfileGetDTO,
+  ProfileModifyDTO,
+} from '../ProfileDTO';
 import { validation } from '.';
 import { token } from '../../utils/auth';
-
+export const getAllProfileValidation = async (req: Request) => {
+  const userId = token(req.headers.authorization);
+  const IdChecker = new ProfileGetAllDTO();
+  IdChecker.userId = userId;
+  await validation(IdChecker);
+  return userId;
+};
+export const getProfileValidation = async (req: Request) => {
+  const userId = token(req.headers.authorization);
+  const id = req.params.id as unknown as number;
+  const IdChecker = new ProfileGetDTO();
+  IdChecker.id = id;
+  IdChecker.userId;
+  await validation(IdChecker);
+  return { userId, id };
+};
 export const createProfileValidation = async (req: Request) => {
   const profileData: ProfileCreateData = {
     userId: token(req.headers.authorization),
