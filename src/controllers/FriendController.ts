@@ -11,14 +11,14 @@ import {
 
 export class FriendController {
   static async post(req: Request, res: Response) {
-    const { userId, subId } = await friendAddValidation(req);
-    await FriendService.add(userId, subId);
+    const { userProfileId, subProfileId } = await friendAddValidation(req);
+    await FriendService.add(userProfileId, subProfileId);
     res.json('등록 완료!');
   }
 
   static async getAll(req: Request, res: Response) {
-    const userId = await friendGetAllValidation(req);
-    const result = await FriendService.getFriendProfiles(userId);
+    const userProfileId = await friendGetAllValidation(req);
+    const result = await FriendService.getFriendProfiles(userProfileId);
     res.json(result);
   }
   static async get(req: Request, res: Response) {

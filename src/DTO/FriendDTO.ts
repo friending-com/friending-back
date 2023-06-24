@@ -2,11 +2,11 @@ import { IsInt } from 'class-validator';
 
 export class FriendAddDTO {
   @IsInt()
-  public userId: number;
+  public userProfileId: number;
   @IsInt()
-  public subId: number;
+  public subProfileId: number;
 }
 export class FriendGetAllDTO {
   @IsInt()
-  public userId: number;
+  public userProfileId: number;
 }

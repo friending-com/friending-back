@@ -5,18 +5,18 @@ import { token } from '../../utils/auth';
 
 export const friendAddValidation = async (req: Request) => {
   const friendAdd = new FriendAddDTO();
-  friendAdd.userId = req.body.userId;
-  friendAdd.subId = req.body.subId;
-  const userId = req.body.userId;
-  const subId = req.body.subId;
+  friendAdd.userProfileId = req.body.userProfileId;
+  friendAdd.subProfileId = req.body.subProfileId;
+  const userProfileId = req.body.userId;
+  const subProfileId = req.body.subId;
   await validation(friendAdd);
-  return { userId, subId };
+  return { userProfileId, subProfileId };
 };
 
 export const friendGetAllValidation = async (req: Request) => {
-  const userId = token(req.headers.authorization);
+  const userProfileId = token(req.headers.authorization);
   const IdChecker = new FriendGetAllDTO();
-  IdChecker.userId = userId;
+  IdChecker.userProfileId = userProfileId;
   await validation(IdChecker);
-  return userId;
+  return userProfileId;
 };
