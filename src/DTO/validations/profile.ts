@@ -17,10 +17,10 @@ export const getAllProfileValidation = async (req: Request) => {
 };
 export const getProfileValidation = async (req: Request) => {
   const userId = token(req.headers.authorization);
-  const id = req.params.id as unknown as number;
+  const id = Number(req.params.id);
   const IdChecker = new ProfileGetDTO();
   IdChecker.id = id;
-  IdChecker.userId;
+  IdChecker.userId = userId;
   await validation(IdChecker);
   return { userId, id };
 };
