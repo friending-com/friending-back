@@ -3,10 +3,12 @@ import { FriendService } from '../services/FriendService';
 import ErrorStatus from '../utils/ErrorStatus';
 import FriendDAO from '../DAO/FriendDAO';
 import { token } from '../utils/auth';
+import { FriendAddDTO } from '../DTO/FriendDTO';
+import { frinedAddValidation } from '../DTO/validations/friend';
 
 export class FriendController {
   static async post(req: Request, res: Response) {
-    const { userId, subId } = req.body;
+    const { userId, subId } = await frinedAddValidation(req);
     await FriendService.add(userId, subId);
     res.json('등록 완료!');
   }
