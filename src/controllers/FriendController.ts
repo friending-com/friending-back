@@ -4,17 +4,20 @@ import ErrorStatus from '../utils/ErrorStatus';
 import FriendDAO from '../DAO/FriendDAO';
 import { token } from '../utils/auth';
 import { FriendAddDTO } from '../DTO/FriendDTO';
-import { frinedAddValidation } from '../DTO/validations/friend';
+import {
+  friendGetAllValidation,
+  friendAddValidation,
+} from '../DTO/validations/friend';
 
 export class FriendController {
   static async post(req: Request, res: Response) {
-    const { userId, subId } = await frinedAddValidation(req);
+    const { userId, subId } = await friendAddValidation(req);
     await FriendService.add(userId, subId);
     res.json('등록 완료!');
   }
 
   static async getAll(req: Request, res: Response) {
-    const userId = token(req.headers.authorization);
+    const userId = await friendGetAllValidation(req);
     const result = await FriendService.getFriendProfiles(userId);
     res.json(result);
   }

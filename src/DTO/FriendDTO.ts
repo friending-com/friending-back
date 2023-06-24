@@ -6,3 +6,7 @@ export class FriendAddDTO {
   @IsInt()
   public subId: number;
 }
+export class FriendGetAllDTO {
+  @IsInt()
+  public userId: number;
+}
