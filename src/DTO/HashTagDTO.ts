@@ -1,16 +1,18 @@
-import { IsInt } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
 
 export class HashTagPostDTO {
   @IsInt()
-  public hashTagName: string;
   public profileId: number;
+  @IsString()
+  public hashTagName: string;
 }
 export class HashTagGetDTO {
-  @IsInt()
+  @IsString()
   public hashTagName: string;
 }
 export class HashTagDeleteDTO {
-  @IsInt()
+  @IsString()
   public hashTagName: string;
+  @IsInt()
   public profileId: number;
 }
