@@ -10,3 +10,7 @@ export class FriendGetAllDTO {
   @IsInt()
   public userProfileId: number;
 }
+export class FriendGetDTO {
+  @IsInt()
+  public profileId: number;
+}

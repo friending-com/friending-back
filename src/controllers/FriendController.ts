@@ -7,6 +7,7 @@ import { FriendAddDTO } from '../DTO/FriendDTO';
 import {
   friendGetAllValidation,
   friendAddValidation,
+  friendGetValidation,
 } from '../DTO/validations/friend';
 
 export class FriendController {
@@ -20,12 +21,12 @@ export class FriendController {
     const userProfileId = await friendGetAllValidation(req);
     const result = await FriendService.getFriendProfiles(userProfileId);
     res.json(result);
-  }
+  } //user의 모든 프로필에 대한 모든 친구를 가져옴
   static async get(req: Request, res: Response) {
-    const userId = req.query.id as unknown as number;
-    const result = await FriendService.show(userId);
+    const profileId = await friendGetValidation(req);
+    const result = await FriendService.show(profileId);
     res.json(result);
-  }
+  } //한가지 프로필에 대한 친구목록을 가져옴
 
   static async delete(req: Request, res: Response) {
     const userId = req.query.userId as unknown as number;
