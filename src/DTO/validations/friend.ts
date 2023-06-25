@@ -14,11 +14,11 @@ export const friendAddValidation = async (req: Request) => {
 };
 
 export const friendGetAllValidation = async (req: Request) => {
-  const userProfileId = token(req.headers.authorization);
+  const userId = token(req.headers.authorization);
   const IdChecker = new FriendGetAllDTO();
-  IdChecker.userProfileId = userProfileId;
+  IdChecker.userId = userId;
   await validation(IdChecker);
-  return userProfileId;
+  return userId;
 };
 
 export const friendGetValidation = async (req: Request) => {

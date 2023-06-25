@@ -8,7 +8,7 @@ export class FriendAddDTO {
 }
 export class FriendGetAllDTO {
   @IsInt()
-  public userProfileId: number;
+  public userId: number;
 }
 export class FriendGetDTO {
   @IsInt()
