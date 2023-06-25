@@ -23,7 +23,7 @@ export class ProfileController {
     const userId = await getAllProfileValidation(req);
     const profiles = await UserService.findAllProfile(userId);
     res.json(profiles);
-  }
+  } // /friends 에 대한 GET
 
   static async post(req: Request, res: Response) {
     const profileData = await createProfileValidation(req);

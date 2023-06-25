@@ -1,5 +1,10 @@
 import { Request } from 'express';
-import { FriendAddDTO, FriendGetAllDTO, FriendGetDTO } from '../FriendDTO';
+import {
+  FriendAddDTO,
+  FriendDeleteDTO,
+  FriendGetAllDTO,
+  FriendGetDTO,
+} from '../FriendDTO';
 import { validation } from '.';
 import { token } from '../../utils/auth';
 
@@ -27,4 +32,14 @@ export const friendGetValidation = async (req: Request) => {
   IdChecker.profileId = profileId;
   await validation(IdChecker);
   return profileId;
+};
+
+export const firendDeleteValidation = async (req: Request) => {
+  const userProfileId = Number(req.query.userProfileId);
+  const subProfileId = Number(req.query.subProfileId);
+  const IdChecker = new FriendDeleteDTO();
+  IdChecker.userProfieId = userProfileId;
+  IdChecker.subProfileId = subProfileId;
+  await validation(IdChecker);
+  return { userProfileId, subProfileId };
 };

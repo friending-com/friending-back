@@ -14,3 +14,10 @@ export class FriendGetDTO {
   @IsInt()
   public profileId: number;
 }
+
+export class FriendDeleteDTO {
+  @IsInt()
+  public userProfieId: number;
+  @IsInt()
+  public subProfileId: number;
+}
