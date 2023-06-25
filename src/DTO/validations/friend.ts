@@ -7,8 +7,8 @@ export const friendAddValidation = async (req: Request) => {
   const friendAdd = new FriendAddDTO();
   friendAdd.userProfileId = req.body.userProfileId;
   friendAdd.subProfileId = req.body.subProfileId;
-  const userProfileId = req.body.userId;
-  const subProfileId = req.body.subId;
+  const userProfileId = req.body.userProfileId;
+  const subProfileId = req.body.subProfileId;
   await validation(friendAdd);
   return { userProfileId, subProfileId };
 };
@@ -22,7 +22,7 @@ export const friendGetAllValidation = async (req: Request) => {
 };
 
 export const friendGetValidation = async (req: Request) => {
-  const profileId = req.query.id as unknown as number;
+  const profileId = Number(req.query.id);
   const IdChecker = new FriendGetDTO();
   IdChecker.profileId = profileId;
   await validation(IdChecker);
