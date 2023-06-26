@@ -27,5 +27,7 @@ export class HashTagService {
     }
   }
 
-  static async delete(hashTagName: string, userId: number) {}
+  static async delete(hashTagName: string, profileId: number) {
+    await HashTagDAO.deleteHashTagProfile(hashTagName, profileId);
+  }
 }

@@ -5,6 +5,7 @@ import { AppDataSource } from './data-source';
 
 export default class HashTagDAO {
   static hashTagRepo = AppDataSource.getRepository(HashTag);
+  static profileRepo = AppDataSource.getRepository(Profile);
 
   static async createHashTag(name: string) {
     const hashTag = new HashTag();
@@ -34,5 +35,26 @@ export default class HashTagDAO {
 
   static async save(hashTag: HashTag) {
     await HashTagDAO.hashTagRepo.save(hashTag);
+  }
+
+  static async deleteHashTagProfile(hashTagName: string, profileId: number) {
+    const hashTag = await HashTagDAO.hashTagRepo.findOne({
+      where: {
+        hashTag: hashTagName,
+      },
+    });
+    const hashTagId = hashTag.id;
+    const profile = await HashTagDAO.profileRepo.findOne({
+      where: {
+        id: profileId,
+      },
+      relations: {
+        hashTags: true,
+      },
+    });
+    profile.hashTags = profile.hashTags.filter(
+      (hashTag) => hashTag.id != hashTagId
+    );
+    await HashTagDAO.profileRepo.save(profile);
   }
 }
