@@ -1,15 +1,11 @@
 import { Request, Response } from 'express';
 import ProfileService from '../services/ProfileService';
-import ErrorStatus from '../utils/ErrorStatus';
 import {
   createProfileValidation,
   getAllProfileValidation,
   getProfileValidation,
   modifyProfileValidation,
 } from '../DTO/validations/profile';
-import { token } from '../utils/auth';
-import { UpdateData } from '../types/profileData';
-import UserDAO from '../DAO/UserDAO';
 import { UserService } from '../services/UserService';
 
 export class ProfileController {

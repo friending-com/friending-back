@@ -1,9 +1,5 @@
 import { Request, Response } from 'express';
 import { FriendService } from '../services/FriendService';
-import ErrorStatus from '../utils/ErrorStatus';
-import FriendDAO from '../DAO/FriendDAO';
-import { token } from '../utils/auth';
-import { FriendAddDTO } from '../DTO/FriendDTO';
 import {
   friendGetAllValidation,
   friendAddValidation,

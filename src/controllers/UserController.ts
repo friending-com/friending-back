@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/UserService';
-import { SignUpData } from '../types/profileData';
 import { signUpValidation } from '../DTO/validations/signup';
 
 export class UserController {
