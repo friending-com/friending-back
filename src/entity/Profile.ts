@@ -44,6 +44,15 @@ export class Profile {
 
   @Column({ nullable: true })
   telegram: snsURL;
+  
+  @Column({ nullable: true })
+  whatsapp: snsURL;
+
+  @Column({ nullable: true })
+  snapchat: snsURL;
+
+  @Column({ nullable: true })
+  kakaoStory: snsURL;
 
   @Column({ default: false })
   isPublic: boolean;
