@@ -37,6 +37,18 @@ export default class ProfileDAO {
       },
     });
   }
+
+  static async getProfileAndUser(id: number) {
+    return await ProfileDAO.profileRepo.findOne({
+      where: {
+        id: id,
+      },
+      relations: {
+        user: true,
+      },
+    });
+  }
+
   static async getProfileFriends(id: number) {
     return await ProfileDAO.profileRepo.findOne({
       where: {
@@ -49,7 +61,6 @@ export default class ProfileDAO {
     });
   }
   static async save(profile: Profile) {
-    console.log(profile);
     await ProfileDAO.profileRepo.save(profile);
   }
 
