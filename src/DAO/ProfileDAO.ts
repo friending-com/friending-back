@@ -45,6 +45,7 @@ export default class ProfileDAO {
       },
       relations: {
         user: true,
+        hashTags: true,
       },
     });
   }
@@ -57,6 +58,7 @@ export default class ProfileDAO {
       relations: {
         friends: true,
         user: true,
+        hashTags: true,
       },
     });
   }
