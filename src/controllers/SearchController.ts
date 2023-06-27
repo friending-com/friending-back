@@ -5,7 +5,6 @@ import { SearchService } from '../services/SearchService';
 export class SearchController {
   static async post(req: Request, res: Response) {
     const searchQuery = await searchValidation(req);
-    console.log(searchQuery);
     const result = await SearchService.getSearchResult(searchQuery);
     res.json(result);
   }

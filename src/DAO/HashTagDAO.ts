@@ -1,3 +1,4 @@
+import { Like } from 'typeorm';
 import { HashTag } from '../entity/HashTag';
 import { Profile } from '../entity/Profile';
 import { User } from '../entity/User';
@@ -18,6 +19,14 @@ export default class HashTagDAO {
     return await HashTagDAO.hashTagRepo.findOne({
       where: {
         hashTag: hashTagName,
+      },
+    });
+  }
+
+  static async getHashTagAutoMatching(query: string) {
+    return await HashTagDAO.hashTagRepo.find({
+      where: {
+        hashTag: Like(`%${query}%`),
       },
     });
   }
