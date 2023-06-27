@@ -8,6 +8,7 @@ export class HashTagService {
     if (!hashTag) {
       hashTag = await HashTagDAO.createHashTag(hashTagName);
     }
+    hashTag = await HashTagDAO.getHashTagProfile(hashTagName);
     const profile = await ProfileDAO.getProfile(profileId);
     profile.hashTags.push(hashTag);
     hashTag.profiles.push(profile);
