@@ -5,6 +5,7 @@ import { hashTag } from './hashTag';
 import { profile } from './profile';
 import { profiles } from './profiles';
 import { friends } from './friends';
+import { search } from './search';
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use('/friends', friends);
 router.use('/friend', friend);
 router.use('/hashtag', hashTag);
 router.use('/profiles', profiles);
+router.use('/search', search);
 
 export default router;

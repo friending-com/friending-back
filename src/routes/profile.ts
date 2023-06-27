@@ -1,5 +1,4 @@
 import errorHandler from './errorHandler';
-import { UserController } from '../controllers/UserController';
 import { Router } from 'express';
 import { ProfileController } from '../controllers/ProfileController';
 

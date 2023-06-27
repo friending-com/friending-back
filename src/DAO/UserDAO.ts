@@ -41,6 +41,17 @@ export default class UserDAO {
     await UserDAO.userRepo.save(user);
   }
 
+  static async getUserProfilesByName(name: string) {
+    return await UserDAO.userRepo.findOne({
+      where: {
+        name: name,
+      },
+      relations: {
+        profiles: true,
+      },
+    });
+  }
+
   static async update(updateData: UpdateData) {
     await UserDAO.userRepo.update(updateData.id, updateData);
   }
