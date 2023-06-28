@@ -9,6 +9,11 @@ export class AuthorizationService {
     const result = {};
     Object.entries(findProfile).forEach(([key, value]) => {
       if (key != 'user') result[key] = value;
+      else {
+        Object.entries(value).forEach(([key, value]) => {
+          if (key != 'id') result[key] = value;
+        });
+      }
     });
     return result;
   }
@@ -22,6 +27,11 @@ export class AuthorizationService {
         const result = {};
         Object.entries(findProfile).forEach(([key, value]) => {
           if (key != 'user' && key != 'friends') result[key] = value;
+          else if (key === 'user') {
+            Object.entries(value).forEach(([key, value]) => {
+              if (key != 'id') result[key] = value;
+            });
+          }
         });
         return result;
       }
