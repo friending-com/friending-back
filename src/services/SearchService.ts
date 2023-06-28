@@ -9,7 +9,13 @@ export class SearchService {
     const userProfiles = userData
       ? userData.profiles.filter((profile) => profile.isPublic === true)
       : [];
-
+    if (userProfiles.length) {
+      Object.entries(userData).forEach(([key, value]) => {
+        if (key != 'profiles') {
+          userProfiles.map((profile) => (profile[key] = value));
+        }
+      });
+    }
     return {
       hashTag: hashTagResult.map((hashTag) => hashTag.hashTag),
       profiles: userProfiles,

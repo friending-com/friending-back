@@ -1,3 +1,4 @@
+import { Like } from 'typeorm';
 import { Profile } from '../entity/Profile';
 import { User } from '../entity/User';
 import { friend } from '../routes/friend';
@@ -44,7 +45,7 @@ export default class UserDAO {
   static async getUserProfilesByName(name: string) {
     return await UserDAO.userRepo.findOne({
       where: {
-        name: name,
+        name: Like(`%${name}%`),
       },
       relations: {
         profiles: true,
