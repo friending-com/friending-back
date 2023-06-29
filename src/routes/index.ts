@@ -6,6 +6,7 @@ import { profile } from './profile';
 import { profiles } from './profiles';
 import { friends } from './friends';
 import { search } from './search';
+import { navigate } from './navigate';
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use('/friend', friend);
 router.use('/hashtag', hashTag);
 router.use('/profiles', profiles);
 router.use('/search', search);
+router.use('/navigate', navigate);
 
 export default router;
