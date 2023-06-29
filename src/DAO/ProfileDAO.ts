@@ -73,4 +73,12 @@ export default class ProfileDAO {
     });
     await ProfileDAO.profileRepo.update(profile.id, profileData);
   }
+
+  static async selectAll() {
+    const result = await ProfileDAO.profileRepo
+      .createQueryBuilder()
+      .select('*')
+      .getRawMany();
+    return result;
+  }
 }

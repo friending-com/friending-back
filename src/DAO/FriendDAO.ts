@@ -64,4 +64,12 @@ export default class FriendDAO {
     await FriendDAO.profileRepo.save(user);
     await FriendDAO.profileRepo.save(friend);
   }
+
+  static async selectAll() {
+    const result = await AppDataSource.createQueryBuilder()
+      .select('*')
+      .from('profile_friends_profile', 'friends')
+      .getRawMany();
+    return result;
+  }
 }
