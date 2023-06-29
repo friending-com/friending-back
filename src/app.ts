@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-
+import cors from 'cors';
 import { AppDataSource } from './DAO/data-source';
 import router from './routes';
 import ErrorStatus from './utils/ErrorStatus';
@@ -8,6 +8,7 @@ dotenv.config();
 
 const app: Express = express();
 const port = 8080;
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 AppDataSource.initialize()
