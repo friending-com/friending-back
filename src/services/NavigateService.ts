@@ -22,14 +22,14 @@ export class NavigateService {
     queue.enqueue(userProfileId);
     visited[userProfileId] = 1;
     const result = [];
-    result.push(userProfileId);
+    result.push(profileSortedById[userProfileId]);
     while (!queue.isEmpty()) {
       const current = queue.dequeue();
       edges[current].forEach((next) => {
         if (visited[next] == 0 && profileSortedById[next].isPublic) {
           visited[next] = 1;
           queue.enqueue(next);
-          result.push(next);
+          result.push(profileSortedById[next]);
         }
       });
       if (visited[findProfileId] === 1) {
