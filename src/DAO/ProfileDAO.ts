@@ -75,10 +75,10 @@ export default class ProfileDAO {
   }
 
   static async selectAll() {
-    const result = await ProfileDAO.profileRepo
+    const result = (await ProfileDAO.profileRepo
       .createQueryBuilder()
       .select('*')
-      .getRawMany();
+      .getRawMany()) as Profile[];
     return result;
   }
 }
