@@ -22,19 +22,16 @@ export class NavigateService {
     queue.enqueue(userProfileId);
     visited[userProfileId] = 1;
     const result = [];
-    result.push(profileSortedById[userProfileId]);
     while (!queue.isEmpty()) {
       const current = queue.dequeue();
+      result.push(profileSortedById[current]);
+      if (current === findProfileId) break;
       edges[current].forEach((next) => {
         if (visited[next] == 0 && profileSortedById[next].isPublic) {
           visited[next] = 1;
           queue.enqueue(next);
-          result.push(profileSortedById[next]);
         }
       });
-      if (visited[findProfileId] === 1) {
-        break;
-      }
     }
     if (visited[findProfileId] === 1) return result;
     else undefined;
