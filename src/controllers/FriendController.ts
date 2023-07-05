@@ -6,12 +6,21 @@ import {
   friendGetValidation,
   firendDeleteValidation,
 } from '../DTO/validations/friend';
+import { AuthorizationService } from '../services/AuthorizationService';
 
 export class FriendController {
   static async post(req: Request, res: Response) {
-    const { userProfileId, subProfileId } = await friendAddValidation(req);
-    await FriendService.add(userProfileId, subProfileId);
-    res.json('등록 완료!');
+    const { userProfileId, subProfileId, userId } = await friendAddValidation(
+      req
+    );
+    const result = await AuthorizationService.doesUserHaveProfile(
+      userId,
+      userProfileId
+    );
+    if (result) {
+      await FriendService.add(userProfileId, subProfileId);
+      res.json('등록 완료!');
+    }
   }
 
   static async getAll(req: Request, res: Response) {
@@ -26,8 +35,15 @@ export class FriendController {
   } //한가지 프로필에 대한 친구목록을 가져옴
 
   static async delete(req: Request, res: Response) {
-    const { userProfileId, subProfileId } = await firendDeleteValidation(req);
-    await FriendService.delete(userProfileId, subProfileId);
-    res.json('친구 삭제를 완료하였습니다');
+    const { userProfileId, subProfileId, userId } =
+      await firendDeleteValidation(req);
+    const result = await AuthorizationService.doesUserHaveProfile(
+      userId,
+      userProfileId
+    );
+    if (result) {
+      await FriendService.delete(userProfileId, subProfileId);
+      res.json('친구 삭제를 완료하였습니다');
+    }
   }
 }

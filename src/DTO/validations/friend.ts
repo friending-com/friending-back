@@ -12,10 +12,12 @@ export const friendAddValidation = async (req: Request) => {
   const friendAdd = new FriendAddDTO();
   friendAdd.userProfileId = req.body.userProfileId;
   friendAdd.subProfileId = req.body.subProfileId;
+  friendAdd.userId = token(req.headers.authorization);
   const userProfileId = req.body.userProfileId;
   const subProfileId = req.body.subProfileId;
+  const userId = token(req.headers.authorization);
   await validation(friendAdd);
-  return { userProfileId, subProfileId };
+  return { userProfileId, subProfileId, userId };
 };
 
 export const friendGetAllValidation = async (req: Request) => {
@@ -37,9 +39,11 @@ export const friendGetValidation = async (req: Request) => {
 export const firendDeleteValidation = async (req: Request) => {
   const userProfileId = Number(req.query.userProfileId);
   const subProfileId = Number(req.query.subProfileId);
+  const userId = token(req.headers.authorization);
   const IdChecker = new FriendDeleteDTO();
   IdChecker.userProfieId = userProfileId;
   IdChecker.subProfileId = subProfileId;
+  IdChecker.userId = userId;
   await validation(IdChecker);
-  return { userProfileId, subProfileId };
+  return { userProfileId, subProfileId, userId };
 };

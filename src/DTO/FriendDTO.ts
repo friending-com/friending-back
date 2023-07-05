@@ -5,6 +5,8 @@ export class FriendAddDTO {
   public userProfileId: number;
   @IsInt()
   public subProfileId: number;
+  @IsInt()
+  public userId: number;
 }
 export class FriendGetAllDTO {
   @IsInt()
@@ -20,4 +22,6 @@ export class FriendDeleteDTO {
   public userProfieId: number;
   @IsInt()
   public subProfileId: number;
+  @IsInt()
+  public userId: number;
 }
