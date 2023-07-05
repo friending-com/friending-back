@@ -7,6 +7,7 @@ import {
   firendDeleteValidation,
 } from '../DTO/validations/friend';
 import { AuthorizationService } from '../services/AuthorizationService';
+import ErrorStatus from '../utils/ErrorStatus';
 
 export class FriendController {
   static async post(req: Request, res: Response) {
@@ -17,10 +18,11 @@ export class FriendController {
       userId,
       userProfileId
     );
-    if (result) {
-      await FriendService.add(userProfileId, subProfileId);
-      res.json('등록 완료!');
+    if (!result) {
+      throw new ErrorStatus('권한이 없습니다!', 400);
     }
+    await FriendService.add(userProfileId, subProfileId);
+    res.json('등록 완료!');
   }
 
   static async getAll(req: Request, res: Response) {
@@ -41,9 +43,10 @@ export class FriendController {
       userId,
       userProfileId
     );
-    if (result) {
-      await FriendService.delete(userProfileId, subProfileId);
-      res.json('친구 삭제를 완료하였습니다');
+    if (!result) {
+      throw new ErrorStatus('권한이 없습니다!', 400);
     }
+    await FriendService.delete(userProfileId, subProfileId);
+    res.json('친구 삭제를 완료하였습니다');
   }
 }

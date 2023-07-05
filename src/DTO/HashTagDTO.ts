@@ -5,6 +5,8 @@ export class HashTagPostDTO {
   public profileId: number;
   @IsString()
   public hashTagName: string;
+  @IsInt()
+  public userId: number;
 }
 export class HashTagGetDTO {
   @IsString()
@@ -15,4 +17,6 @@ export class HashTagDeleteDTO {
   public hashTagName: string;
   @IsInt()
   public profileId: number;
+  @IsInt()
+  public userId: number;
 }
