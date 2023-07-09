@@ -1,4 +1,5 @@
 import axios, { isAxiosError } from 'axios';
+import { GoogleProfile } from '../types/socialProfile';
 export class CallbackService {
   static async google(token: string) {
     try {
@@ -11,7 +12,7 @@ export class CallbackService {
         }
       );
       console.log(data.data);
-      return data.data;
+      return data.data as GoogleProfile;
     } catch (err) {
       if (isAxiosError(err)) {
         console.log(err);
