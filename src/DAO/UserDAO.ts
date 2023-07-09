@@ -60,4 +60,12 @@ export default class UserDAO {
   static async save(user: User) {
     await UserDAO.userRepo.save(user);
   }
+
+  static async getUserByEmail(email: string) {
+    await UserDAO.userRepo.findOne({
+      where: {
+        email: email,
+      },
+    });
+  }
 }
