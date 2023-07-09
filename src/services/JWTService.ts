@@ -14,7 +14,7 @@ export class JWTService {
   static async verify(access: string) {
     jwt.verify(access, process.env.SECRET, (err, decoded) => {
       if (err) {
-        throw err;
+        throw new ErrorStatus('토큰이 만료되었습니다', 401);
       }
       return decoded;
     });
@@ -22,7 +22,7 @@ export class JWTService {
   static async refreshCheck(access: string, refresh: string) {
     jwt.verify(refresh, process.env.SECRET, (err, decoded) => {
       if (err) {
-        throw err;
+        throw new ErrorStatus('토큰이 만료되었습니다', 401);
       }
       if ((decoded as any).access != access) {
         throw new ErrorStatus('유요하지 않은 JWT입니다.', 400);
