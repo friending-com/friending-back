@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import ErrorStatus from '../utils/ErrorStatus';
+import { DecodedJWT } from '../types/jwtType';
 export class JWTService {
   static async issue(id: number) {
     const access = jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -12,23 +13,26 @@ export class JWTService {
   }
 
   static async verify(access: string) {
+    let data;
     jwt.verify(access, process.env.SECRET, (err, decoded) => {
       if (err) {
         throw new ErrorStatus('토큰이 만료되었습니다', 401);
       }
-      return decoded;
+      data = decoded;
     });
+    return data as DecodedJWT;
   }
   static async refreshCheck(access: string, refresh: string) {
+    let newTokens;
     jwt.verify(refresh, process.env.SECRET, (err, decoded) => {
       if (err) {
         throw new ErrorStatus('토큰이 만료되었습니다', 401);
       }
       if ((decoded as any).access != access) {
-        throw new ErrorStatus('유요하지 않은 JWT입니다.', 400);
+        throw new ErrorStatus('유효하지 않은 JWT입니다.', 400);
       }
-      const newTokens = JWTService.issue((decoded as any).id);
-      return newTokens;
+      newTokens = JWTService.issue((decoded as any).id);
     });
+    return newTokens;
   }
 }
