@@ -16,12 +16,6 @@ export class User {
   id: number;
 
   @Column()
-  name: string;
-
-  @Column()
-  age: number;
-
-  @Column()
   email: string;
 
   @OneToMany(() => Profile, (profile) => profile.user)

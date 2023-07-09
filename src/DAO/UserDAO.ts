@@ -7,6 +7,12 @@ import { AppDataSource } from './data-source';
 
 export default class UserDAO {
   static userRepo = AppDataSource.getRepository(User);
+
+  static async makeNewUser(email: string) {
+    const user = new User();
+    user.email = email;
+    return await UserDAO.userRepo.save(user);
+  }
   static async getUser(id: number) {
     return await UserDAO.userRepo.findOne({
       where: {
@@ -35,23 +41,6 @@ export default class UserDAO {
       .getOne();
     return friendArr;
   }
-  static async signup(signUpData: SignUpData) {
-    const user = new User();
-    user.name = signUpData.name;
-    user.age = signUpData.age;
-    await UserDAO.userRepo.save(user);
-  }
-
-  static async getUserProfilesByName(name: string) {
-    return await UserDAO.userRepo.findOne({
-      where: {
-        name: Like(`%${name}%`),
-      },
-      relations: {
-        profiles: true,
-      },
-    });
-  }
 
   static async update(updateData: UpdateData) {
     await UserDAO.userRepo.update(updateData.id, updateData);
@@ -62,7 +51,7 @@ export default class UserDAO {
   }
 
   static async getUserByEmail(email: string) {
-    await UserDAO.userRepo.findOne({
+    return await UserDAO.userRepo.findOne({
       where: {
         email: email,
       },
