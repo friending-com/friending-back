@@ -3,8 +3,8 @@ import { CallbackService } from '../services/CallbackService';
 
 export class CallbackController {
   static async post(req: Request, res: Response) {
-    const code = req.body.code;
-    await CallbackService.googlePost(code);
-    res.json('응답~');
+    const accessToken = req.body.code;
+    const data = await CallbackService.google(accessToken);
+    res.json(data);
   }
 }
