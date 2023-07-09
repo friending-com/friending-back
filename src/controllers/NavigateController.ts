@@ -1,17 +1,16 @@
 import { Request, Response } from 'express';
 import { NavigateService } from '../services/NavigateService';
-import { token } from '../utils/auth';
-import { UserService } from '../services/UserService';
 import ErrorStatus from '../utils/ErrorStatus';
 import { AuthorizationService } from '../services/AuthorizationService';
+import { JWTService } from '../services/JWTService';
 
 export class NavigateController {
   static async post(req: Request, res: Response) {
     const findProfile = req.body.findProfile as unknown as number;
     const userProfile = req.body.userProfile as unknown as number;
-    const user = token(req.headers.authorization);
+    const user = await JWTService.verify(req.headers.authorization);
     const authResult = await AuthorizationService.doesUserHaveProfile(
-      user,
+      user.id,
       userProfile
     );
     if (!authResult)

@@ -6,26 +6,26 @@ import {
   FriendGetDTO,
 } from '../FriendDTO';
 import { validation } from '.';
-import { token } from '../../utils/auth';
+import { JWTService } from '../../services/JWTService';
 
 export const friendAddValidation = async (req: Request) => {
   const friendAdd = new FriendAddDTO();
   friendAdd.userProfileId = req.body.userProfileId;
   friendAdd.subProfileId = req.body.subProfileId;
-  friendAdd.userId = token(req.headers.authorization);
+  const userId = await JWTService.verify(req.headers.authorization);
+  friendAdd.userId = userId.id;
   const userProfileId = req.body.userProfileId;
   const subProfileId = req.body.subProfileId;
-  const userId = token(req.headers.authorization);
   await validation(friendAdd);
-  return { userProfileId, subProfileId, userId };
+  return { userProfileId, subProfileId, userId: userId.id };
 };
 
 export const friendGetAllValidation = async (req: Request) => {
-  const userId = token(req.headers.authorization);
+  const userId = await JWTService.verify(req.headers.authorization);
   const IdChecker = new FriendGetAllDTO();
-  IdChecker.userId = userId;
+  IdChecker.userId = userId.id;
   await validation(IdChecker);
-  return userId;
+  return userId.id;
 };
 
 export const friendGetValidation = async (req: Request) => {
@@ -39,11 +39,11 @@ export const friendGetValidation = async (req: Request) => {
 export const firendDeleteValidation = async (req: Request) => {
   const userProfileId = Number(req.query.userProfileId);
   const subProfileId = Number(req.query.subProfileId);
-  const userId = token(req.headers.authorization);
+  const userId = await JWTService.verify(req.headers.authorization);
   const IdChecker = new FriendDeleteDTO();
   IdChecker.userProfieId = userProfileId;
   IdChecker.subProfileId = subProfileId;
-  IdChecker.userId = userId;
+  IdChecker.userId = userId.id;
   await validation(IdChecker);
-  return { userProfileId, subProfileId, userId };
+  return { userProfileId, subProfileId, userId: userId.id };
 };

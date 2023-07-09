@@ -7,26 +7,26 @@ import {
   ProfileModifyDTO,
 } from '../ProfileDTO';
 import { validation } from '.';
-import { token } from '../../utils/auth';
+import { JWTService } from '../../services/JWTService';
 export const getAllProfileValidation = async (req: Request) => {
-  const userId = token(req.headers.authorization);
+  const userId = await JWTService.verify(req.headers.authorization);
   const IdChecker = new ProfileGetAllDTO();
-  IdChecker.userId = userId;
+  IdChecker.userId = userId.id;
   await validation(IdChecker);
-  return userId;
+  return userId.id;
 };
 export const getProfileValidation = async (req: Request) => {
-  const userId = token(req.headers.authorization);
+  const userId = await JWTService.verify(req.headers.authorization);
   const id = Number(req.params.id);
   const IdChecker = new ProfileGetDTO();
   IdChecker.id = id;
-  IdChecker.userId = userId;
+  IdChecker.userId = userId.id;
   await validation(IdChecker);
-  return { userId, id };
+  return { userId: userId.id, id };
 };
 export const createProfileValidation = async (req: Request) => {
   const profileData: ProfileCreateData = {
-    userId: token(req.headers.authorization),
+    userId: (await JWTService.verify(req.headers.authorization)).id,
     isMain: req.body.isMain,
     discord: req.body.discord,
     line: req.body.line,
@@ -49,7 +49,7 @@ export const createProfileValidation = async (req: Request) => {
 };
 export const modifyProfileValidation = async (req: Request) => {
   const profileData: UpdateData = {
-    userId: token(req.headers.authorization),
+    userId: (await JWTService.verify(req.headers.authorization)).id,
     id: parseInt(req.params.id),
     discord: req.body.discord,
     line: req.body.line,
