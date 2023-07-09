@@ -21,6 +21,9 @@ export class User {
   @Column()
   age: number;
 
+  @Column()
+  email: string;
+
   @OneToMany(() => Profile, (profile) => profile.user)
   profiles: Profile[];
 }
