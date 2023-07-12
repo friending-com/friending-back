@@ -16,7 +16,6 @@ export interface UpdateData {
   naverBand?: snsURL;
   telegram?: snsURL;
   isPublic?: boolean;
-  isMain?: boolean;
 }
 
 export interface ProfileCreateData {
@@ -32,7 +31,6 @@ export interface ProfileCreateData {
   naverBand: snsURL;
   telegram: snsURL;
   isPublic: boolean;
-  isMain: boolean;
 }
 export interface SignUpData {
   name: string;

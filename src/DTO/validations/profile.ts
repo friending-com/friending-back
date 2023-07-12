@@ -27,7 +27,6 @@ export const getProfileValidation = async (req: Request) => {
 export const createProfileValidation = async (req: Request) => {
   const profileData: ProfileCreateData = {
     userId: Number((await JWTService.verify(req.headers.authorization)).id),
-    isMain: req.body.isMain,
     discord: req.body.discord,
     line: req.body.line,
     naverBlog: req.body.naverBlog,
