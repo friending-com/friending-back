@@ -1,9 +1,9 @@
 import UserDAO from '../DAO/UserDAO';
-import { GoogleProfile } from '../types/socialProfile';
+import { GoogleProfile, KakaoProfile } from '../types/socialProfile';
 import { JWTService } from './JWTService';
 
 export class LoginService {
-  static async googleLogin(data: GoogleProfile) {
+  static async login(data: GoogleProfile | KakaoProfile) {
     const user = await UserDAO.getUserByEmail(data.email);
     if (user) {
       return await JWTService.issue(user.id);
