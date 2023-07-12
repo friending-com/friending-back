@@ -9,7 +9,7 @@ export const hashTagPostValidation = async (req: Request) => {
   const hashTagChecker = new HashTagPostDTO();
   hashTagChecker.hashTagName = hashTagName;
   hashTagChecker.profileId = profileId;
-  hashTagChecker.userId = userId.id;
+  hashTagChecker.userId = Number(userId.id);
   await validation(hashTagChecker);
   return { hashTagName, profileId, userId: userId.id };
 };
@@ -29,7 +29,7 @@ export const hashTagDeleteValidation = async (req: Request) => {
   const hashTagChecker = new HashTagDeleteDTO();
   hashTagChecker.hashTagName = hashTagName;
   hashTagChecker.profileId = profileId;
-  hashTagChecker.userId = userId.id;
+  hashTagChecker.userId = Number(userId.id);
   await validation(hashTagChecker);
   return { hashTagName, profileId, userId: userId.id };
 };

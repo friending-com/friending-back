@@ -11,7 +11,7 @@ import { JWTService } from '../../services/JWTService';
 export const getAllProfileValidation = async (req: Request) => {
   const userId = await JWTService.verify(req.headers.authorization);
   const IdChecker = new ProfileGetAllDTO();
-  IdChecker.userId = userId.id;
+  IdChecker.userId = Number(userId.id);
   await validation(IdChecker);
   return userId.id;
 };
@@ -20,13 +20,13 @@ export const getProfileValidation = async (req: Request) => {
   const id = Number(req.params.id);
   const IdChecker = new ProfileGetDTO();
   IdChecker.id = id;
-  IdChecker.userId = userId.id;
+  IdChecker.userId = Number(userId.id);
   await validation(IdChecker);
   return { userId: userId.id, id };
 };
 export const createProfileValidation = async (req: Request) => {
   const profileData: ProfileCreateData = {
-    userId: (await JWTService.verify(req.headers.authorization)).id,
+    userId: Number((await JWTService.verify(req.headers.authorization)).id),
     isMain: req.body.isMain,
     discord: req.body.discord,
     line: req.body.line,
@@ -49,7 +49,7 @@ export const createProfileValidation = async (req: Request) => {
 };
 export const modifyProfileValidation = async (req: Request) => {
   const profileData: UpdateData = {
-    userId: (await JWTService.verify(req.headers.authorization)).id,
+    userId: Number((await JWTService.verify(req.headers.authorization)).id),
     id: parseInt(req.params.id),
     discord: req.body.discord,
     line: req.body.line,

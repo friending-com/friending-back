@@ -13,7 +13,7 @@ export const friendAddValidation = async (req: Request) => {
   friendAdd.userProfileId = req.body.userProfileId;
   friendAdd.subProfileId = req.body.subProfileId;
   const userId = await JWTService.verify(req.headers.authorization);
-  friendAdd.userId = userId.id;
+  friendAdd.userId = Number(userId.id);
   const userProfileId = req.body.userProfileId;
   const subProfileId = req.body.subProfileId;
   await validation(friendAdd);
@@ -23,7 +23,7 @@ export const friendAddValidation = async (req: Request) => {
 export const friendGetAllValidation = async (req: Request) => {
   const userId = await JWTService.verify(req.headers.authorization);
   const IdChecker = new FriendGetAllDTO();
-  IdChecker.userId = userId.id;
+  IdChecker.userId = Number(userId.id);
   await validation(IdChecker);
   return userId.id;
 };
@@ -43,7 +43,7 @@ export const firendDeleteValidation = async (req: Request) => {
   const IdChecker = new FriendDeleteDTO();
   IdChecker.userProfieId = userProfileId;
   IdChecker.subProfileId = subProfileId;
-  IdChecker.userId = userId.id;
+  IdChecker.userId = Number(userId.id);
   await validation(IdChecker);
   return { userProfileId, subProfileId, userId: userId.id };
 };
