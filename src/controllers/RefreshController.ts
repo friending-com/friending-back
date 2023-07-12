@@ -5,7 +5,7 @@ export class RefreshController {
   static async post(req: Request, res: Response) {
     const refresh = req.body.refreshToken;
     const access = req.headers.authorization;
-    const tokens = JWTService.refreshCheck(access, refresh);
+    const tokens = await JWTService.refreshCheck(access, refresh);
     res.json(tokens);
   }
 }
