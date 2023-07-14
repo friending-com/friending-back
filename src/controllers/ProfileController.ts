@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import ProfileService from '../services/ProfileService';
 import {
   createProfileValidation,
+  deleteProfileValidation,
   getAllProfileValidation,
   getProfileValidation,
   modifyProfileValidation,
@@ -31,5 +32,11 @@ export class ProfileController {
     const profileData = await modifyProfileValidation(req);
     await ProfileService.modifyProfile(profileData);
     res.json('성공!');
+  }
+
+  static async delete(req: Request, res: Response) {
+    const profileId = await deleteProfileValidation(req);
+    await ProfileService.deleteProfile(profileId);
+    res.json('삭제완료');
   }
 }

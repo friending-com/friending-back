@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { ProfileCreateData, UpdateData } from '../../types/profileData';
 import {
   ProfileCreateDTO,
+  ProfileDeleteDTO,
   ProfileGetAllDTO,
   ProfileGetDTO,
   ProfileModifyDTO,
@@ -67,4 +68,14 @@ export const modifyProfileValidation = async (req: Request) => {
   });
   await validation(modifyProfile);
   return modifyProfile;
+};
+
+export const deleteProfileValidation = async (req: Request) => {
+  const deleteDTO = new ProfileDeleteDTO();
+  const decoded = await JWTService.verify(req.headers.authorization);
+  deleteDTO.id = decoded.id;
+  const profileId = Number(req.params.id);
+  deleteDTO.proifleId = profileId;
+  await validation(deleteDTO);
+  return profileId;
 };

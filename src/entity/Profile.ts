@@ -44,7 +44,7 @@ export class Profile {
 
   @Column({ nullable: true })
   telegram: snsURL;
-  
+
   @Column({ nullable: true })
   whatsapp: snsURL;
 
@@ -60,11 +60,13 @@ export class Profile {
   @ManyToOne(() => User, (user) => user.profiles)
   user: User;
 
-  @ManyToMany(() => HashTag, (hashTag) => hashTag.id)
+  @ManyToMany(() => HashTag, (hashTag) => hashTag.id, { onDelete: 'CASCADE' })
   @JoinTable()
   hashTags: HashTag[];
 
-  @ManyToMany(() => Profile, (profile) => profile.friends)
+  @ManyToMany(() => Profile, (profile) => profile.friends, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable()
   friends: Profile[];
 }

@@ -84,3 +84,10 @@ export class ProfileModifyDTO {
   @IsString()
   public twitter: string;
 }
+
+export class ProfileDeleteDTO {
+  @IsInt()
+  public id: number;
+  @IsInt()
+  public proifleId: number;
+}

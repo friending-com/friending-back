@@ -81,4 +81,7 @@ export default class ProfileDAO {
       .getRawMany()) as Profile[];
     return result;
   }
+  static async delete(id: number) {
+    await ProfileDAO.profileRepo.delete(id);
+  }
 }

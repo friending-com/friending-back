@@ -37,4 +37,8 @@ export default class ProfileService {
     }
     await ProfileDAO.modify(profileData);
   }
+
+  static async deleteProfile(profileData: number) {
+    await ProfileDAO.delete(profileData);
+  }
 }
