@@ -3,6 +3,8 @@ import { snsURL } from './snsURL';
 export interface UpdateData {
   id: number;
   userId: number;
+  email?: string;
+  nickName?: string;
   name?: string;
   instagram?: snsURL;
   twitter?: snsURL;
@@ -19,6 +21,9 @@ export interface UpdateData {
 }
 
 export interface ProfileCreateData {
+  email: string;
+  name: string;
+  nickName: string;
   userId: number;
   instagram: snsURL;
   twitter: snsURL;
@@ -31,8 +36,4 @@ export interface ProfileCreateData {
   naverBand: snsURL;
   telegram: snsURL;
   isPublic: boolean;
-}
-export interface SignUpData {
-  name: string;
-  age: number;
 }

@@ -28,6 +28,9 @@ export const getProfileValidation = async (req: Request) => {
 export const createProfileValidation = async (req: Request) => {
   const profileData: ProfileCreateData = {
     userId: Number((await JWTService.verify(req.headers.authorization)).id),
+    email: req.body.email,
+    nickName: req.body.nickName,
+    name: req.body.name,
     discord: req.body.discord,
     line: req.body.line,
     naverBlog: req.body.naverBlog,
@@ -51,6 +54,9 @@ export const modifyProfileValidation = async (req: Request) => {
   const profileData: UpdateData = {
     userId: Number((await JWTService.verify(req.headers.authorization)).id),
     id: parseInt(req.params.id),
+    name: req.body.name,
+    nickName: req.body.nickName,
+    email: req.body.email,
     discord: req.body.discord,
     line: req.body.line,
     naverBlog: req.body.naverBlog,

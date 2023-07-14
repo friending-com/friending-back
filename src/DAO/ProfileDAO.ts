@@ -1,10 +1,6 @@
 import { Profile } from '../entity/Profile';
 import { User } from '../entity/User';
-import {
-  ProfileCreateData,
-  SignUpData,
-  UpdateData,
-} from '../types/profileData';
+import { ProfileCreateData, UpdateData } from '../types/profileData';
 import { AppDataSource } from './data-source';
 
 export default class ProfileDAO {
@@ -22,6 +18,9 @@ export default class ProfileDAO {
     profile.telegram = profileData.telegram;
     profile.twitter = profileData.twitter;
     profile.phone = profileData.phone;
+    profile.name = profileData.name;
+    profile.email = profileData.email;
+    profile.nickName = profileData.nickName;
     profile.isPublic = profileData.isPublic;
     await ProfileDAO.profileRepo.save(profile);
     return profile;

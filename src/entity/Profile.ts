@@ -14,6 +14,14 @@ import { User } from './User';
 export class Profile {
   @PrimaryGeneratedColumn()
   id: number;
+  @Column()
+  name: string;
+
+  @Column()
+  nickName: string;
+
+  @Column({ nullable: true })
+  email: string;
 
   @Column({ nullable: true })
   phone: string;
