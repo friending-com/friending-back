@@ -25,6 +25,7 @@ jobs:
           touch .env
           echo DB_USER= ${{ secrets.DB_USER }}>> .env
           echo DB_PASSWORD=${{ secrets.DB_PASSWORD }}>>.env
+          echo JWT_SECRET=${{secrets.JWT_SECRET}}>>.env
       - name: ✨ 패키지 설치
         working-directory: ./
         run: npm install
