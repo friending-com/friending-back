@@ -1,5 +1,5 @@
 import UserDAO from '../DAO/UserDAO';
-import { SignUpData, UpdateData } from '../types/profileData';
+import { UpdateData } from '../types/profileData';
 export class UserService {
   static async findAllProfile(id: number) {
     return (await UserDAO.getUserProfiles(id)).profiles;
