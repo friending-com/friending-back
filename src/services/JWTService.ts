@@ -4,10 +4,10 @@ import { DecodedJWT } from '../types/jwtType';
 export class JWTService {
   static async issue(id: number) {
     const access = jwt.sign({ id }, process.env.JWT_SECRET, {
-      expiresIn: '1m', //15m
+      expiresIn: '1m',
     });
     const refresh = jwt.sign({ access, id }, process.env.JWT_SECRET, {
-      expiresIn: '3m', //14d
+      expiresIn: '14d',
     });
     return { access, refresh };
   }
@@ -22,6 +22,7 @@ export class JWTService {
     });
     return data as DecodedJWT;
   }
+
   static async refreshCheck(access: string, refresh: string) {
     let newTokens;
     jwt.verify(refresh, process.env.JWT_SECRET, (err, decoded) => {
