@@ -76,7 +76,7 @@ export class Profile {
 
   @OneToOne(() => HashTag, (hashtag) => hashtag.id, { onDelete: 'CASCADE' })
   @JoinColumn()
-  workspace: HashTag;
+  workSpace: HashTag;
 
   @ManyToMany(() => Profile, (profile) => profile.friends, {
     onDelete: 'CASCADE',

@@ -19,6 +19,6 @@ export class HashTag {
   @JoinTable()
   profiles: Profile[];
 
-  @OneToOne(() => Profile, (profile) => profile.workspace)
+  @OneToOne(() => Profile, (profile) => profile.workSpace)
   profile: Profile;
 }
