@@ -5,6 +5,8 @@ import {
   ManyToMany,
   JoinTable,
   ManyToOne,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { snsURL } from '../types/snsURL';
 import { HashTag } from './HashTag';
@@ -17,7 +19,7 @@ export class Profile {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   nickName: string;
 
   @Column({ nullable: true })
@@ -71,6 +73,10 @@ export class Profile {
   @ManyToMany(() => HashTag, (hashTag) => hashTag.id, { onDelete: 'CASCADE' })
   @JoinTable()
   hashTags: HashTag[];
+
+  @OneToOne(() => HashTag, (hashtag) => hashtag.id, { onDelete: 'CASCADE' })
+  @JoinColumn()
+  workspace: HashTag;
 
   @ManyToMany(() => Profile, (profile) => profile.friends, {
     onDelete: 'CASCADE',

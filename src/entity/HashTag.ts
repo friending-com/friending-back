@@ -4,6 +4,7 @@ import {
   Column,
   ManyToMany,
   JoinTable,
+  OneToOne,
 } from 'typeorm';
 import { Profile } from './Profile';
 
@@ -17,4 +18,7 @@ export class HashTag {
   @ManyToMany(() => Profile, (profile) => profile.id)
   @JoinTable()
   profiles: Profile[];
+
+  @OneToOne(() => Profile, (profile) => profile.workspace)
+  profile: Profile;
 }
