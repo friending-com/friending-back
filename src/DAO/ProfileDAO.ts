@@ -36,6 +36,16 @@ export default class ProfileDAO {
       },
     });
   }
+  static async getProfileWorkSpace(id: number) {
+    return await ProfileDAO.profileRepo.findOne({
+      where: {
+        id: id,
+      },
+      relations: {
+        workSpace: true,
+      },
+    });
+  }
 
   static async getProfileAndUser(id: number) {
     return await ProfileDAO.profileRepo.findOne({

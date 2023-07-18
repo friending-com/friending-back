@@ -3,6 +3,7 @@ import UserDAO from '../DAO/UserDAO';
 import { ProfileCreateData, UpdateData } from '../types/profileData';
 import ErrorStatus from '../utils/ErrorStatus';
 import { AuthorizationService } from './AuthorizationService';
+import { WorkSpaceService } from './WorkSpaceService';
 import { HashTagService } from './hashTagService';
 
 export default class ProfileService {
@@ -28,6 +29,7 @@ export default class ProfileService {
     profileData.hashTags.forEach(async (hashTag) => {
       await HashTagService.add(hashTag, profile.id);
     }); //프로필 등록
+    await WorkSpaceService.add(profileData.workSpace, profile.id); //workSpace 등록
     const user = await UserDAO.getUserProfiles(profileData.userId); //user의 전체 프로필을 가져옴
     user.profiles.push(profile);
     await UserDAO.save(user);
