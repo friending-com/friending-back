@@ -44,6 +44,11 @@ export class ProfileCreateDTO {
   @IsOptional()
   @IsString()
   public twitter: string;
+  @IsOptional()
+  @IsString()
+  public workSpace: string;
+  @IsOptional()
+  public hashTags: string[];
 }
 export class ProfileModifyDTO {
   @IsInt()

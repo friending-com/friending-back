@@ -24,6 +24,7 @@ export interface ProfileCreateData {
   email: string;
   name: string;
   nickName: string;
+  workSpace: string;
   userId: number;
   instagram: snsURL;
   twitter: snsURL;
@@ -35,5 +36,6 @@ export interface ProfileCreateData {
   naverBlog: snsURL;
   naverBand: snsURL;
   telegram: snsURL;
+  hashTags: string[];
   isPublic: boolean;
 }

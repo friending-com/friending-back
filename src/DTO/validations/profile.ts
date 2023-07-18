@@ -42,6 +42,8 @@ export const createProfileValidation = async (req: Request) => {
     facebook: req.body.facebook,
     kakaoTalk: req.body.kakaoTalk,
     isPublic: req.body.isPublic,
+    workSpace: req.body.workSpace,
+    hashTags: req.body.hashTags,
   };
   const profile = new ProfileCreateDTO();
   Object.entries(profileData).forEach(([key, value]) => {

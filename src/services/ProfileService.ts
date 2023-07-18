@@ -3,6 +3,7 @@ import UserDAO from '../DAO/UserDAO';
 import { ProfileCreateData, UpdateData } from '../types/profileData';
 import ErrorStatus from '../utils/ErrorStatus';
 import { AuthorizationService } from './AuthorizationService';
+import { HashTagService } from './hashTagService';
 
 export default class ProfileService {
   static async getProfile(userId: number, findProfileId: number) {
@@ -24,6 +25,9 @@ export default class ProfileService {
   }
   static async createProfile(profileData: ProfileCreateData) {
     const profile = await ProfileDAO.createProfile(profileData); //프로필을 생성함
+    profileData.hashTags.forEach(async (hashTag) => {
+      await HashTagService.add(hashTag, profile.id);
+    }); //프로필 등록
     const user = await UserDAO.getUserProfiles(profileData.userId); //user의 전체 프로필을 가져옴
     user.profiles.push(profile);
     await UserDAO.save(user);
