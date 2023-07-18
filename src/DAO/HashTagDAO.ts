@@ -51,6 +51,9 @@ export default class HashTagDAO {
       where: {
         hashTag: hashTagName,
       },
+      relations: {
+        profiles: true,
+      },
     });
     const hashTagId = hashTag.id;
     const profile = await HashTagDAO.profileRepo.findOne({
@@ -63,6 +66,9 @@ export default class HashTagDAO {
     });
     profile.hashTags = profile.hashTags.filter(
       (hashTag) => hashTag.id != hashTagId
+    );
+    hashTag.profiles = hashTag.profiles.filter(
+      (profile) => profile.id != profileId
     );
     await HashTagDAO.profileRepo.save(profile);
   }

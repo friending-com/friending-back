@@ -10,6 +10,12 @@ export class HashTagService {
     }
     hashTag = await HashTagDAO.getHashTagProfile(hashTagName);
     const profile = await ProfileDAO.getProfile(profileId);
+    if (profile.hashTags.some((hT) => hT.id == hashTag.id)) {
+      return;
+    }
+    if (hashTag.profiles.some((pf) => pf.id == profile.id)) {
+      return;
+    }
     profile.hashTags.push(hashTag);
     hashTag.profiles.push(profile);
     await ProfileDAO.save(profile);

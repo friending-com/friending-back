@@ -18,6 +18,8 @@ export interface UpdateData {
   naverBand?: snsURL;
   telegram?: snsURL;
   isPublic?: boolean;
+  workSpace?: string;
+  hashTags?: string[];
 }
 
 export interface ProfileCreateData {

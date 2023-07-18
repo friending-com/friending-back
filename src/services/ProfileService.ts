@@ -42,6 +42,21 @@ export default class ProfileService {
       throw new ErrorStatus('프로필 수정권한이 없습니다!', 400);
     }
     await ProfileDAO.modify(profileData);
+    if (profileData.workSpace || profileData.hashTags) {
+      const profile = await ProfileDAO.getProfile(profileData.id);
+      if (profileData.workSpace) {
+        await HashTagService.add(profileData.workSpace, profile.id);
+      }
+      if (profileData.hashTags) {
+        profile.hashTags.forEach(async (hashTag) => {
+          await HashTagService.delete(hashTag.hashTag, profile.id); //전부 삭제
+        });
+        profileData.hashTags.forEach(async (hashTag) => {
+          console.log(hashTag);
+          await HashTagService.add(hashTag, profile.id); //전부 등록
+        });
+      }
+    }
   }
 
   static async deleteProfile(profileData: number) {
