@@ -1,23 +1,18 @@
 import HashTagDAO from '../DAO/HashTagDAO';
+import ProfileDAO from '../DAO/ProfileDAO';
 import UserDAO from '../DAO/UserDAO';
 
 export class SearchService {
   static async getSearchResult(searchQuery: string) {
     const hashTagResult = await HashTagDAO.getHashTagAutoMatching(searchQuery);
 
-    // const userData = await UserDAO.getUserProfilesByName(searchQuery);
-    // const userProfiles = userData
-    //   ? userData.profiles.filter((profile) => profile.isPublic === true)
-    //   : [];
-    // if (userProfiles.length) {
-    //   Object.entries(userData).forEach(([key, value]) => {
-    //     if (key != 'profiles') {
-    //       userProfiles.map((profile) => (profile[key] = value));
-    //     }
-    //   });
-    // }
+    const userData = await ProfileDAO.getProfileByName(searchQuery);
+
     return {
       hashTag: hashTagResult.map((hashTag) => hashTag.hashTag),
+      user: userData.map((profile) => {
+        return { id: profile.id, name: profile.name };
+      }),
     };
   }
 }

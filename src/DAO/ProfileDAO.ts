@@ -1,3 +1,4 @@
+import { Like } from 'typeorm';
 import { Profile } from '../entity/Profile';
 import { User } from '../entity/User';
 import { ProfileCreateData, UpdateData } from '../types/profileData';
@@ -93,5 +94,15 @@ export default class ProfileDAO {
   }
   static async delete(id: number) {
     await ProfileDAO.profileRepo.delete(id);
+  }
+
+  static async getProfileByName(name: string) {
+    return await ProfileDAO.profileRepo.find({
+      where: [
+        {
+          name: Like(`%${name}%`),
+        },
+      ],
+    });
   }
 }
