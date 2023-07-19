@@ -8,7 +8,6 @@ export class WorkSpaceService {
       hashTag = await HashTagDAO.createHashTag(workSpaceName);
     }
     hashTag = await HashTagDAO.getHashTagProfile(workSpaceName);
-    console.log(hashTag);
     const profile = await ProfileDAO.getProfileWorkSpace(profileId);
     profile.workSpace = hashTag;
     hashTag.profiles.push(profile);
