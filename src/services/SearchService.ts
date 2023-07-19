@@ -10,7 +10,7 @@ export class SearchService {
 
     return {
       hashTag: hashTagResult.map((hashTag) => hashTag.hashTag),
-      user: userData.map((profile) => {
+      profiles: userData.map((profile) => {
         return { id: profile.id, name: profile.name };
       }),
     };
