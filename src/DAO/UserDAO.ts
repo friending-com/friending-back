@@ -22,14 +22,14 @@ export default class UserDAO {
   }
 
   static async getUserProfiles(userId: number) {
-    return await UserDAO.userRepo.findOne({
-      where: {
-        id: userId,
-      },
-      relations: {
-        profiles: true,
-      },
-    });
+    const user = await UserDAO.userRepo
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.profiles', 'profile')
+      .leftJoinAndSelect('profile.hashTags', 'hashTag')
+      .leftJoinAndSelect('profile.workSpace', 'workSpace')
+      .where('user.id = :userId', { userId })
+      .getOne();
+    return user;
   }
 
   static async getUserFriendsProfiles(userId: number) {
