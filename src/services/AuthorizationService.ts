@@ -5,16 +5,10 @@ export class AuthorizationService {
   static async doesUserHaveProfile(userId: number, profileId: number) {
     const findProfile = await ProfileDAO.getProfileAndUser(profileId);
     if (findProfile.user.id != userId) return null;
+    const result = { ...findProfile };
+    delete result.id;
+    delete result.user;
 
-    const result = {};
-    Object.entries(findProfile).forEach(([key, value]) => {
-      if (key != 'user') result[key] = value;
-      else {
-        Object.entries(value).forEach(([key, value]) => {
-          if (key != 'id') result[key] = value;
-        });
-      }
-    });
     return result;
   }
 
@@ -24,15 +18,10 @@ export class AuthorizationService {
     const findProfile = await ProfileDAO.getProfileFriends(profileId);
     for (const id of profileIds) {
       if (findProfile.friends.some((profile) => profile.id === id)) {
-        const result = {};
-        Object.entries(findProfile).forEach(([key, value]) => {
-          if (key != 'user' && key != 'friends') result[key] = value;
-          else if (key === 'user') {
-            Object.entries(value).forEach(([key, value]) => {
-              if (key != 'id') result[key] = value;
-            });
-          }
-        });
+        const result = { ...findProfile };
+        delete result.id;
+        delete result.user;
+        delete result.friends;
         return result;
       }
     }
