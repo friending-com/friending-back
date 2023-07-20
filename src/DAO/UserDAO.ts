@@ -20,7 +20,16 @@ export default class UserDAO {
       },
     });
   }
-
+  static async getUserProfilesForEdit(userId: number) {
+    return await UserDAO.userRepo.findOne({
+      where: {
+        id: userId,
+      },
+      relations: {
+        profiles: true,
+      },
+    });
+  }
   static async getUserProfiles(userId: number) {
     const user = await UserDAO.userRepo
       .createQueryBuilder('user')
