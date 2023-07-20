@@ -74,7 +74,7 @@ export class Profile {
   @JoinTable()
   hashTags: HashTag[];
 
-  @OneToOne(() => HashTag, (hashtag) => hashtag.id, { onDelete: 'CASCADE' })
+  @ManyToOne(() => HashTag, (hashtag) => hashtag.id, { onDelete: 'CASCADE' })
   @JoinColumn()
   workSpace: HashTag;
 
