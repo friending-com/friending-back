@@ -69,6 +69,8 @@ export const modifyProfileValidation = async (req: Request) => {
     phone: req.body.phone,
     facebook: req.body.facebook,
     kakaoTalk: req.body.kakaoTalk,
+    workSpace: req.body.workSpace,
+    hashTags: req.body.hashTags,
   };
   const modifyProfile = new ProfileModifyDTO();
   Object.entries(profileData).forEach(([key, value]) => {
