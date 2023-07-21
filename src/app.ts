@@ -1,9 +1,11 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { AppDataSource } from './DAO/data-source';
 import router from './routes';
 import ErrorStatus from './utils/ErrorStatus';
+import { logger } from './utils/logger';
+import morgan from 'morgan';
 dotenv.config();
 
 const app: Express = express();
@@ -14,6 +16,20 @@ app.use(express.urlencoded({ extended: true }));
 AppDataSource.initialize()
   .then(async () => {})
   .catch((err) => console.log(err));
+const stream = {
+  write: (message) => {
+    // console.log(message);
+    logger.info(message);
+  },
+};
+app.use(
+  morgan(
+    ':remote-addr :method :url :status :response-time ms - :res[content-length]',
+    {
+      stream,
+    }
+  )
+);
 
 app.use(router);
 app.get('/', (req: Request, res: Response) => {
