@@ -31,7 +31,11 @@ export class ProfileController {
   static async patch(req: Request, res: Response) {
     const profileData = await modifyProfileValidation(req);
     await ProfileService.modifyProfile(profileData);
-    res.json('성공!');
+    const profileResult = await ProfileService.getProfile(
+      profileData.userId,
+      profileData.id
+    );
+    res.json(profileResult);
   }
 
   static async delete(req: Request, res: Response) {
