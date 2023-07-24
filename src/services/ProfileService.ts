@@ -45,7 +45,7 @@ export default class ProfileService {
     if (profileData.workSpace || profileData.hashTags) {
       const profile = await ProfileDAO.getProfile(profileData.id);
       if (profileData.workSpace) {
-        await HashTagService.add(profileData.workSpace, profile.id);
+        await WorkSpaceService.add(profileData.workSpace, profile.id);
       }
       if (profileData.hashTags) {
         profile.hashTags.forEach(async (hashTag) => {
