@@ -17,13 +17,11 @@ export const getAllProfileValidation = async (req: Request) => {
   return userId.id;
 };
 export const getProfileValidation = async (req: Request) => {
-  const userId = await JWTService.verify(req.headers.authorization);
   const id = Number(req.params.id);
   const IdChecker = new ProfileGetDTO();
   IdChecker.id = id;
-  IdChecker.userId = Number(userId.id);
   await validation(IdChecker);
-  return { userId: userId.id, id };
+  return id;
 };
 export const createProfileValidation = async (req: Request) => {
   const profileData: ProfileCreateData = {

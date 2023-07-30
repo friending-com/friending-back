@@ -7,7 +7,7 @@ import { WorkSpaceService } from './WorkSpaceService';
 import { HashTagService } from './hashTagService';
 
 export default class ProfileService {
-  static async getProfile(userId: number, findProfileId: number) {
+  static async getProfile(findProfileId: number) {
     //권한 검사 제거하고, public인 경우 모두가 조회할 수 있도록 변경
     const profile = await ProfileDAO.getProfile(findProfileId);
     if (profile.isPublic) return profile;

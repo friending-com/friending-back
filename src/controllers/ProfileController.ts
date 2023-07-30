@@ -11,8 +11,8 @@ import { UserService } from '../services/UserService';
 
 export class ProfileController {
   static async get(req: Request, res: Response) {
-    const { userId, id } = await getProfileValidation(req);
-    const profileResult = await ProfileService.getProfile(userId, id);
+    const id = await getProfileValidation(req);
+    const profileResult = await ProfileService.getProfile(id);
     res.json(profileResult);
   }
 
@@ -31,10 +31,7 @@ export class ProfileController {
   static async patch(req: Request, res: Response) {
     const profileData = await modifyProfileValidation(req);
     await ProfileService.modifyProfile(profileData);
-    const profileResult = await ProfileService.getProfile(
-      profileData.userId,
-      profileData.id
-    );
+    const profileResult = await ProfileService.getProfile(profileData.id);
     res.json(profileResult);
   }
 
