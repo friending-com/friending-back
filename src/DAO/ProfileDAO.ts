@@ -34,6 +34,7 @@ export default class ProfileDAO {
       },
       relations: {
         hashTags: true,
+        workSpace: true,
       },
     });
   }

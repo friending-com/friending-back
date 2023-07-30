@@ -8,20 +8,9 @@ import { HashTagService } from './hashTagService';
 
 export default class ProfileService {
   static async getProfile(userId: number, findProfileId: number) {
-    //userId의 user가 findProfileId의 프로필을 소유하는지, 친구인지 확인해야함
-
-    //findProfileId의 소유권확인
-    const findProfile = await AuthorizationService.doesUserHaveProfile(
-      userId,
-      findProfileId
-    );
-    if (findProfile) return findProfile;
-    //userId에 해당하는 프로필 중 하나가 findProfile과 친구인지 확인
-    const result = await AuthorizationService.areTheyFriends(
-      userId,
-      findProfileId
-    );
-    if (result) return result;
+    //권한 검사 제거하고, public인 경우 모두가 조회할 수 있도록 변경
+    const profile = await ProfileDAO.getProfile(findProfileId);
+    if (profile.isPublic) return profile;
     throw new ErrorStatus('권한이 없습니다', 500);
   }
   static async createProfile(profileData: ProfileCreateData) {
