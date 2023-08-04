@@ -5,8 +5,6 @@ export class ProfileGetAllDTO {
 }
 export class ProfileGetDTO {
   @IsInt()
-  public userId: number;
-  @IsInt()
   public id: number;
 }
 export class ProfileCreateDTO {
