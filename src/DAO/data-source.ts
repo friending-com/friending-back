@@ -10,7 +10,6 @@ const { NODE_ENV, DB_USER, DB_PASSWORD } = process.env;
 const isTestEnvironment = NODE_ENV === 'test';
 const port = isTestEnvironment ? 3307 : 3306;
 const db = isTestEnvironment ? 'friending_test_db' : 'friending_db';
-
 export const AppDataSource = new DataSource({
   type: 'mysql',
   host: 'localhost',

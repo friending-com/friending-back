@@ -4,7 +4,7 @@
   "description": "friending-backend",
   "main": "/src/app.js",
   "scripts": {
-    "test": "jest --setupFiles dotenv/config --forceExit --detectOpenHandles",
+    "test": "sh ./scripts/run-test.sh",
     "build": "npx tsc",
     "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/app.ts",
     "start": "node dist/app.js",

@@ -15,7 +15,7 @@ beforeAll(async () => {
   }
 });
 afterAll(async () => {
-  AppDataSource.destroy();
+  await AppDataSource.destroy();
 });
 
 test('Login Test', async () => {
