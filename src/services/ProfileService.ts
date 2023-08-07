@@ -21,8 +21,9 @@ export default class ProfileService {
     await WorkSpaceService.add(profileData.workSpace, profile.id); //workSpace 등록
     const user = await UserDAO.getUserProfilesForEdit(profileData.userId); //user의 전체 프로필을 가져옴
     user.profiles.push(profile);
+    const hashTagProfile = await ProfileDAO.getProfile(profile.id);
     await UserDAO.save(user);
-    return profile;
+    return hashTagProfile;
   }
 
   static async modifyProfile(profileData: UpdateData) {
