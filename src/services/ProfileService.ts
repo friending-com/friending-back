@@ -51,6 +51,7 @@ export default class ProfileService {
         await Promise.all(hashTagPromise);
       }
     }
+    return await ProfileDAO.getProfile(profileData.id);
   }
 
   static async deleteProfile(profileData: number) {

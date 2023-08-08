@@ -30,8 +30,7 @@ export class ProfileController {
 
   static async patch(req: Request, res: Response) {
     const profileData = await modifyProfileValidation(req);
-    await ProfileService.modifyProfile(profileData);
-    const profileResult = await ProfileService.getProfile(profileData.id);
+    const profileResult = await ProfileService.modifyProfile(profileData);
     res.json(profileResult);
   }
 
