@@ -2,7 +2,7 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { LoginService } from '../src/services/LoginService';
 import { AppDataSource } from '../src/DAO/data-source';
-import { ProfileCreateData } from '../src/types/profileData';
+import { ProfileCreateData, UpdateData } from '../src/types/profileData';
 import ProfileService from '../src/services/ProfileService';
 import { UserService } from '../src/services/UserService';
 beforeAll(async () => {
@@ -66,7 +66,7 @@ describe('Profile Create Test', () => {
   });
 
   it('GetALL Profile Test', async () => {
-    await Promise.all([
+    const results = await Promise.all([
       ProfileService.createProfile(normalData as ProfileCreateData),
       ProfileService.createProfile(noWorkSpace as ProfileCreateData),
     ]);
@@ -74,5 +74,91 @@ describe('Profile Create Test', () => {
     expect(result[0].hashTags[0].hashTag).toBe('중앙대학교');
     expect(result[0].workSpace.hashTag).toBe('프렌딩');
     expect(result[0].email).toBe('rlfehd2013@naver.com');
+    await Promise.all(
+      results.map((res) => ProfileService.deleteProfile(res.id))
+    );
+  });
+
+  describe('Profile Modify Test', () => {
+    const noWorkSpace = {
+      name: '길동',
+      isPublic: true,
+      hashTags: ['중앙대학교'],
+      email: 'rlfehd2013@naver.com',
+      userId: 1,
+    };
+    const normalData = {
+      name: '길동',
+      isPublic: true,
+      hashTags: ['중앙대학교'],
+      email: 'rlfehd2013@naver.com',
+      userId: 1,
+      workSpace: '프렌딩',
+    };
+    const normalModifyData: UpdateData = {
+      id: 1,
+      name: '동길',
+      isPublic: true,
+      email: 'dlehdrlf09@naver.com',
+      userId: 1,
+    };
+
+    const hashTagModifyData: UpdateData = {
+      id: 1,
+      name: '길동',
+      isPublic: true,
+      hashTags: ['중앙대', '멋쟁이사자처럼11기'],
+      email: 'dlehdrlf09@naver.com',
+      userId: 1,
+    };
+
+    it('Change normal property', async () => {
+      const profile = await ProfileService.createProfile(
+        normalData as ProfileCreateData
+      );
+      normalModifyData.id = profile.id;
+      const result = await ProfileService.modifyProfile(normalModifyData);
+      expect(result.name).toBe('동길');
+      expect(result.email).toBe('dlehdrlf09@naver.com');
+      await ProfileService.deleteProfile(result.id);
+    });
+
+    it('Change HashTags property', async () => {
+      const profile = await ProfileService.createProfile(
+        normalData as ProfileCreateData
+      );
+      hashTagModifyData.id = profile.id;
+      const result = await ProfileService.modifyProfile(hashTagModifyData);
+      expect(
+        result.hashTags.some((hashTag) => hashTag.hashTag === '중앙대')
+      ).toBeTruthy();
+      expect(
+        result.hashTags.some(
+          (hashTag) => hashTag.hashTag === '멋쟁이사자처럼11기'
+        )
+      ).toBeTruthy();
+      expect(result.email).toBe('dlehdrlf09@naver.com');
+      await ProfileService.deleteProfile(result.id);
+    });
+
+    it('Change WorkSpace', async () => {
+      const profile = await ProfileService.createProfile(
+        noWorkSpace as ProfileCreateData
+      );
+      hashTagModifyData.workSpace = '프렌딩';
+      hashTagModifyData.id = profile.id;
+      const result = await ProfileService.modifyProfile(hashTagModifyData);
+      expect(
+        result.hashTags.some((hashTag) => hashTag.hashTag === '중앙대')
+      ).toBeTruthy();
+      expect(
+        result.hashTags.some(
+          (hashTag) => hashTag.hashTag === '멋쟁이사자처럼11기'
+        )
+      ).toBeTruthy();
+      expect(result.workSpace.hashTag).toBe('프렌딩');
+      expect(result.email).toBe('dlehdrlf09@naver.com');
+      await ProfileService.deleteProfile(result.id);
+    });
   });
 });
