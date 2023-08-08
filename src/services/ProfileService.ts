@@ -15,13 +15,16 @@ export default class ProfileService {
   }
   static async createProfile(profileData: ProfileCreateData) {
     const profile = await ProfileDAO.createProfile(profileData); //프로필을 생성함
-    profileData.hashTags.forEach(async (hashTag) => {
-      await HashTagService.add(hashTag, profile.id);
-    }); //프로필 등록
-    await WorkSpaceService.add(profileData.workSpace, profile.id); //workSpace 등록
+    const promises = profileData.hashTags.map((hashTag) =>
+      HashTagService.add(hashTag, profile.id)
+    ); //프로필 등록
+    await Promise.all(promises);
+    if (profileData.workSpace)
+      await WorkSpaceService.add(profileData.workSpace, profile.id); //workSpace 등록
+
     const user = await UserDAO.getUserProfilesForEdit(profileData.userId); //user의 전체 프로필을 가져옴
-    user.profiles.push(profile);
     const hashTagProfile = await ProfileDAO.getProfile(profile.id);
+    user.profiles.push(profile);
     await UserDAO.save(user);
     return hashTagProfile;
   }
@@ -38,13 +41,14 @@ export default class ProfileService {
         await WorkSpaceService.add(profileData.workSpace, profile.id);
       }
       if (profileData.hashTags) {
-        profile.hashTags.forEach(async (hashTag) => {
-          await HashTagService.delete(hashTag.hashTag, profile.id); //전부 삭제
-        });
-        profileData.hashTags.forEach(async (hashTag) => {
-          console.log(hashTag);
-          await HashTagService.add(hashTag, profile.id); //전부 등록
-        });
+        const deletePromise = profile.hashTags.map(
+          (hashTag) => HashTagService.delete(hashTag.hashTag, profile.id) //전부 삭제
+        );
+        await Promise.all(deletePromise);
+        const hashTagPromise = profileData.hashTags.map(
+          (hashTag) => HashTagService.add(hashTag, profile.id) //전부 등록
+        );
+        await Promise.all(hashTagPromise);
       }
     }
   }
