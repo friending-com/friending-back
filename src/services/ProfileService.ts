@@ -10,6 +10,7 @@ export default class ProfileService {
   static async getProfile(findProfileId: number) {
     //권한 검사 제거하고, public인 경우 모두가 조회할 수 있도록 변경
     const profile = await ProfileDAO.getProfile(findProfileId);
+    if (!profile) throw new ErrorStatus('없는 프로필입니다.', 404);
     if (profile.isPublic) return profile;
     throw new ErrorStatus('권한이 없습니다', 500);
   }
