@@ -8,6 +8,7 @@ import { search } from './search';
 import { navigate } from './navigate';
 import { callback } from './callback';
 import { refresh } from './refresh';
+import { image } from './image';
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use('/search', search);
 router.use('/navigate', navigate);
 router.use('/callback', callback);
 router.use('/refresh', refresh);
+router.use('/image', image);
 
 export default router;

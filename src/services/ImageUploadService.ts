@@ -18,16 +18,17 @@ export class ImageUploadService {
   static async upload(req: Request) {
     const [name, type] = getFileType(req.file.originalname);
     const currnetTime = getCurrentDateTime();
+    const fileName = currnetTime + name + type;
     const file = {
       Bucket: process.env.AWS_S3_BUCKET_NAME,
-      Key: currnetTime + name + type,
+      Key: fileName,
       Body: req.file.buffer,
     };
     try {
       const response = await ImageUploadService.client.send(
         new PutObjectCommand(file)
       );
-      return response;
+      return `https://friending-image-test-bucket.s3.ap-northeast-2.amazonaws.com/${fileName}`;
     } catch (err) {
       console.error(err);
     }
