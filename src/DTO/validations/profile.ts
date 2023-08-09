@@ -42,6 +42,7 @@ export const createProfileValidation = async (req: Request) => {
     isPublic: req.body.isPublic,
     workSpace: req.body.workSpace,
     hashTags: req.body.hashTags,
+    image: req.body.image,
   };
   const profile = new ProfileCreateDTO();
   Object.entries(profileData).forEach(([key, value]) => {
@@ -69,6 +70,7 @@ export const modifyProfileValidation = async (req: Request) => {
     kakaoTalk: req.body.kakaoTalk,
     workSpace: req.body.workSpace,
     hashTags: req.body.hashTags,
+    image: req.body.image,
   };
   const modifyProfile = new ProfileModifyDTO();
   Object.entries(profileData).forEach(([key, value]) => {

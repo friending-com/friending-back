@@ -13,6 +13,7 @@ export default class ProfileService {
     if (profile.isPublic) return profile;
     throw new ErrorStatus('권한이 없습니다', 500);
   }
+
   static async createProfile(profileData: ProfileCreateData) {
     const profile = await ProfileDAO.createProfile(profileData); //프로필을 생성함
     const promises = profileData.hashTags.map((hashTag) =>
@@ -35,6 +36,7 @@ export default class ProfileService {
       throw new ErrorStatus('프로필 수정권한이 없습니다!', 400);
     }
     await ProfileDAO.modify(profileData);
+
     if (profileData.workSpace || profileData.hashTags) {
       const profile = await ProfileDAO.getProfile(profileData.id);
       if (profileData.workSpace) {
