@@ -1,4 +1,8 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  DeleteObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { Request } from 'express';
 import multer from 'multer';
 import dotenv from 'dotenv';
@@ -32,6 +36,16 @@ export class ImageUploadService {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  static async delete(fileName: string) {
+    const deleteCommand = {
+      Bucket: process.env.AWS_S3_BUCKET_NAME,
+      Key: fileName,
+    };
+    const command = new DeleteObjectCommand(deleteCommand);
+    const result = await ImageUploadService.client.send(command);
+    return result;
   }
 }
 
