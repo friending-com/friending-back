@@ -23,6 +23,7 @@ export default class ProfileDAO {
     profile.email = profileData.email;
     profile.nickName = profileData.nickName;
     profile.isPublic = profileData.isPublic;
+    profile.image = profileData.image;
     await ProfileDAO.profileRepo.save(profile);
     return profile;
   }

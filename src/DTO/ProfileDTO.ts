@@ -47,6 +47,9 @@ export class ProfileCreateDTO {
   public workSpace: string;
   @IsOptional()
   public hashTags: string[];
+  @IsOptional()
+  @IsString()
+  public image: string;
 }
 export class ProfileModifyDTO {
   @IsInt()

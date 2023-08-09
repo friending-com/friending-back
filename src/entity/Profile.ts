@@ -67,6 +67,9 @@ export class Profile {
   @Column({ default: false })
   isPublic: boolean;
 
+  @Column({ nullable: true })
+  image: string;
+
   @ManyToOne(() => User, (user) => user.profiles)
   user: User;
 
