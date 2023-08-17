@@ -17,10 +17,9 @@ export default class ProfileService {
 
   static async createProfile(profileData: ProfileCreateData) {
     const profile = await ProfileDAO.createProfile(profileData); //프로필을 생성함
-    const promises = profileData.hashTags.map((hashTag) =>
-      HashTagService.add(hashTag, profile.id)
-    ); //프로필 등록
-    await Promise.all(promises);
+    for (const hashTag of profileData.hashTags) {
+      await HashTagService.add(hashTag, profile.id);
+    }
     if (profileData.workSpace)
       await WorkSpaceService.add(profileData.workSpace, profile.id); //workSpace 등록
 
@@ -56,14 +55,12 @@ export default class ProfileService {
           (hashTag) => !currentHashTagList.includes(hashTag)
         );
 
-        const deletePromise = removedHashTags.map(
-          (hashTag) => HashTagService.delete(hashTag, profile.id) //삭제된 부분 삭제
-        );
-        await Promise.all(deletePromise);
-        const hashTagPromise = addedHashTags.map(
-          (hashTag) => HashTagService.add(hashTag, profile.id) //추가된 부분 추가
-        );
-        await Promise.all(hashTagPromise);
+        for (const hashTag of removedHashTags) {
+          await HashTagService.delete(hashTag, profile.id); //삭제된 부분 삭제
+        }
+        for (const hashTag of addedHashTags) {
+          await HashTagService.add(hashTag, profile.id); //추가된 부분 추가
+        }
       }
     }
     return await ProfileDAO.getProfile(profileData.id);
