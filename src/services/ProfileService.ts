@@ -44,12 +44,24 @@ export default class ProfileService {
         await WorkSpaceService.add(profileData.workSpace, profile.id);
       }
       if (profileData.hashTags) {
-        const deletePromise = profile.hashTags.map(
-          (hashTag) => HashTagService.delete(hashTag.hashTag, profile.id) //전부 삭제
+        const previousHashTagList = profile.hashTags.map(
+          (hashTag) => hashTag.hashTag
+        );
+        const currentHashTagList = profileData.hashTags;
+
+        const addedHashTags = currentHashTagList.filter(
+          (hashTag) => !previousHashTagList.includes(hashTag)
+        );
+        const removedHashTags = previousHashTagList.filter(
+          (hashTag) => !currentHashTagList.includes(hashTag)
+        );
+
+        const deletePromise = removedHashTags.map(
+          (hashTag) => HashTagService.delete(hashTag, profile.id) //삭제된 부분 삭제
         );
         await Promise.all(deletePromise);
-        const hashTagPromise = profileData.hashTags.map(
-          (hashTag) => HashTagService.add(hashTag, profile.id) //전부 등록
+        const hashTagPromise = addedHashTags.map(
+          (hashTag) => HashTagService.add(hashTag, profile.id) //추가된 부분 추가
         );
         await Promise.all(hashTagPromise);
       }
