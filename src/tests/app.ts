@@ -1,10 +1,10 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { LoginService } from '../src/services/LoginService';
-import { AppDataSource } from '../src/DAO/data-source';
-import { ProfileCreateData, UpdateData } from '../src/types/profileData';
-import ProfileService from '../src/services/ProfileService';
-import { UserService } from '../src/services/UserService';
+import { LoginService } from '../services/LoginService';
+import { AppDataSource } from '../DAO/data-source';
+import { ProfileCreateData, UpdateData } from '../types/profileData';
+import ProfileService from '../services/ProfileService';
+import { UserService } from '../services/UserService';
 beforeAll(async () => {
   dotenv.config();
   try {
@@ -112,6 +112,24 @@ describe('Profile Create Test', () => {
       userId: 1,
     };
 
+    const hashTagNumbers = {
+      name: '길동',
+      isPublic: true,
+      hashTags: ['1'],
+      email: 'rlfehd2013@naver.com',
+      userId: 1,
+      workSpace: '프렌딩',
+    };
+    const hashTagNumbersModify: UpdateData = {
+      id: 1,
+      name: '길동',
+      isPublic: true,
+      hashTags: ['1', '2', '3'],
+      email: 'rlfehd2013@naver.com',
+      userId: 1,
+      workSpace: '프렌딩',
+    };
+
     it('Change normal property', async () => {
       const profile = await ProfileService.createProfile(
         normalData as ProfileCreateData
@@ -121,6 +139,15 @@ describe('Profile Create Test', () => {
       expect(result.name).toBe('동길');
       expect(result.email).toBe('dlehdrlf09@naver.com');
       await ProfileService.deleteProfile(result.id);
+    });
+
+    it('Add HashTags', async () => {
+      const profile = await ProfileService.createProfile(
+        hashTagNumbers as ProfileCreateData
+      );
+      hashTagNumbersModify.id = profile.id;
+      const result = await ProfileService.modifyProfile(hashTagNumbersModify);
+      console.log(result);
     });
 
     it('Change HashTags property', async () => {
