@@ -9,6 +9,6 @@ until docker container exec -it mySQLContainer mysqladmin ping -P 3306 -u root -
   sleep 1
 done
 
-jest --setupFiles dotenv/config
+jest --setupFiles dotenv/config --runInBand
 
 docker-compose down
