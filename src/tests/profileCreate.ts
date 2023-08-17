@@ -37,6 +37,14 @@ describe('Profile Create Test', () => {
     userId: 1,
     workSpace: '프렌딩',
   };
+  const hashTagTwice = {
+    name: '길동',
+    isPublic: true,
+    hashTags: ['중앙대학교', '산업보안', '테스트1', '테스트2'],
+    email: 'rlfehd2013@naver.com',
+    userId: 1,
+    workSpace: '프렌딩',
+  };
 
   it('normal Profile', async () => {
     const result = await ProfileService.createProfile(
@@ -55,6 +63,13 @@ describe('Profile Create Test', () => {
     expect(result.hashTags[0].hashTag).toBe('중앙대학교');
     expect(result.email).toBe('rlfehd2013@naver.com');
     await ProfileService.deleteProfile(result.id);
+  });
+
+  it('HashTag 여러개인경우', async () => {
+    const result = await ProfileService.createProfile(
+      hashTagTwice as ProfileCreateData
+    );
+    expect(result.hashTags.length).toBe(4);
   });
 
   it('GetALL Profile Test', async () => {

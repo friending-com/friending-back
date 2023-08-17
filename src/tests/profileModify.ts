@@ -88,7 +88,7 @@ describe('Profile Modify Test', () => {
     );
     hashTagNumbersModify.id = profile.id;
     const result = await ProfileService.modifyProfile(hashTagNumbersModify);
-    console.log(result);
+    expect(result.hashTags.length).toBe(3);
   });
 
   it('Change HashTags property', async () => {
