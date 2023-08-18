@@ -34,7 +34,7 @@ export class ImageUploadService {
       );
       return `https://friending-image-test-bucket.s3.ap-northeast-2.amazonaws.com/${fileName}`;
     } catch (err) {
-      console.error(err);
+      throw err;
     }
   }
 
