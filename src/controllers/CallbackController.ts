@@ -8,12 +8,12 @@ export class CallbackController {
     if (platform === 'google') {
       const data = await CallbackService.google(accessToken);
       const tokens = await LoginService.login(data);
-      res.json(tokens);
+      return res.json(tokens);
     }
     if (platform === 'kakao') {
       const data = await CallbackService.kakao(accessToken);
       const tokens = await LoginService.login(data.kakao_account);
-      res.json(tokens);
+      return res.json(tokens);
     }
     if (platform === 'naver') {
     }
