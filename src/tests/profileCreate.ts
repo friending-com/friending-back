@@ -79,6 +79,7 @@ describe('Profile Create Test', () => {
       ProfileService.createProfile(noWorkSpace as ProfileCreateData),
     ]);
     const result = await UserService.findAllProfile(1);
+    console.log(result[0].hashTags[0].hashTag);
     expect(result[0].hashTags[0].hashTag).toBe('중앙대학교');
     expect(result[0].workSpace.hashTag).toBe('프렌딩');
     expect(result[0].email).toBe('rlfehd2013@naver.com');
