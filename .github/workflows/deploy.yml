@@ -35,7 +35,10 @@ jobs:
 
       - name: ✅테스트 수행
         working-directory: ./
-        run: npm test
+        run: |
+          chmod +x ./scripts/run-test.sh
+          ./scripts/run-test.sh
+        shell: bash
 
       - name: ✨ 빌드
         working-directory: ./
