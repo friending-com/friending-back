@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./.env
+source "${PWD}/.env"
 docker-compose up -d
 
 sh ./scripts/wait-for-it.sh localhost:3307 -t 15
