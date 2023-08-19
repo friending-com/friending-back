@@ -89,6 +89,7 @@ describe('Profile Modify Test', () => {
     hashTagNumbersModify.id = profile.id;
     const result = await ProfileService.modifyProfile(hashTagNumbersModify);
     expect(result.hashTags.length).toBe(3);
+    await ProfileService.deleteProfile(profile.id);
   });
 
   it('Change HashTags property', async () => {
