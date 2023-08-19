@@ -33,6 +33,10 @@ jobs:
         working-directory: ./
         run: npm install
 
+      - name: ✅테스트 수행
+        working-directory: ./
+        run: npm test
+
       - name: ✨ 빌드
         working-directory: ./
         run: npm run build
