@@ -5,7 +5,7 @@
   "main": "/src/app.js",
   "scripts": {
     "test": "sh ./scripts/run-test.sh",
-    "build": "npx tsc",
+    "unitTest": "jest --config jest.unit.config.js",
     "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/app.ts",
     "start": "node dist/app.js",
     "typeorm": "typeorm-ts-node-commonjs"
