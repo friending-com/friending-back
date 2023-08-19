@@ -47,7 +47,7 @@ jobs:
 
       - name: ✅테스트 수행
         working-directory: ./
-        run: npx jest --runInBand --setupFiles dotenv/config 
+        run: npx jest --maxWorkers=1 --setupFiles dotenv/config
 
       - name: 🐋 Docker-compose Down
         working-directory: ./
