@@ -70,6 +70,7 @@ describe('Profile Create Test', () => {
       hashTagTwice as ProfileCreateData
     );
     expect(result.hashTags.length).toBe(4);
+    await ProfileService.deleteProfile(result.id);
   });
 
   it('GetALL Profile Test', async () => {
