@@ -28,4 +28,22 @@ describe('friend Controller', () => {
     expect(AuthorizationService.doesUserHaveProfile).toHaveBeenCalledWith(1, 1);
     expect(JWTService.verify).toHaveBeenCalledWith('');
   });
+
+  it('getAll', async () => {
+    jest.spyOn(JWTService, 'verify').mockResolvedValue({ id: 1 });
+    const req: any = {
+      headers: {
+        authorization: '',
+      },
+    };
+    const res: any = {
+      json: jest.fn(),
+    };
+    jest
+      .spyOn(FriendService, 'getFriendProfiles')
+      .mockResolvedValue([] as unknown as Profile[]);
+    await FriendController.getAll(req as Request, res as Response);
+    expect(JWTService.verify).toHaveBeenCalledWith('');
+    expect(res.json).toHaveBeenCalledWith([]);
+  });
 });
