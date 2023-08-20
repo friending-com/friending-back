@@ -4,6 +4,7 @@ import { AuthorizationService } from '../../services/AuthorizationService';
 import { JWTService } from '../../services/JWTService';
 import { FriendController } from '../FriendController';
 import { FriendService } from '../../services/FriendService';
+import exp from 'constants';
 
 describe('friend Controller', () => {
   it('post', async () => {
@@ -44,6 +45,22 @@ describe('friend Controller', () => {
       .mockResolvedValue([] as unknown as Profile[]);
     await FriendController.getAll(req as Request, res as Response);
     expect(JWTService.verify).toHaveBeenCalledWith('');
+    expect(FriendService.getFriendProfiles).toHaveBeenCalledWith(1);
+    expect(res.json).toHaveBeenCalledWith([]);
+  });
+
+  it('get', async () => {
+    const req: any = {
+      query: {
+        id: 3,
+      },
+    };
+    const res: any = {
+      json: jest.fn(),
+    };
+    jest.spyOn(FriendService, 'show').mockResolvedValue([] as Profile[]);
+    await FriendController.get(req as Request, res as Response);
+    expect(FriendService.show).toHaveBeenCalledWith(3);
     expect(res.json).toHaveBeenCalledWith([]);
   });
 });
