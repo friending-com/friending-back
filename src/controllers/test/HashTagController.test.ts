@@ -31,4 +31,19 @@ describe('HashTagController', () => {
     expect(HashTagService.add).toHaveBeenCalledWith('해시태그', 2);
     expect(res.json).toHaveBeenCalledWith('hashTag 등록 완료');
   });
+
+  it('get', async () => {
+    const req: any = {
+      query: {
+        hashTagName: '해시태그',
+      },
+    };
+    const res: any = {
+      json: jest.fn(),
+    };
+    jest.spyOn(HashTagService, 'search').mockResolvedValue([] as Profile[]);
+    await HashTagController.get(req as Request, res as Response);
+    expect(HashTagService.search).toHaveBeenCalledWith('해시태그');
+    expect(res.json).toHaveBeenCalledWith([]);
+  });
 });
