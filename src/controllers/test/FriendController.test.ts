@@ -4,7 +4,6 @@ import { AuthorizationService } from '../../services/AuthorizationService';
 import { JWTService } from '../../services/JWTService';
 import { FriendController } from '../FriendController';
 import { FriendService } from '../../services/FriendService';
-import exp from 'constants';
 
 describe('friend Controller', () => {
   it('post', async () => {
