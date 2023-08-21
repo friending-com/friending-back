@@ -33,4 +33,32 @@ describe('NavigateController', () => {
     expect(NavigateService.navigate).toHaveBeenCalledWith(3, 2);
     expect(res.json).toHaveBeenCalledWith([]);
   });
+
+  it('post exception test', async () => {
+    const req: any = {
+      headers: {
+        authorization: '',
+      },
+      body: {
+        findProfile: 2,
+        userProfile: 3,
+      },
+    };
+
+    const res: any = {
+      json: jest.fn(),
+    };
+
+    jest.spyOn(JWTService, 'verify').mockResolvedValue({ id: 1 });
+    jest
+      .spyOn(AuthorizationService, 'doesUserHaveProfile')
+      .mockResolvedValue(null);
+    jest.spyOn(NavigateService, 'navigate').mockResolvedValue([]);
+
+    try {
+      await NavigateController.post(req as Request, res as Response);
+    } catch (err) {
+      expect(err.message).toBe('프로필의 소유 권한이 없습니다!');
+    }
+  });
 });
