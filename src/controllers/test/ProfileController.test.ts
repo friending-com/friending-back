@@ -134,4 +134,24 @@ describe('ProfileController', () => {
     expect(ProfileService.modifyProfile).toHaveBeenCalledWith(result);
     expect(res.json).toHaveBeenCalledWith({});
   });
+
+  it('delete', async () => {
+    const req: any = {
+      headers: {
+        authorization: '',
+      },
+      params: {
+        id: 1,
+      },
+    };
+    const res: any = {
+      json: jest.fn(),
+    };
+    jest.spyOn(JWTService, 'verify').mockResolvedValue({ id: 3 });
+    jest.spyOn(ProfileService, 'deleteProfile').mockResolvedValue(undefined);
+    await ProfileController.delete(req as Request, res as Response);
+    expect(JWTService.verify).toHaveBeenCalledWith('');
+    expect(ProfileService.deleteProfile).toHaveBeenCalledWith(1);
+    expect(res.json).toHaveBeenCalledWith('삭제완료');
+  });
 });
