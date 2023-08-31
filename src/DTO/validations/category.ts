@@ -46,3 +46,13 @@ export const categoryFriendAddValidation = async (req: Request) => {
   await validation(validator);
   return { id, categoryId, profileId };
 };
+
+export const categoryRemoveAllValidation = async (req: Request) => {
+  const validator = new CategoryDTO();
+  const { id } = await JWTService.verify(req.headers.authorization);
+  const categoryId = Number(req.params.categoryId);
+  validator.userId = id;
+  validator.categoryId = categoryId;
+  await validation(validator);
+  return { id, categoryId };
+};
