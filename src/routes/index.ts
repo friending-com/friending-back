@@ -10,6 +10,7 @@ import { callback } from './callback';
 import { refresh } from './refresh';
 import { image } from './image';
 import { category } from './category';
+import { categories } from './categories';
 
 const router = Router();
 
@@ -24,5 +25,6 @@ router.use('/callback', callback);
 router.use('/refresh', refresh);
 router.use('/image', image);
 router.use('/category', category);
+router.use('/categories', categories);
 
 export default router;
