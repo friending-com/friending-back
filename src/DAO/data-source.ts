@@ -4,6 +4,7 @@ import { User } from '../entity/User';
 import dotenv from 'dotenv';
 import { HashTag } from '../entity/HashTag';
 import { Profile } from '../entity/Profile';
+import { Category } from '../entity/Category';
 dotenv.config();
 
 const { NODE_ENV, DB_USER, DB_PASSWORD } = process.env;
@@ -19,7 +20,7 @@ export const AppDataSource = new DataSource({
   database: db,
   synchronize: true,
   logging: false,
-  entities: [User, HashTag, Profile],
+  entities: [User, HashTag, Profile, Category],
   migrations: [],
   subscribers: [],
 });

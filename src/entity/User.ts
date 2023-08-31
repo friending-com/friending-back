@@ -7,8 +7,8 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { snsURL } from '../types/snsURL';
 import { Profile } from './Profile';
+import { Category } from './Category';
 
 @Entity()
 export class User {
@@ -20,4 +20,10 @@ export class User {
 
   @OneToMany(() => Profile, (profile) => profile.user, { onDelete: 'CASCADE' })
   profiles: Profile[];
+
+  @OneToMany(() => Category, (category) => category.user)
+  categories: Category[];
+
+  @Column()
+  fcmToken: string;
 }
