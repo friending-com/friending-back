@@ -38,6 +38,6 @@ export class CategoryService {
     const category = new Category();
     category.name = name;
     category.user = await UserDAO.getUser(userId);
-    await CategoryService.repo.save(category);
+    return await CategoryService.repo.save(category);
   }
 }

@@ -15,7 +15,7 @@ export const categoryGetValidation = async (req: Request) => {
   const categoryId = Number(req.params.categoryId);
   validator.categoryId = categoryId;
   await validation(validator);
-  return { categoryId };
+  return categoryId ;
 };
 
 export const categoryGetAllValidation = async (req: Request) => {
@@ -23,7 +23,7 @@ export const categoryGetAllValidation = async (req: Request) => {
   const { id } = await JWTService.verify(req.headers.authorization);
   validator.userId = id;
   await validation(validator);
-  return { id };
+  return  id ;
 };
 
 export const categoryMakeValidation = async (req: Request) => {
