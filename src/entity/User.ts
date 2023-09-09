@@ -24,6 +24,6 @@ export class User {
   @OneToMany(() => Category, (category) => category.user)
   categories: Category[];
 
-  @Column()
+  @Column({ nullable: true })
   fcmToken: string;
 }
