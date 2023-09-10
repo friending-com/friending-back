@@ -11,6 +11,7 @@ import {
 import { snsURL } from '../types/snsURL';
 import { HashTag } from './HashTag';
 import { User } from './User';
+import { Category } from './Category';
 
 @Entity()
 export class Profile {
@@ -86,4 +87,7 @@ export class Profile {
   })
   @JoinTable()
   friends: Profile[];
+
+  @ManyToMany(() => Category, (category) => category.friends)
+  category: Category[];
 }

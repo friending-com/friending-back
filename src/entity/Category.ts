@@ -19,7 +19,7 @@ export class Category {
   @ManyToOne(() => User, (user) => user.categories)
   user: User;
 
-  @ManyToMany(() => Profile, (profile) => profile.friends)
+  @ManyToMany(() => Profile, (profile) => profile.category)
   @JoinTable()
   friends: Profile[];
 }
