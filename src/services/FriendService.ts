@@ -17,7 +17,6 @@ export class FriendService {
   }
   static async getFriendProfiles(userId: number) {
     const user = await UserDAO.getUserFriendsProfiles(userId);
-    console.log(user);
     const friendList = user.profiles.map((profile) => {
       return [...profile.friends];
     });
