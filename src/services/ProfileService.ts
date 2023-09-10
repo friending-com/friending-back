@@ -17,9 +17,12 @@ export default class ProfileService {
 
   static async createProfile(profileData: ProfileCreateData) {
     const profile = await ProfileDAO.createProfile(profileData); //프로필을 생성함
-    for (const hashTag of profileData.hashTags) {
-      await HashTagService.add(hashTag, profile.id);
-    }
+
+    if (profileData.hashTags)
+      for (const hashTag of profileData.hashTags) {
+        await HashTagService.add(hashTag, profile.id);
+      }
+
     if (profileData.workSpace)
       await WorkSpaceService.add(profileData.workSpace, profile.id); //workSpace 등록
 
