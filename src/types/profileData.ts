@@ -11,6 +11,7 @@ export interface UpdateData {
   phone?: string;
   facebook?: snsURL;
   kakaoTalk?: snsURL;
+  thread?: snsURL;
   age?: number;
   discord?: snsURL;
   line?: snsURL;
@@ -36,6 +37,7 @@ export interface ProfileCreateData {
   kakaoTalk: snsURL;
   discord: snsURL;
   line: snsURL;
+  thread: snsURL;
   naverBlog: snsURL;
   naverBand: snsURL;
   telegram: snsURL;

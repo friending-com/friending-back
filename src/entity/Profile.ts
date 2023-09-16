@@ -33,6 +33,9 @@ export class Profile {
   instagram: snsURL;
 
   @Column({ nullable: true })
+  thread: snsURL;
+
+  @Column({ nullable: true })
   twitter: snsURL;
 
   @Column({ nullable: true })

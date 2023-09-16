@@ -23,6 +23,9 @@ export class ProfileCreateDTO {
   public instagram: string;
   @IsOptional()
   @IsString()
+  public thread: string;
+  @IsOptional()
+  @IsString()
   public facebook: string;
   @IsOptional()
   @IsString()
@@ -68,6 +71,9 @@ export class ProfileModifyDTO {
   @IsOptional()
   @IsString()
   public instagram: string;
+  @IsOptional()
+  @IsString()
+  public thread: string;
   @IsOptional()
   @IsString()
   public facebook: string;

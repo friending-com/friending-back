@@ -42,6 +42,7 @@ export const createProfileValidation = async (req: Request) => {
     isPublic: req.body.isPublic,
     workSpace: req.body.workSpace,
     hashTags: req.body.hashTags,
+    thread: req.body.thread,
     image: req.body.image,
   };
   const profile = new ProfileCreateDTO();
@@ -70,6 +71,7 @@ export const modifyProfileValidation = async (req: Request) => {
     kakaoTalk: req.body.kakaoTalk,
     workSpace: req.body.workSpace,
     hashTags: req.body.hashTags,
+    thread: req.body.thread,
     image: req.body.image,
   };
   const modifyProfile = new ProfileModifyDTO();
