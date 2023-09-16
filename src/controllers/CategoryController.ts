@@ -28,8 +28,24 @@ export class CategoryController {
 
   static async removeAll(req: Request, res: Response) {
     const { id, categoryId } = await categoryRemoveAllValidation(req);
+    const result = await CategoryService.removeCategory(id, categoryId);
+    res.json(result);
   }
 
-  static async add(req: Request, res: Response) {}
-  static async remove(req: Request, res: Response) {}
+  static async add(req: Request, res: Response) {
+    const { friendId, categoryId } = req.body;
+    const result = await CategoryService.addFriendCategory(
+      friendId,
+      categoryId
+    );
+    res.json(result);
+  }
+  static async remove(req: Request, res: Response) {
+    const { friendId, categoryId } = req.body;
+    const result = await CategoryService.removeFriendCategory(
+      friendId,
+      categoryId
+    );
+    res.json(result);
+  }
 }
