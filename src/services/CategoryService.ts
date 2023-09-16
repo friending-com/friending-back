@@ -30,7 +30,10 @@ export class CategoryService {
     const friendProfile = await AppDataSource.getRepository(Profile).findOne({
       where: { id: friendProfileId },
     });
-    const category = await CategoryService.repo.findOne({ where: { id } });
+    const category = await CategoryService.repo.findOne({
+      where: { id },
+      relations: { friends: true },
+    });
     category.friends.push(friendProfile);
     await CategoryService.repo.save(category);
   }
