@@ -1,6 +1,8 @@
 import FriendDAO from '../DAO/FriendDAO';
 import UserDAO from '../DAO/UserDAO';
+import { Profile } from '../entity/Profile';
 import ErrorStatus from '../utils/ErrorStatus';
+import { removeSameObjectFromArray } from '../utils/utils';
 
 export class FriendService {
   static async add(profileId: number, subProfileId: number) {
@@ -20,6 +22,7 @@ export class FriendService {
     const friendList = user.profiles.map((profile) => {
       return [...profile.friends];
     });
-    return friendList.flat();
+    const flat = friendList.flat();
+    return removeSameObjectFromArray(flat);
   }
 }
