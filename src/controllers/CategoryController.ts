@@ -38,7 +38,7 @@ export class CategoryController {
       friendId,
       categoryId
     );
-    res.json(result);
+    res.json('카테고리 추가완료!');
   }
   static async remove(req: Request, res: Response) {
     const { friendId, categoryId } = req.body;
