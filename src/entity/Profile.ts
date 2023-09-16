@@ -20,7 +20,7 @@ export class Profile {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   info: string;
 
   @Column({ nullable: true })
