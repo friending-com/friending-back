@@ -44,6 +44,7 @@ export const createProfileValidation = async (req: Request) => {
     hashTags: req.body.hashTags,
     thread: req.body.thread,
     image: req.body.image,
+    info: req.body.info,
   };
   const profile = new ProfileCreateDTO();
   Object.entries(profileData).forEach(([key, value]) => {
@@ -73,6 +74,7 @@ export const modifyProfileValidation = async (req: Request) => {
     hashTags: req.body.hashTags,
     thread: req.body.thread,
     image: req.body.image,
+    info: req.body.info,
   };
   const modifyProfile = new ProfileModifyDTO();
   Object.entries(profileData).forEach(([key, value]) => {

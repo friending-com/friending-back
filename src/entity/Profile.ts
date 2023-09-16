@@ -20,6 +20,9 @@ export class Profile {
   @Column()
   name: string;
 
+  @Column()
+  info: string;
+
   @Column({ nullable: true })
   nickName: string;
 

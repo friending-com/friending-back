@@ -72,6 +72,7 @@ describe('ProfileController', () => {
       telegram: undefined,
       twitter: undefined,
       userId: 2,
+      info: undefined,
       workSpace: '프렌딩',
     };
     const res: any = {
@@ -143,6 +144,7 @@ describe('ProfileController', () => {
         hashTags: ['중앙대학교', '산업보안', '테스트1', '테스트2'],
         email: 'rlfehd2013@naver.com',
         workSpace: '프렌딩',
+        info: '응애~',
       },
       params: {
         id: 2,
@@ -168,6 +170,7 @@ describe('ProfileController', () => {
       twitter: undefined,
       userId: 3,
       workSpace: '프렌딩',
+      info: '응애~',
     };
     const res: any = {
       json: jest.fn(),

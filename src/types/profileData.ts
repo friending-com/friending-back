@@ -22,6 +22,7 @@ export interface UpdateData {
   workSpace?: string;
   hashTags?: string[];
   image?: string;
+  info?: string;
 }
 
 export interface ProfileCreateData {
@@ -43,5 +44,6 @@ export interface ProfileCreateData {
   telegram: snsURL;
   hashTags: string[];
   isPublic: boolean;
+  info: string;
   image?: string;
 }

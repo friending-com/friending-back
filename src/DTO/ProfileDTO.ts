@@ -20,7 +20,10 @@ export class ProfileCreateDTO {
   public kakaoTalk: string;
   @IsOptional()
   @IsString()
-  public instagram: string;
+  public email: string;
+  @IsOptional()
+  @IsString()
+  public info: string;
   @IsOptional()
   @IsString()
   public thread: string;
@@ -65,6 +68,12 @@ export class ProfileModifyDTO {
   @IsOptional()
   @IsString()
   public phone: string;
+  @IsOptional()
+  @IsString()
+  public email: string;
+  @IsOptional()
+  @IsString()
+  public info: string;
   @IsOptional()
   @IsString()
   public kakaoTalk: string;
