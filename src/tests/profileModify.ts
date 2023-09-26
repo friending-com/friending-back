@@ -26,6 +26,7 @@ describe('Profile Modify Test', () => {
     isPublic: true,
     hashTags: ['중앙대학교'],
     email: 'rlfehd2013@naver.com',
+    usage: '친한친구',
     userId: 1,
   };
   const normalData = {
@@ -33,6 +34,7 @@ describe('Profile Modify Test', () => {
     isPublic: true,
     hashTags: ['중앙대학교'],
     email: 'rlfehd2013@naver.com',
+    usage: '친한친구',
     userId: 1,
     workSpace: '프렌딩',
   };
@@ -41,6 +43,7 @@ describe('Profile Modify Test', () => {
     name: '동길',
     isPublic: true,
     email: 'dlehdrlf09@naver.com',
+    usage: '친한친구',
     userId: 1,
   };
 
@@ -50,6 +53,7 @@ describe('Profile Modify Test', () => {
     isPublic: true,
     hashTags: ['중앙대', '멋쟁이사자처럼11기'],
     email: 'dlehdrlf09@naver.com',
+    usage: '친한친구',
     userId: 1,
   };
 
@@ -60,6 +64,7 @@ describe('Profile Modify Test', () => {
     email: 'rlfehd2013@naver.com',
     userId: 1,
     workSpace: '프렌딩',
+    usage: '친한친구',
   };
   const hashTagNumbersModify: UpdateData = {
     id: 1,
@@ -68,6 +73,7 @@ describe('Profile Modify Test', () => {
     hashTags: ['1', '2', '3'],
     email: 'rlfehd2013@naver.com',
     userId: 1,
+    usage: '친한친구',
     workSpace: '프렌딩',
   };
 
