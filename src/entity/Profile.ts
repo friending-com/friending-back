@@ -19,6 +19,8 @@ export class Profile {
   id: number;
   @Column()
   name: string;
+  @Column()
+  usage: string;
 
   @Column({ nullable: true })
   info: string;

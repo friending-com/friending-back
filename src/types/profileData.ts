@@ -3,6 +3,7 @@ import { snsURL } from './snsURL';
 export interface UpdateData {
   id: number;
   userId: number;
+  usage?: string;
   email?: string;
   nickName?: string;
   name?: string;
@@ -27,6 +28,7 @@ export interface UpdateData {
 
 export interface ProfileCreateData {
   email: string;
+  usage: string;
   name: string;
   nickName: string;
   workSpace: string;

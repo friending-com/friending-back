@@ -27,6 +27,7 @@ export const createProfileValidation = async (req: Request) => {
   const profileData: ProfileCreateData = {
     userId: Number((await JWTService.verify(req.headers.authorization)).id),
     email: req.body.email,
+    usage: req.body.usage,
     nickName: req.body.nickName,
     name: req.body.name,
     discord: req.body.discord,
@@ -57,6 +58,7 @@ export const modifyProfileValidation = async (req: Request) => {
   const profileData: UpdateData = {
     userId: Number((await JWTService.verify(req.headers.authorization)).id),
     id: parseInt(req.params.id),
+    usage: req.body.useage,
     name: req.body.name,
     nickName: req.body.nickName,
     email: req.body.email,

@@ -11,6 +11,7 @@ export class CategoryDTO {
   @IsInt()
   public categoryId: number;
 }
+
 export class CategoryAddDTO {
   @IsString()
   public name: string;

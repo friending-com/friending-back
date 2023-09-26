@@ -12,6 +12,8 @@ export class ProfileCreateDTO {
   public userId: number;
   @IsBoolean()
   public isPublic: boolean;
+  @IsString()
+  public usage: string;
   @IsOptional()
   @IsString()
   public phone: string;

@@ -12,6 +12,7 @@ describe('profile post test', () => {
       body: {
         name: '길동',
         isPublic: true,
+        usage: '친한친구',
         hashTags: ['중앙대학교', '산업보안', '테스트1', '테스트2'],
         email: 'rlfehd2013@naver.com',
         workSpace: '프렌딩',
@@ -21,6 +22,7 @@ describe('profile post test', () => {
     const result = {
       discord: undefined,
       email: 'rlfehd2013@naver.com',
+      usage: '친한친구',
       facebook: undefined,
       hashTags: ['중앙대학교', '산업보안', '테스트1', '테스트2'],
       image: undefined,
@@ -57,6 +59,7 @@ describe('profile post test', () => {
       },
       body: {
         name: '길동',
+        usage: '친한친구',
         isPublic: true,
         hashTags: ['중앙대학교', '산업보안', '테스트1', '테스트2'],
         email: 'rlfehd2013@naver.com',
@@ -66,6 +69,7 @@ describe('profile post test', () => {
     };
 
     const result = {
+      usage: '친한친구',
       discord: undefined,
       email: 'rlfehd2013@naver.com',
       facebook: undefined,
@@ -104,6 +108,7 @@ describe('profile post test', () => {
       },
       body: {
         name: '길동',
+        usage: '찐친',
         isPublic: true,
         hashTags: ['중앙대학교', '산업보안', '테스트1', '테스트2'],
         email: 'rlfehd2013@naver.com',
@@ -128,6 +133,7 @@ describe('profile post test', () => {
     const result = {
       name: '길동',
       isPublic: true,
+      usage: '찐친',
       hashTags: ['중앙대학교', '산업보안', '테스트1', '테스트2'],
       email: 'rlfehd2013@naver.com',
       workSpace: '프렌딩',
