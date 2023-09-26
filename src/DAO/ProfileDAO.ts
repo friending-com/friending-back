@@ -9,6 +9,7 @@ export default class ProfileDAO {
 
   static async createProfile(profileData: ProfileCreateData) {
     const profile = new Profile();
+    profile.usage = profileData.usage;
     profile.discord = profileData.discord;
     profile.facebook = profileData.facebook;
     profile.instagram = profileData.instagram;
@@ -24,6 +25,8 @@ export default class ProfileDAO {
     profile.nickName = profileData.nickName;
     profile.isPublic = profileData.isPublic;
     profile.image = profileData.image;
+    profile.info = profileData.info;
+    profile.thread = profileData.thread;
     await ProfileDAO.profileRepo.save(profile);
     return profile;
   }
