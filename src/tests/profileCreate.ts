@@ -25,6 +25,7 @@ describe('Profile Create Test', () => {
   const noWorkSpace = {
     name: '길동',
     isPublic: true,
+    usage: '친한친구',
     hashTags: ['중앙대학교'],
     email: 'rlfehd2013@naver.com',
     userId: 1,
@@ -32,6 +33,7 @@ describe('Profile Create Test', () => {
   const normalData = {
     name: '길동',
     isPublic: true,
+    usage: '친한친구',
     hashTags: ['중앙대학교'],
     email: 'rlfehd2013@naver.com',
     userId: 1,
@@ -40,6 +42,7 @@ describe('Profile Create Test', () => {
   const hashTagTwice = {
     name: '길동',
     isPublic: true,
+    usage: '친한친구',
     hashTags: ['중앙대학교', '산업보안', '테스트1', '테스트2'],
     email: 'rlfehd2013@naver.com',
     userId: 1,
