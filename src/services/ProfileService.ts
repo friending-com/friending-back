@@ -1,5 +1,11 @@
 import ProfileDAO from '../DAO/ProfileDAO';
 import UserDAO from '../DAO/UserDAO';
+import {
+  ProfileCreateDTO,
+  ProfileDeleteDTO,
+  ProfileGetDTO,
+  ProfileModifyDTO,
+} from '../DTO/ProfileDTO';
 import { ProfileCreateData, UpdateData } from '../types/profileData';
 import ErrorStatus from '../utils/ErrorStatus';
 import { AuthorizationService } from './AuthorizationService';
@@ -7,49 +13,48 @@ import { WorkSpaceService } from './WorkSpaceService';
 import { HashTagService } from './hashTagService';
 
 export default class ProfileService {
-  static async getProfile(findProfileId: number) {
+  static async getProfile(dto: ProfileGetDTO) {
     //권한 검사 제거하고, public인 경우 모두가 조회할 수 있도록 변경
-    const profile = await ProfileDAO.getProfile(findProfileId);
+    const profile = await ProfileDAO.getProfile(dto.id);
     if (!profile) throw new ErrorStatus('없는 프로필입니다.', 404);
     if (profile.isPublic) return profile;
     throw new ErrorStatus('권한이 없습니다', 500);
   }
 
-  static async createProfile(profileData: ProfileCreateData) {
-    const profile = await ProfileDAO.createProfile(profileData); //프로필을 생성함
+  static async createProfile(dto: ProfileCreateDTO) {
+    const profile = await ProfileDAO.createProfile(dto); //프로필을 생성함
 
-    if (profileData.hashTags)
-      for (const hashTag of profileData.hashTags) {
+    if (dto.hashTags)
+      for (const hashTag of dto.hashTags) {
         await HashTagService.add(hashTag, profile.id);
       }
 
-    if (profileData.workSpace)
-      await WorkSpaceService.add(profileData.workSpace, profile.id); //workSpace 등록
+    if (dto.workSpace) await WorkSpaceService.add(dto.workSpace, profile.id); //workSpace 등록
 
-    const user = await UserDAO.getUserProfilesForEdit(profileData.userId); //user의 전체 프로필을 가져옴
+    const user = await UserDAO.getUserProfilesForEdit(dto.userId); //user의 전체 프로필을 가져옴
     const hashTagProfile = await ProfileDAO.getProfile(profile.id);
     user.profiles.push(profile);
     await UserDAO.save(user);
     return hashTagProfile;
   }
 
-  static async modifyProfile(profileData: UpdateData) {
-    const user = await UserDAO.getUserProfiles(profileData.userId);
-    if (!user.profiles.some((profile) => profile.id === profileData.id)) {
+  static async modifyProfile(dto: ProfileModifyDTO) {
+    const user = await UserDAO.getUserProfiles(dto.userId);
+    if (!user.profiles.some((profile) => profile.id === dto.id)) {
       throw new ErrorStatus('프로필 수정권한이 없습니다!', 400);
     }
-    await ProfileDAO.modify(profileData);
+    await ProfileDAO.modify(dto);
 
-    if (profileData.workSpace || profileData.hashTags) {
-      const profile = await ProfileDAO.getProfile(profileData.id);
-      if (profileData.workSpace) {
-        await WorkSpaceService.add(profileData.workSpace, profile.id);
+    if (dto.workSpace || dto.hashTags) {
+      const profile = await ProfileDAO.getProfile(dto.id);
+      if (dto.workSpace) {
+        await WorkSpaceService.add(dto.workSpace, profile.id);
       }
-      if (profileData.hashTags) {
+      if (dto.hashTags) {
         const previousHashTagList = profile.hashTags.map(
           (hashTag) => hashTag.hashTag
         );
-        const currentHashTagList = profileData.hashTags;
+        const currentHashTagList = dto.hashTags;
 
         const addedHashTags = currentHashTagList.filter(
           (hashTag) => !previousHashTagList.includes(hashTag)
@@ -66,10 +71,10 @@ export default class ProfileService {
         }
       }
     }
-    return await ProfileDAO.getProfile(profileData.id);
+    return await ProfileDAO.getProfile(dto.id);
   }
 
-  static async deleteProfile(profileData: number) {
-    await ProfileDAO.delete(profileData);
+  static async deleteProfile(dto: ProfileDeleteDTO) {
+    await ProfileDAO.delete(dto.profileId);
   }
 }

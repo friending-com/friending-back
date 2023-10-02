@@ -12,6 +12,7 @@ describe('profile post test', () => {
       body: {
         name: '길동',
         isPublic: true,
+        nickName: 'nick',
         usage: '친한친구',
         hashTags: ['중앙대학교', '산업보안', '테스트1', '테스트2'],
         email: 'rlfehd2013@naver.com',
@@ -33,7 +34,7 @@ describe('profile post test', () => {
       name: '길동',
       naverBand: undefined,
       naverBlog: undefined,
-      nickName: undefined,
+      nickName: 'nick',
       phone: undefined,
       telegram: undefined,
       twitter: undefined,
@@ -60,6 +61,7 @@ describe('profile post test', () => {
       body: {
         name: '길동',
         usage: '친한친구',
+        nickName: 'nick',
         isPublic: true,
         hashTags: ['중앙대학교', '산업보안', '테스트1', '테스트2'],
         email: 'rlfehd2013@naver.com',
@@ -70,6 +72,7 @@ describe('profile post test', () => {
 
     const result = {
       usage: '친한친구',
+      nickName: 'nick',
       discord: undefined,
       email: 'rlfehd2013@naver.com',
       facebook: undefined,
@@ -83,7 +86,6 @@ describe('profile post test', () => {
       name: '길동',
       naverBand: undefined,
       naverBlog: undefined,
-      nickName: undefined,
       phone: undefined,
       telegram: undefined,
       twitter: undefined,

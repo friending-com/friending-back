@@ -4,6 +4,11 @@ import ProfileService from '../../services/ProfileService';
 import { ProfileController } from '../ProfileController';
 import { JWTService } from '../../services/JWTService';
 import { UserService } from '../../services/UserService';
+import {
+  ProfileDeleteDTO,
+  ProfileGetAllDTO,
+  ProfileGetDTO,
+} from '../../DTO/ProfileDTO';
 
 describe('ProfileController', () => {
   it('get', async () => {
@@ -17,7 +22,9 @@ describe('ProfileController', () => {
     };
     jest.spyOn(ProfileService, 'getProfile').mockResolvedValue({} as Profile);
     await ProfileController.get(req as Request, res as Response);
-    expect(ProfileService.getProfile).toHaveBeenCalledWith(2);
+    const result = new ProfileGetDTO();
+    result.id = 2;
+    expect(ProfileService.getProfile).toHaveBeenCalledWith(result);
     expect(res.json).toHaveBeenCalledWith({});
   });
 
@@ -107,8 +114,10 @@ describe('ProfileController', () => {
     jest.spyOn(JWTService, 'verify').mockResolvedValue({ id: 3 });
     jest.spyOn(ProfileService, 'deleteProfile').mockResolvedValue(undefined);
     await ProfileController.delete(req as Request, res as Response);
-    expect(JWTService.verify).toHaveBeenCalledWith('');
-    expect(ProfileService.deleteProfile).toHaveBeenCalledWith(1);
+    const result = new ProfileDeleteDTO();
+    result.id = 3;
+    result.profileId = 1;
+    expect(ProfileService.deleteProfile).toHaveBeenCalledWith(result);
     expect(res.json).toHaveBeenCalledWith('삭제완료');
   });
 });

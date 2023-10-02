@@ -3,11 +3,12 @@ import { Profile } from '../entity/Profile';
 import { User } from '../entity/User';
 import { ProfileCreateData, UpdateData } from '../types/profileData';
 import { AppDataSource } from './data-source';
+import { ProfileCreateDTO } from '../DTO/ProfileDTO';
 
 export default class ProfileDAO {
   static profileRepo = AppDataSource.getRepository(Profile);
 
-  static async createProfile(profileData: ProfileCreateData) {
+  static async createProfile(profileData: ProfileCreateDTO) {
     const profile = new Profile();
     profile.usage = profileData.usage;
     profile.discord = profileData.discord;

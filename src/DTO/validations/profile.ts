@@ -11,17 +11,17 @@ import { validation } from '.';
 import { JWTService } from '../../services/JWTService';
 export const getAllProfileValidation = async (req: Request) => {
   const userId = await JWTService.verify(req.headers.authorization);
-  const IdChecker = new ProfileGetAllDTO();
-  IdChecker.userId = Number(userId.id);
-  await validation(IdChecker);
-  return userId.id;
+  const dto = new ProfileGetAllDTO();
+  dto.userId = Number(userId.id);
+  await validation(dto);
+  return dto;
 };
 export const getProfileValidation = async (req: Request) => {
   const id = Number(req.params.id);
-  const IdChecker = new ProfileGetDTO();
-  IdChecker.id = id;
-  await validation(IdChecker);
-  return id;
+  const dto = new ProfileGetDTO();
+  dto.id = id;
+  await validation(dto);
+  return dto;
 };
 export const createProfileValidation = async (req: Request) => {
   const profileData: ProfileCreateData = {
@@ -47,12 +47,12 @@ export const createProfileValidation = async (req: Request) => {
     image: req.body.image,
     info: req.body.info,
   };
-  const profile = new ProfileCreateDTO();
+  const dto = new ProfileCreateDTO();
   Object.entries(profileData).forEach(([key, value]) => {
-    profile[key] = value;
+    dto[key] = value;
   });
-  await validation(profile);
-  return profileData;
+  await validation(dto);
+  return dto;
 };
 export const modifyProfileValidation = async (req: Request) => {
   const profileData: UpdateData = {
@@ -78,12 +78,12 @@ export const modifyProfileValidation = async (req: Request) => {
     image: req.body.image,
     info: req.body.info,
   };
-  const modifyProfile = new ProfileModifyDTO();
+  const dto = new ProfileModifyDTO();
   Object.entries(profileData).forEach(([key, value]) => {
-    modifyProfile[key] = value;
+    dto[key] = value;
   });
-  await validation(modifyProfile);
-  return modifyProfile;
+  await validation(dto);
+  return dto;
 };
 
 export const deleteProfileValidation = async (req: Request) => {
@@ -91,7 +91,7 @@ export const deleteProfileValidation = async (req: Request) => {
   const decoded = await JWTService.verify(req.headers.authorization);
   deleteDTO.id = decoded.id;
   const profileId = Number(req.params.id);
-  deleteDTO.proifleId = profileId;
+  deleteDTO.profileId = profileId;
   await validation(deleteDTO);
-  return profileId;
+  return deleteDTO;
 };

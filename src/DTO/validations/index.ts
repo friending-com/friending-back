@@ -4,6 +4,6 @@ import ErrorStatus from '../../utils/ErrorStatus';
 export const validation = async (obj) => {
   const error = await validate(obj);
   if (error.length) {
-    throw new ErrorStatus('validation failed', 400);
+    throw new ErrorStatus(`Validation failed: ${error}`, 400);
   }
 };

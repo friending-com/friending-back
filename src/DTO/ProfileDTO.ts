@@ -14,6 +14,10 @@ export class ProfileCreateDTO {
   public isPublic: boolean;
   @IsString()
   public usage: string;
+  @IsString()
+  public nickName: string;
+  @IsString()
+  public name: string;
   @IsOptional()
   @IsString()
   public phone: string;
@@ -53,72 +57,35 @@ export class ProfileCreateDTO {
   @IsOptional()
   @IsString()
   public workSpace: string;
+  @IsOptional()
+  @IsString()
+  public instagram: string;
   @IsOptional()
   public hashTags: string[];
   @IsOptional()
   @IsString()
   public image: string;
 }
-export class ProfileModifyDTO {
-  @IsInt()
-  public userId: number;
+export class ProfileModifyDTO extends ProfileCreateDTO {
   @IsInt()
   public id: number;
   @IsBoolean()
   @IsOptional()
   public isPublic: boolean;
-  @IsOptional()
   @IsString()
-  public phone: string;
   @IsOptional()
+  public usage: string;
   @IsString()
-  public email: string;
   @IsOptional()
+  public nickName: string;
   @IsString()
-  public info: string;
   @IsOptional()
-  @IsString()
-  public kakaoTalk: string;
-  @IsOptional()
-  @IsString()
-  public instagram: string;
-  @IsOptional()
-  @IsString()
-  public thread: string;
-  @IsOptional()
-  @IsString()
-  public facebook: string;
-  @IsOptional()
-  @IsString()
-  public line: string;
-  @IsOptional()
-  @IsString()
-  public discord: string;
-  @IsOptional()
-  @IsString()
-  public naverBlog: string;
-  @IsOptional()
-  @IsString()
-  public naverBand: string;
-  @IsOptional()
-  @IsString()
-  public telegram: string;
-  @IsOptional()
-  @IsString()
-  public twitter: string;
-  @IsOptional()
-  @IsString()
-  public workSpace: string;
-  @IsOptional()
-  public hashTags: string[];
-  @IsOptional()
-  @IsString()
-  public image: string;
+  public name: string;
 }
 
 export class ProfileDeleteDTO {
   @IsInt()
   public id: number;
   @IsInt()
-  public proifleId: number;
+  public profileId: number;
 }

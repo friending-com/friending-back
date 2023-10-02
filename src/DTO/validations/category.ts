@@ -9,13 +9,13 @@ import { JWTService } from '../../services/JWTService';
 import { validation } from '.';
 
 export const categoryGetValidation = async (req: Request) => {
-  const validator = new CategoryDTO();
+  const dto = new CategoryDTO();
   const { id } = await JWTService.verify(req.headers.authorization);
-  validator.userId = id;
+  dto.userId = id;
   const categoryId = Number(req.params.categoryId);
-  validator.categoryId = categoryId;
-  await validation(validator);
-  return categoryId ;
+  dto.categoryId = categoryId;
+  await validation(dto);
+  return dto;
 };
 
 export const categoryGetAllValidation = async (req: Request) => {
@@ -23,7 +23,7 @@ export const categoryGetAllValidation = async (req: Request) => {
   const { id } = await JWTService.verify(req.headers.authorization);
   validator.userId = id;
   await validation(validator);
-  return  id ;
+  return id;
 };
 
 export const categoryMakeValidation = async (req: Request) => {
