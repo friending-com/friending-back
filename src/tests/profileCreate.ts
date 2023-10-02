@@ -4,6 +4,16 @@ import { UserService } from '../services/UserService';
 import dotenv from 'dotenv';
 import { AppDataSource } from '../DAO/data-source';
 import { LoginService } from '../services/LoginService';
+import { ProfileCreateDTO, ProfileDeleteDTO } from '../DTO/ProfileDTO';
+
+const getCreateDTO = (data: any) => {
+  const dto = new ProfileCreateDTO();
+  Object.entries(data).forEach(([key, value]) => {
+    dto[key] = value;
+  });
+  return dto;
+};
+
 beforeAll(async () => {
   dotenv.config();
   try {
@@ -50,43 +60,51 @@ describe('Profile Create Test', () => {
   };
 
   it('normal Profile', async () => {
-    const result = await ProfileService.createProfile(
-      normalData as ProfileCreateData
-    );
+    const data = getCreateDTO(normalData);
+    const result = await ProfileService.createProfile(data);
     expect(result.hashTags[0].hashTag).toBe('중앙대학교');
     expect(result.workSpace.hashTag).toBe('프렌딩');
     expect(result.email).toBe('rlfehd2013@naver.com');
-    await ProfileService.deleteProfile(result.id);
+    const deleteDto = new ProfileDeleteDTO();
+    deleteDto.profileId = result.id;
+    await ProfileService.deleteProfile(deleteDto);
   });
 
   it('not workSpace', async () => {
-    const result = await ProfileService.createProfile(
-      noWorkSpace as ProfileCreateData
-    );
+    const data = getCreateDTO(noWorkSpace);
+    const result = await ProfileService.createProfile(data);
     expect(result.hashTags[0].hashTag).toBe('중앙대학교');
     expect(result.email).toBe('rlfehd2013@naver.com');
-    await ProfileService.deleteProfile(result.id);
+    const deleteDto = new ProfileDeleteDTO();
+    deleteDto.profileId = result.id;
+    await ProfileService.deleteProfile(deleteDto);
   });
 
   it('HashTag 여러개인경우', async () => {
-    const result = await ProfileService.createProfile(
-      hashTagTwice as ProfileCreateData
-    );
+    const data = getCreateDTO(hashTagTwice);
+    const result = await ProfileService.createProfile(data);
     expect(result.hashTags.length).toBe(4);
-    await ProfileService.deleteProfile(result.id);
+    const deleteDto = new ProfileDeleteDTO();
+
+    deleteDto.profileId = result.id;
+    await ProfileService.deleteProfile(deleteDto);
   });
 
   it('GetALL Profile Test', async () => {
     const results = await Promise.all([
-      ProfileService.createProfile(normalData as ProfileCreateData),
-      ProfileService.createProfile(noWorkSpace as ProfileCreateData),
+      ProfileService.createProfile(getCreateDTO(normalData)),
+      ProfileService.createProfile(getCreateDTO(noWorkSpace)),
     ]);
     const result = await UserService.findAllProfile(1);
     expect(result[0].hashTags[0].hashTag).toBe('중앙대학교');
     expect(result[0].workSpace.hashTag).toBe('프렌딩');
     expect(result[0].email).toBe('rlfehd2013@naver.com');
     await Promise.all(
-      results.map((res) => ProfileService.deleteProfile(res.id))
+      results.map((res) => {
+        const deleteDTO = new ProfileDeleteDTO();
+        deleteDTO.profileId = res.id;
+        ProfileService.deleteProfile(deleteDTO);
+      })
     );
   });
 });

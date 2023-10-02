@@ -1,8 +1,30 @@
-import { ProfileCreateData, UpdateData } from '../types/profileData';
+import { UpdateData } from '../types/profileData';
 import ProfileService from '../services/ProfileService';
 import dotenv from 'dotenv';
 import { AppDataSource } from '../DAO/data-source';
 import { LoginService } from '../services/LoginService';
+import {
+  ProfileCreateDTO,
+  ProfileDeleteDTO,
+  ProfileModifyDTO,
+} from '../DTO/ProfileDTO';
+
+const getCreateDTO = (data: any) => {
+  const dto = new ProfileCreateDTO();
+  Object.entries(data).forEach(([key, value]) => {
+    dto[key] = value;
+  });
+  return dto;
+};
+
+const getModifyDTO = (data: any) => {
+  const dto = new ProfileModifyDTO();
+  Object.entries(data).forEach(([key, value]) => {
+    dto[key] = value;
+  });
+  return dto;
+};
+
 beforeAll(async () => {
   dotenv.config();
   try {
@@ -79,31 +101,41 @@ describe('Profile Modify Test', () => {
 
   it('Change normal property', async () => {
     const profile = await ProfileService.createProfile(
-      normalData as ProfileCreateData
+      getCreateDTO(normalData)
     );
     normalModifyData.id = profile.id;
-    const result = await ProfileService.modifyProfile(normalModifyData);
+    const result = await ProfileService.modifyProfile(
+      getModifyDTO(normalModifyData)
+    );
     expect(result.name).toBe('동길');
     expect(result.email).toBe('dlehdrlf09@naver.com');
-    await ProfileService.deleteProfile(result.id);
+    const deleteDTO = new ProfileDeleteDTO();
+    deleteDTO.profileId = result.id;
+    await ProfileService.deleteProfile(deleteDTO);
   });
 
   it('Add HashTags', async () => {
     const profile = await ProfileService.createProfile(
-      hashTagNumbers as ProfileCreateData
+      getCreateDTO(hashTagNumbers)
     );
     hashTagNumbersModify.id = profile.id;
-    const result = await ProfileService.modifyProfile(hashTagNumbersModify);
+    const result = await ProfileService.modifyProfile(
+      getModifyDTO(hashTagNumbersModify)
+    );
     expect(result.hashTags.length).toBe(3);
-    await ProfileService.deleteProfile(profile.id);
+    const deleteDTO = new ProfileDeleteDTO();
+    deleteDTO.profileId = result.id;
+    await ProfileService.deleteProfile(deleteDTO);
   });
 
   it('Change HashTags property', async () => {
     const profile = await ProfileService.createProfile(
-      normalData as ProfileCreateData
+      getCreateDTO(normalData)
     );
     hashTagModifyData.id = profile.id;
-    const result = await ProfileService.modifyProfile(hashTagModifyData);
+    const result = await ProfileService.modifyProfile(
+      getModifyDTO(hashTagModifyData)
+    );
     expect(
       result.hashTags.some((hashTag) => hashTag.hashTag === '중앙대')
     ).toBeTruthy();
@@ -113,16 +145,20 @@ describe('Profile Modify Test', () => {
       )
     ).toBeTruthy();
     expect(result.email).toBe('dlehdrlf09@naver.com');
-    await ProfileService.deleteProfile(result.id);
+    const deleteDTO = new ProfileDeleteDTO();
+    deleteDTO.profileId = result.id;
+    await ProfileService.deleteProfile(deleteDTO);
   });
 
   it('Change WorkSpace', async () => {
     const profile = await ProfileService.createProfile(
-      noWorkSpace as ProfileCreateData
+      getCreateDTO(noWorkSpace)
     );
     hashTagModifyData.workSpace = '프렌딩';
     hashTagModifyData.id = profile.id;
-    const result = await ProfileService.modifyProfile(hashTagModifyData);
+    const result = await ProfileService.modifyProfile(
+      getModifyDTO(hashTagModifyData)
+    );
     expect(
       result.hashTags.some((hashTag) => hashTag.hashTag === '중앙대')
     ).toBeTruthy();
@@ -133,6 +169,8 @@ describe('Profile Modify Test', () => {
     ).toBeTruthy();
     expect(result.workSpace.hashTag).toBe('프렌딩');
     expect(result.email).toBe('dlehdrlf09@naver.com');
-    await ProfileService.deleteProfile(result.id);
+    const deleteDTO = new ProfileDeleteDTO();
+    deleteDTO.profileId = result.id;
+    await ProfileService.deleteProfile(deleteDTO);
   });
 });
