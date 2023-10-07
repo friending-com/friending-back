@@ -15,7 +15,7 @@ export const categoryGetValidation = async (req: Request) => {
   const categoryId = Number(req.params.categoryId);
   dto.categoryId = categoryId;
   await validation(dto);
-  return dto;
+  return id;
 };
 
 export const categoryGetAllValidation = async (req: Request) => {
