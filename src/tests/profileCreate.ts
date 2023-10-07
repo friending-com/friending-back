@@ -1,18 +1,10 @@
 import ProfileService from '../services/ProfileService';
-import { ProfileCreateData } from '../types/profileData';
 import { UserService } from '../services/UserService';
 import dotenv from 'dotenv';
 import { AppDataSource } from '../DAO/data-source';
 import { LoginService } from '../services/LoginService';
-import { ProfileCreateDTO, ProfileDeleteDTO } from '../DTO/ProfileDTO';
-
-const getCreateDTO = (data: any) => {
-  const dto = new ProfileCreateDTO();
-  Object.entries(data).forEach(([key, value]) => {
-    dto[key] = value;
-  });
-  return dto;
-};
+import { ProfileDeleteDTO } from '../DTO/ProfileDTO';
+import { getCreateDTO } from '../utils/utils';
 
 beforeAll(async () => {
   dotenv.config();
