@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { FcmToken } from '../controllers/fcmTokenController';
+import { FcmToken } from '../controllers/FcmTokenController';
 import errorHandler from './errorHandler';
 
 const router = Router();
