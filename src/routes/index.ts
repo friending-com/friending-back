@@ -11,6 +11,7 @@ import { refresh } from './refresh';
 import { image } from './image';
 import { category } from './category';
 import { categories } from './categories';
+import { fcmToken } from './fcmToken';
 
 const router = Router();
 
@@ -26,5 +27,6 @@ router.use('/refresh', refresh);
 router.use('/image', image);
 router.use('/category', category);
 router.use('/categories', categories);
+router.use('/fcmToken', fcmToken);
 
 export default router;

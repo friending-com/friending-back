@@ -8,4 +8,10 @@ export class UserService {
   static async update(updateData: UpdateData) {
     await UserDAO.update(updateData);
   }
+
+  static async registerfcmToken(id: number, token: string) {
+    const user = await UserDAO.getUser(id);
+    user.fcmToken = token;
+    await UserDAO.save(user);
+  }
 }
