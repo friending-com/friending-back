@@ -6,9 +6,7 @@ import {
   ProfileGetDTO,
   ProfileModifyDTO,
 } from '../DTO/ProfileDTO';
-import { ProfileCreateData, UpdateData } from '../types/profileData';
 import ErrorStatus from '../utils/ErrorStatus';
-import { AuthorizationService } from './AuthorizationService';
 import { WorkSpaceService } from './WorkSpaceService';
 import { HashTagService } from './hashTagService';
 
@@ -76,5 +74,10 @@ export default class ProfileService {
 
   static async deleteProfile(dto: ProfileDeleteDTO) {
     await ProfileDAO.delete(dto.profileId);
+  }
+
+  static async getUser(profileId: number) {
+    const profile = await ProfileDAO.getProfileAndUser(profileId);
+    return profile.user.id;
   }
 }

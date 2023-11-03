@@ -12,6 +12,7 @@ import { image } from './image';
 import { category } from './category';
 import { categories } from './categories';
 import { fcmToken } from './fcmToken';
+import { friending } from './friending';
 
 const router = Router();
 
@@ -28,5 +29,6 @@ router.use('/image', image);
 router.use('/category', category);
 router.use('/categories', categories);
 router.use('/fcmToken', fcmToken);
+router.use('/friending', friending);
 
 export default router;
