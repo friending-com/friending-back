@@ -1,7 +1,6 @@
 import { Like } from 'typeorm';
 import { HashTag } from '../entity/HashTag';
 import { Profile } from '../entity/Profile';
-import { User } from '../entity/User';
 import { AppDataSource } from './data-source';
 
 export default class HashTagDAO {

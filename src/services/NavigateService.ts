@@ -8,9 +8,11 @@ export class NavigateService {
     const friends = await FriendDAO.selectAll();
     const profiles = await ProfileDAO.selectAll();
     const profileSortedById = [];
+
     profiles.forEach((profile) => {
       profileSortedById[profile.id] = profile;
     });
+    
     const profileIds = profiles.map((profile) => profile.id);
     const edges = {};
     const visited = Array.from({ length: profileIds.length + 1 }, () => 0);

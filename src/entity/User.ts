@@ -1,6 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
 import { Profile } from './Profile';
 import { Category } from './Category';
+import { Group } from './Group';
 
 @Entity()
 export class User {
@@ -18,4 +25,7 @@ export class User {
 
   @Column({ nullable: true })
   fcmToken: string;
+
+  @ManyToOne(() => Group, (group) => group.user)
+  group: Group;
 }

@@ -13,6 +13,7 @@ export default class UserDAO {
     user.email = email;
     return await UserDAO.userRepo.save(user);
   }
+
   static async getUser(id: number) {
     return await UserDAO.userRepo.findOne({
       where: {
@@ -20,6 +21,7 @@ export default class UserDAO {
       },
     });
   }
+  
   static async getUserProfilesForEdit(userId: number) {
     return await UserDAO.userRepo.findOne({
       where: {
