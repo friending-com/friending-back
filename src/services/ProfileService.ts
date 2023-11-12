@@ -78,6 +78,7 @@ export default class ProfileService {
 
   static async getUser(profileId: number) {
     const profile = await ProfileDAO.getProfileAndUser(profileId);
+    if (!profile) throw new ErrorStatus('존재하지 않는 프로필입니다.', 400);
     return profile.user.id;
   }
 }
