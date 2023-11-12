@@ -17,6 +17,7 @@ export class GroupDAO {
   static async mergeGroup(group1Id: number, group2Id: number) {
     const group1 = await GroupDAO.getGroup(group1Id);
     const group2 = await GroupDAO.getGroup(group2Id);
+    if (group1.id === group2.id) return;
 
     if (group1.user.length > group2.user.length) {
       group2.user.forEach((user) => {
@@ -30,5 +31,4 @@ export class GroupDAO {
       await GroupDAO.groupRepo.remove(group1);
     }
   }
-
 }
