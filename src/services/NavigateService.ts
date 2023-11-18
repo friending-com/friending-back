@@ -18,10 +18,7 @@ export class NavigateService {
 
     const profileIds = profiles.map((profile) => profile.id);
     const edges = {};
-    const visited = Array.from(
-      { length: Math.max(...profileIds) + 1 },
-      () => 0
-    );
+    const visited = new Set();
     profileIds.forEach((profileId) => (edges[profileId] = new Set()));
     friends.forEach((friend) => {
       edges[friend.profileId_1] &&
@@ -30,21 +27,20 @@ export class NavigateService {
         edges[friend.profileId_2].add(friend.profileId_1);
     });
     const queue = new Queue();
-    queue.enqueue(userProfileId);
-    visited[userProfileId] = 1;
-    const result = [];
+    queue.enqueue([userProfileId]);
+    visited.add(userProfileId);
     while (!queue.isEmpty()) {
-      const current = queue.dequeue();
-      result.push(profileSortedById[current]);
-      if (current === findProfileId) break;
+      const currentPath = queue.dequeue();
+      const current = currentPath[currentPath.length - 1];
+      if (current === findProfileId)
+        return currentPath.map((id) => profileSortedById[id]);
       edges[current].forEach((next) => {
-        if (visited[next] == 0 && profileSortedById[next].isPublic) {
-          visited[next] = 1;
-          queue.enqueue(next);
+        if (!visited.has(next) && profileSortedById[next].isPublic) {
+          visited.add(next);
+          queue.enqueue([...currentPath, next]);
         }
       });
     }
-    if (visited[findProfileId] === 1) return result;
-    else undefined;
+    return undefined;
   }
 }
