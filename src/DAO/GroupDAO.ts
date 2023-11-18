@@ -1,41 +1,34 @@
 import { Group } from '../entity/Group';
-import { User } from '../entity/User';
+import { Profile } from '../entity/Profile';
 import { AppDataSource } from './data-source';
 
 export class GroupDAO {
   static groupRepo = AppDataSource.getRepository(Group);
-  static userRepo = AppDataSource.getRepository(User);
+  static profileRepo = AppDataSource.getRepository(Profile);
 
   static async getGroup(id: number) {
     return await GroupDAO.groupRepo.findOne({
       where: { id },
-      relations: { user: true },
+      relations: { profiles: true },
     });
   }
 
-  static async addGroup(user: User) {
-    const group = new Group();
-    group.user.push(user);
-    return await GroupDAO.groupRepo.save(group);
-  }
+  static async mergeGroup(id1: number, id2: number) {
+    const group1 = await GroupDAO.getGroup(id1);
+    const group2 = await GroupDAO.getGroup(id2);
 
-  static async mergeGroup(group1Id: number, group2Id: number) {
-    const group1 = await GroupDAO.getGroup(group1Id);
-    const group2 = await GroupDAO.getGroup(group2Id);
-    if (group1.id === group2.id) return;
-
-    if (group1.user.length > group2.user.length) {
-      for (const user of group2.user) {
-        user.group = group1;
-        await GroupDAO.userRepo.save(user);
-        group1.user.push(user);
+    if (group1.profiles.length > group2.profiles.length) {
+      for (const profile of group2.profiles) {
+        profile.group = group1;
+        await GroupDAO.profileRepo.save(profile);
+        group1.profiles.push(profile);
       }
       await GroupDAO.groupRepo.remove(group2);
     } else {
-      for (const user of group1.user) {
-        user.group = group2;
-        await GroupDAO.userRepo.save(user);
-        group2.user.push(user);
+      for (const profile of group1.profiles) {
+        profile.group = group2;
+        await GroupDAO.profileRepo.save(profile);
+        group2.profiles.push(profile);
       }
       await GroupDAO.groupRepo.remove(group1);
     }

@@ -1,3 +1,4 @@
+import { GroupDAO } from '../DAO/GroupDAO';
 import ProfileDAO from '../DAO/ProfileDAO';
 import UserDAO from '../DAO/UserDAO';
 import {
@@ -6,6 +7,7 @@ import {
   ProfileGetDTO,
   ProfileModifyDTO,
 } from '../DTO/ProfileDTO';
+import { Group } from '../entity/Group';
 import ErrorStatus from '../utils/ErrorStatus';
 import { WorkSpaceService } from './WorkSpaceService';
 import { HashTagService } from './hashTagService';
@@ -21,6 +23,10 @@ export default class ProfileService {
 
   static async createProfile(dto: ProfileCreateDTO) {
     const profile = await ProfileDAO.createProfile(dto); //프로필을 생성함
+    //profile이 만들어지면 group을 만듦
+    profile.group = new Group();
+    profile.group.profiles.push(profile);
+    await GroupDAO.groupRepo.save(profile.group);
 
     if (dto.hashTags)
       for (const hashTag of dto.hashTags) {

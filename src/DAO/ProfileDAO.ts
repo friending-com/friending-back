@@ -4,6 +4,8 @@ import { User } from '../entity/User';
 import { ProfileCreateData, UpdateData } from '../types/profileData';
 import { AppDataSource } from './data-source';
 import { ProfileCreateDTO } from '../DTO/ProfileDTO';
+import { Group } from '../entity/Group';
+import { GroupDAO } from './GroupDAO';
 
 export default class ProfileDAO {
   static profileRepo = AppDataSource.getRepository(Profile);
@@ -66,19 +68,15 @@ export default class ProfileDAO {
     });
   }
 
-  static async getGroupIdByProfile(id: number) {
-    const profile = await ProfileDAO.profileRepo
-      .createQueryBuilder('profile')
-      .leftJoinAndSelect('profile.user', 'user')
-      .leftJoinAndSelect('user.group', 'group')
-      .where('profile.id = :id', { id: id })
-      .getOne();
+  static async getGroup(id: number) {
+    const profile = await ProfileDAO.profileRepo.findOne({
+      where: { id: id },
+      relations: {
+        group: true,
+      },
+    });
 
-    if (!profile || !profile.user || !profile.user.group) {
-      return null;
-    }
-
-    return profile.user.group.id;
+    return profile.group;
   }
 
   static async getProfileFriends(id: number) {

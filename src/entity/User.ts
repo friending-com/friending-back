@@ -25,7 +25,4 @@ export class User {
 
   @Column({ nullable: true })
   fcmToken: string;
-
-  @ManyToOne(() => Group, (group) => group.user)
-  group: Group;
 }

@@ -12,6 +12,7 @@ import { snsURL } from '../types/snsURL';
 import { HashTag } from './HashTag';
 import { User } from './User';
 import { Category } from './Category';
+import { Group } from './Group';
 
 @Entity()
 export class Profile {
@@ -98,4 +99,7 @@ export class Profile {
 
   @ManyToMany(() => Category, (category) => category.friends)
   category: Category[];
+
+  @ManyToOne(() => Group, (group) => group.profiles)
+  group: Group;
 }
