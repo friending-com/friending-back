@@ -19,7 +19,7 @@ export class FriendGetDTO {
 
 export class FriendDeleteDTO {
   @IsInt()
-  public userProfieId: number;
+  public userProfileId: number;
   @IsInt()
   public subProfileId: number;
   @IsInt()

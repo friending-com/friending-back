@@ -44,7 +44,7 @@ describe('friend Controller', () => {
       .mockResolvedValue([] as unknown as Profile[]);
     await FriendController.getAll(req as Request, res as Response);
     expect(JWTService.verify).toHaveBeenCalledWith('');
-    expect(FriendService.getFriendProfiles).toHaveBeenCalledWith(1);
+    expect(FriendService.getFriendProfiles).toHaveBeenCalledWith({ userId: 1 });
     expect(res.json).toHaveBeenCalledWith([]);
   });
 
@@ -59,7 +59,7 @@ describe('friend Controller', () => {
     };
     jest.spyOn(FriendService, 'show').mockResolvedValue([] as Profile[]);
     await FriendController.get(req as Request, res as Response);
-    expect(FriendService.show).toHaveBeenCalledWith(3);
+    expect(FriendService.show).toHaveBeenCalledWith({ profileId: 3 });
     expect(res.json).toHaveBeenCalledWith([]);
   });
 
@@ -83,7 +83,11 @@ describe('friend Controller', () => {
     jest.spyOn(FriendService, 'delete').mockResolvedValue(undefined);
     await FriendController.delete(req as Request, res as Response);
     expect(AuthorizationService.doesUserHaveProfile).toHaveBeenCalledWith(1, 3);
-    expect(FriendService.delete).toHaveBeenCalledWith(3, 4);
+    expect(FriendService.delete).toHaveBeenCalledWith({
+      userId: 1,
+      userProfileId: 3,
+      subProfileId: 4,
+    });
     expect(res.json).toHaveBeenCalledWith('친구 삭제를 완료하였습니다');
   });
 });
