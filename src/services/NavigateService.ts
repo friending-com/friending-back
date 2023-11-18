@@ -18,11 +18,17 @@ export class NavigateService {
 
     const profileIds = profiles.map((profile) => profile.id);
     const edges = {};
-    const visited = Array.from({ length: profileIds.length + 1 }, () => 0);
-    profileIds.forEach((profileId) => (edges[profileId] = new Set()));
-    friends.forEach((friend) =>
-      edges[friend.profileId_1].add(friend.profileId_2)
+    const visited = Array.from(
+      { length: Math.max(...profileIds) + 1 },
+      () => 0
     );
+    profileIds.forEach((profileId) => (edges[profileId] = new Set()));
+    friends.forEach((friend) => {
+      edges[friend.profileId_1] &&
+        edges[friend.profileId_1].add(friend.profileId_2);
+      edges[friend.profileId_2] &&
+        edges[friend.profileId_2].add(friend.profileId_1);
+    });
     const queue = new Queue();
     queue.enqueue(userProfileId);
     visited[userProfileId] = 1;
