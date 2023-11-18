@@ -1,18 +1,21 @@
 import FriendDAO from '../DAO/FriendDAO';
+import { GroupDAO } from '../DAO/GroupDAO';
 import ProfileDAO from '../DAO/ProfileDAO';
 import { Queue } from '../utils/dataStructure/Queue';
 
 export class NavigateService {
-  //덜됨
   static async navigate(userProfileId: number, findProfileId: number) {
-    const friends = await FriendDAO.selectAll();
-    const profiles = await ProfileDAO.selectAll();
-    const profileSortedById = [];
+    const userGroup = await ProfileDAO.getGroup(userProfileId);
+    const findProfileGroup = await ProfileDAO.getGroup(findProfileId);
+    if (userGroup.id !== findProfileGroup.id) undefined;
 
+    const { profiles: profiles } = await GroupDAO.getGroup(userGroup.id);
+    const friends = await FriendDAO.selectAll();
+    const profileSortedById = [];
     profiles.forEach((profile) => {
       profileSortedById[profile.id] = profile;
     });
-    
+
     const profileIds = profiles.map((profile) => profile.id);
     const edges = {};
     const visited = Array.from({ length: profileIds.length + 1 }, () => 0);
