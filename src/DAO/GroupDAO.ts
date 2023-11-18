@@ -4,8 +4,13 @@ import { AppDataSource } from './data-source';
 
 export class GroupDAO {
   static groupRepo = AppDataSource.getRepository(Group);
+  static userRepo = AppDataSource.getRepository(User);
+
   static async getGroup(id: number) {
-    return await GroupDAO.groupRepo.findOne({ where: { id } });
+    return await GroupDAO.groupRepo.findOne({
+      where: { id },
+      relations: { user: true },
+    });
   }
 
   static async addGroup(user: User) {
@@ -20,14 +25,18 @@ export class GroupDAO {
     if (group1.id === group2.id) return;
 
     if (group1.user.length > group2.user.length) {
-      group2.user.forEach((user) => {
+      for (const user of group2.user) {
+        user.group = group1;
+        await GroupDAO.userRepo.save(user);
         group1.user.push(user);
-      });
+      }
       await GroupDAO.groupRepo.remove(group2);
     } else {
-      group1.user.forEach((user) => {
+      for (const user of group1.user) {
+        user.group = group2;
+        await GroupDAO.userRepo.save(user);
         group2.user.push(user);
-      });
+      }
       await GroupDAO.groupRepo.remove(group1);
     }
   }

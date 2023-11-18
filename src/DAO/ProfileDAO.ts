@@ -66,6 +66,21 @@ export default class ProfileDAO {
     });
   }
 
+  static async getGroupIdByProfile(id: number) {
+    const profile = await ProfileDAO.profileRepo
+      .createQueryBuilder('profile')
+      .leftJoinAndSelect('profile.user', 'user')
+      .leftJoinAndSelect('user.group', 'group')
+      .where('profile.id = :id', { id: id })
+      .getOne();
+
+    if (!profile || !profile.user || !profile.user.group) {
+      return null;
+    }
+
+    return profile.user.group.id;
+  }
+
   static async getProfileFriends(id: number) {
     return await ProfileDAO.profileRepo.findOne({
       where: {

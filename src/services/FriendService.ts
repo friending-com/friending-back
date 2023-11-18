@@ -7,9 +7,9 @@ import { removeSameObjectFromArray } from '../utils/utils';
 export class FriendService {
   static async add(profileId: number, subProfileId: number) {
     await FriendDAO.addFriend(profileId, subProfileId);
-    const { user: user1 } = await ProfileDAO.getProfileAndUser(profileId);
-    const { user: user2 } = await ProfileDAO.getProfileAndUser(subProfileId);
-    await GroupDAO.mergeGroup(user1.group.id, user2.group.id);
+    const id1 = await ProfileDAO.getGroupIdByProfile(profileId);
+    const id2 = await ProfileDAO.getGroupIdByProfile(subProfileId);
+    await GroupDAO.mergeGroup(id1, id2);
   }
 
   static async delete(profileId: number, subProfileId: number) {
