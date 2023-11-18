@@ -12,12 +12,12 @@ export const friendAddValidation = async (req: Request) => {
   const friendAdd = new FriendAddDTO();
   friendAdd.userProfileId = req.body.userProfileId;
   friendAdd.subProfileId = req.body.subProfileId;
-  // const userId = await JWTService.verify(req.headers.authoriz  ation);
-  friendAdd.userId = 1;
+  const userId = await JWTService.verify(req.headers.authorization);
+  friendAdd.userId = Number(userId.id);
   const userProfileId = req.body.userProfileId;
   const subProfileId = req.body.subProfileId;
   await validation(friendAdd);
-  return { userProfileId, subProfileId, userId: 1 };
+  return { userProfileId, subProfileId, userId: userId.id };
 };
 
 export const friendGetAllValidation = async (req: Request) => {
