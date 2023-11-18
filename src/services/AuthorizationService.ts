@@ -1,9 +1,11 @@
 import ProfileDAO from '../DAO/ProfileDAO';
 import UserDAO from '../DAO/UserDAO';
+import ErrorStatus from '../utils/ErrorStatus';
 
 export class AuthorizationService {
   static async doesUserHaveProfile(userId: number, profileId: number) {
     const findProfile = await ProfileDAO.getProfileAndUser(profileId);
+    if (!findProfile) throw new ErrorStatus('해당 프로필이 없습니다!', 400);
     if (findProfile.user.id != userId) return null;
     const result = { ...findProfile };
     delete result.id;
