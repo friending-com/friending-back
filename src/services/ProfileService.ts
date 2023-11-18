@@ -24,9 +24,10 @@ export default class ProfileService {
   static async createProfile(dto: ProfileCreateDTO) {
     const profile = await ProfileDAO.createProfile(dto); //프로필을 생성함
     //profile이 만들어지면 group을 만듦
-    profile.group = new Group();
-    profile.group.profiles.push(profile);
-    await GroupDAO.groupRepo.save(profile.group);
+    const group = new Group();
+    profile.group = group;
+    await GroupDAO.groupRepo.save(group);
+    await ProfileDAO.save(profile);
 
     if (dto.hashTags)
       for (const hashTag of dto.hashTags) {
