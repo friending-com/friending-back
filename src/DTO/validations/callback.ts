@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { CallBackPostDTO } from '../callbackDTO';
+import { CallBackPostDTO } from '../CallbackDTO';
 import { validation } from '.';
 
 export const callbackValidation = async (req: Request) => {
