@@ -1,7 +1,4 @@
-import { Like } from 'typeorm';
-import { Profile } from '../entity/Profile';
 import { User } from '../entity/User';
-import { friend } from '../routes/friend';
 import { UpdateData } from '../types/profileData';
 import { AppDataSource } from './data-source';
 
@@ -21,7 +18,7 @@ export default class UserDAO {
       },
     });
   }
-  
+
   static async getUserProfilesForEdit(userId: number) {
     return await UserDAO.userRepo.findOne({
       where: {

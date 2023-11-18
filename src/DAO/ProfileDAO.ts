@@ -1,11 +1,8 @@
 import { Like } from 'typeorm';
 import { Profile } from '../entity/Profile';
-import { User } from '../entity/User';
-import { ProfileCreateData, UpdateData } from '../types/profileData';
+import { UpdateData } from '../types/profileData';
 import { AppDataSource } from './data-source';
 import { ProfileCreateDTO } from '../DTO/ProfileDTO';
-import { Group } from '../entity/Group';
-import { GroupDAO } from './GroupDAO';
 
 export default class ProfileDAO {
   static profileRepo = AppDataSource.getRepository(Profile);
