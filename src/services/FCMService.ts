@@ -22,7 +22,7 @@ export class FCMService {
       title: '새로운 프렌딩!',
       body: `새로운 프렌딩이에요!`,
       senderProfileId: String(senderProfileId),
-      url: 'friending/addFriend',
+      url: 'friending/add_friend',
       image: '', //이미지 추가필요
     };
     await FCMService.sendMessage(id, messageData);

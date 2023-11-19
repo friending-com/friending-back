@@ -12,7 +12,6 @@ export class CallbackService {
           },
         }
       );
-      console.log(data.data);
       return data.data as GoogleProfile;
     } catch (err) {
       if (isAxiosError(err)) {
