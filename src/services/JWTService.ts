@@ -36,4 +36,22 @@ export class JWTService {
     });
     return newTokens;
   }
+
+  static async issueLinkToken(profileId: number) {
+    const token = jwt.sign({ id: profileId }, process.env.JWT_SECRET, {
+      expiresIn: '5m',
+    });
+    return token;
+  }
+
+  static async verifyLinkToken(token: string) {
+    let data;
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        throw new ErrorStatus('링크가 만료되었습니다', 401);
+      }
+      data = decoded;
+    });
+    return data as DecodedJWT;
+  }
 }

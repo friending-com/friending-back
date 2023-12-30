@@ -13,6 +13,7 @@ import { category } from './category';
 import { categories } from './categories';
 import { fcmToken } from './fcmToken';
 import { friending } from './friending';
+import { webLink } from './webLink';
 
 const router = Router();
 
@@ -30,5 +31,6 @@ router.use('/category', category);
 router.use('/categories', categories);
 router.use('/fcmToken', fcmToken);
 router.use('/friending', friending);
+router.use('/webLink', webLink);
 
 export default router;
