@@ -79,6 +79,6 @@ jobs:
       - name: 🚀 AWS codeDeploy로 배포를 시작
         run: aws deploy create-deployment
           --application-name cicd
-          --deployment-config-name cicd
+          --deployment-config-name CodeDeployDefault.OneAtATime
           --deployment-group-name cicd-group
           --s3-location bucket=friending-deploy,bundleType=zip,key=deploy/friending.zip
