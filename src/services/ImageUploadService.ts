@@ -32,7 +32,7 @@ export class ImageUploadService {
       const response = await ImageUploadService.client.send(
         new PutObjectCommand(file)
       );
-      return `https://friending-image-test-bucket.s3.ap-northeast-2.amazonaws.com/${fileName}`;
+      return `https://friending-image-bucket.s3.ap-northeast-2.amazonaws.com/${fileName}`;
     } catch (err) {
       throw err;
     }
